@@ -1,4 +1,4 @@
-public class Spell extends Cards {
+public class Spell extends Card {
   private int effect;
   
   public Spell( int effect ) {
