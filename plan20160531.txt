@@ -1,7 +1,7 @@
 Team Deadly Night Toddlers - Jason Chua, Yikai Wang, and Jiawei Chen
 
 Plan:
-  1) Make Cards
-  2) Create Game engine (for terminal for testing)
+  1) Make Cards (Cards.java - Minions.java + Spells.java)
+  2) Create Game engine (for terminal for testing) (Has moves + classes/heroes)
   3) Test basic PvP
   4) Profit
