@@ -1,7 +1,10 @@
 Team Deadly Night Toddlers - Jason Chua, Yikai Wang, and Jiawei Chen
 
 Plan:
-  1) Make Cards (Cards.java - Minions.java + Spells.java)
+  1) Make Cards (Cards.java -> Minions.java + Spells.java , etc.)
+	(Instead of using Cards.java as a superclass and making the cards one by one, we will have a method which modifies the card and its stats based on the name. This'll make it so we don't have too many classes, but we will still have Minions.java and Spells.java be subclasses to Cards.java because their functionality is slightly different, so we can't cover them all with one method.)
   2) Create Game engine (for terminal for testing) (Has moves + classes/heroes)
+	(aka making the interactions between cards work, setting up the base state of the game) 
+	(ex. each player starts off with 30 health, etc.)	
   3) Test basic PvP
-  4) Profit
+  4) See how far we can get with player vs AI
