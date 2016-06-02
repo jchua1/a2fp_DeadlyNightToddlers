@@ -14,7 +14,7 @@ Basic UI:
  Row 1:
  Opponent Cards at hand - Cards in deck - Mana
  Row 2:
- Opponent: weapon - hero - power
+ Opponent: weapon - hero - health - power
  Row 3:
  Minions
 
@@ -23,6 +23,14 @@ Basic UI:
  Row 5:
  Your minions
  Row 6:
- You: weapon - hero - power
+ You: weapon - hero - health - power
  Row 7:
  Your cards at hand - Cards in deck - Mana
+ 
+Commands:
+	place <card>;
+	direct <enemyHero/enemyMinion/yourself>;
+	end;
+	power;
+	surrender;
+	
