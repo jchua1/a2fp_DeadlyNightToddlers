@@ -12,7 +12,7 @@ Plan:
 Basic UI:
  
  Row 1:
- Opponent Cards at hand - Cards in deck 
+ Opponent Cards at hand - Cards in deck - Mana
  Row 2:
  Opponent: weapon - hero - power
  Row 3:
@@ -25,4 +25,4 @@ Basic UI:
  Row 6:
  You: weapon - hero - power
  Row 7:
- Your cards at hand - Cards in deck
+ Your cards at hand - Cards in deck - Mana
