@@ -8,3 +8,21 @@ Plan:
 	(ex. each player starts off with 30 health, etc.)	
   3) Test basic PvP
   4) See how far we can get with player vs AI
+  
+Basic UI:
+ 
+ Row 1:
+ Opponent Cards at hand - Cards in deck 
+ Row 2:
+ Opponent: weapon - hero - power
+ Row 3:
+ Minions
+
+ Row 4: divider:--------------------------
+
+ Row 5:
+ Your minions
+ Row 6:
+ You: weapon - hero - power
+ Row 7:
+ Your cards at hand - Cards in deck
