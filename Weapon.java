@@ -10,8 +10,4 @@ public class Weapon extends Card {
 	health = hp;
 	effect = eff;
     }
-
-    public String toString() {
-	return name;
-    }
 }

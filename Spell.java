@@ -8,9 +8,5 @@ public class Spell extends Card {
 	effect = eff;
     }
 
-    public String toString() {
-	return name;
-    }
-
 }
 

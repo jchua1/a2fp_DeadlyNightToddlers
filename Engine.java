@@ -1,15 +1,26 @@
-import java.util.Scanner; 
+import java.util.Scanner;
+import java.util.Stack;
+import java.util.ArrayList;
+
 public class Engine {
     
     public static Object[][] userMap; // One map for all
   
-  /*  
-    public static Character character; // One character for all
-    public static BattleMap battleMap;
-    public static Shop shop = new Shop();
-    public static Monster monster; // only one monster to exist at a time
-    public static int stage = 1;
-  */
+  
+    public static Stack playerDeck = new Stack();
+    public static Stack opponentDeck = new Stack();
+
+    public static ArrayList<Card> playerHand = new ArrayList<Card>();
+    public static ArrayList<Card> opponentHand = new ArrayList<Card>();
+
+    public static Hero playerHero = new Hero(); public static int playerMana = 1;
+    public static Hero opponentHero = new Hero(); public static int opponentMana = 1;
+
+    public static Card playerWeapon = new Card();
+    public static Card opponentWeapon = new Card();
+
+    public static ArrayList<Card> opponentMinions = new ArrayList<Card>();
+    public static ArrayList<Card> playerMinions = new ArrayList<Card>();
 
     public static String defaultc = "\u001B[0m";
     public static String blackc = "\u001B[30m";
@@ -43,6 +54,9 @@ public class Engine {
 	        if ((array[f][s].toString()).equals("-")) {
 		    System.out.print(yellowDarkc + array[f][s] + defaultc);
 		}
+		else if((array[f][s].toString()).equals(":")) {
+			System.out.print(blueDarkc + array[f][s] + defaultc);
+		}
 		else {
 		    System.out.print(redc + array[f][s] + defaultc);
 		}
@@ -52,7 +66,7 @@ public class Engine {
     }
 
     public static void main( String args[] ) {
-    	Graphics.setUp();
+    	Graphics.refresh();
     	printArrayM( Graphics.display );
     }
 
@@ -85,16 +99,21 @@ public class Engine {
 
 	    }
 	    else if (in.toUpperCase().equals("SURRENDER")) {
-		chooseDrink();
+	    
+
+
 	    }
 	    else if (in.toUpperCase().equals("SETTINGS")) {
-		//character.settingsMode = true;
+		/*character.settingsMode = true;
 		while (character.settingsMode) {
 		    settings();
 		}
+		*/
 	    }
 	    else if (in.toUpperCase().equals("HELP") || in.equals("?")) {
-		help();
+		//help();
+	    
+
 	    }
 	    else {
 	        System.out.println("\nConfused? Enter ? or help for help.");
@@ -102,7 +121,6 @@ public class Engine {
 	    }
 	    
 	}
-    }
 
 
     public final static void clearConsole(){

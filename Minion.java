@@ -11,8 +11,4 @@ public class Minion extends Card {
 	effect = eff;
     }
 
-    public String toString() {
-	return name;
-    }
-
 }
