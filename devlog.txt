@@ -14,3 +14,8 @@ Creation of Hearthstone.java (Driver)
 06/04
 Yikai Wang
 Engine and Graphics modification. Changed layout of UI and commented out residual code.
+
+06/05
+Yikai Wang
+Updated Graphics and Engine to include up to date information. Shown after calling refresh(). 
+Hero.java added. Card.java made temporarily non-abstract.
