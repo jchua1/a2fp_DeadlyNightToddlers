@@ -1,5 +1,5 @@
 public class Graphics {
-   
+ /*  
     public static Object[][] inventory = new Object[9][31];
     public static String[][] stats = new String[5][31]; 
     public static String[][] monStats = new String[6][31];
@@ -10,7 +10,9 @@ public class Graphics {
     public static String[][] settings = new String[17][25];
     public static String[][] helpScreen = (new Help()).helpScreen;
     public static String[][] attackinfo = (new Help()).attackinfo;
-    public static Object[][] display;
+  
+  */
+    public static Object[][] display = new Object[9][60];
 
     public static String[] convertString( String str ) { //to make array rows
 	String[] retStr = new String[str.length()];
@@ -23,22 +25,42 @@ public class Graphics {
 
 
 
-    private static Object[][] eraseArray( Object[][] array ){
+    public static Object[][] eraseArray( Object[][] array ){
 	return (new Object[array.length][array[0].length]);
     }
+      
 
-    private static String[][] eraseArray( String[][] array ){
-	return (new String[array.length][array[0].length]);
-    }
-
-       
-
-    private static void addTo(Object[][] loc, String[] array, int pos ) {
+    public static void addTo(Object[][] loc, String[] array, int pos ) {
 	for (int i = 0; i < array.length; i++) {
 	    loc[pos][i] = array[i];
 	}
     }
 
+    public static void setUp() {
+	    for (int c = 0; c < display.length; c++) {
+		    for (int i = 0; i < display[c].length; i++) {
+			if (display[c][i] == null) {
+			    display[c][i] = " ";
+			}
+		    }
+		}
+
+		addTo( display, convertString( "Opponent: Mr. Kappa" ), 0 );
+		addTo( display, convertString( "------------------------------------------------------------" ), 4 );
+		addTo( display, convertString( "Player: Dat Boi" ), 5 );
+
+		addTo( display, convertString( "Hand:                               Cards Left:    Mana:    " ), 1 );
+		addTo( display, convertString( "Hand:                               Cards Left:    Mana:    " ), 8 );
+
+		addTo( display, convertString( "Weapon:          Hero:          Health:     Power:          " ), 2 );
+		addTo( display, convertString( "Weapon:          Hero:          Health:     Power:          " ), 7 );		
+
+		addTo( display, convertString( "Minions:                                                    " ), 3 );
+		addTo( display, convertString( "Minions:                                                    " ), 6 );
+
+    }
+
+/*
     public static void updateEquipped (Character character) {
 	equipped = eraseArray(equipped);
 	addTo(equipped, convertString("Equipped Items:"),0);
@@ -422,5 +444,6 @@ public class Graphics {
 	}
 	return array;
     }
+*/
 
 }

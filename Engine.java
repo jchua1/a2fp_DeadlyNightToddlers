@@ -2,12 +2,14 @@ import java.util.Scanner;
 public class Engine {
     
     public static Object[][] userMap; // One map for all
+  
+  /*  
     public static Character character; // One character for all
     public static BattleMap battleMap;
     public static Shop shop = new Shop();
     public static Monster monster; // only one monster to exist at a time
     public static int stage = 1;
-
+  */
 
     public static String defaultc = "\u001B[0m";
     public static String blackc = "\u001B[30m";
@@ -18,6 +20,13 @@ public class Engine {
     public static String purplec = "\u001B[35m";
     public static String cyanc = "\u001B[36m";
     public static String whitec = "\u001B[37m";
+
+    public static String blueDarkc = "\u001B[1;34m";
+    public static String redDarkc = "\u001B[1;31m";
+    public static String greenDarkc = "\u001B[1;32m";
+    public static String yellowDarkc = "\u001B[1;33m";
+    public static String magnetaDarkc = "\u001B[1;35m";
+    public static String cyanDarkc = "\u001B[1;36m";
 
     public static void printArray(Object[][] array) {
 	for (Object[] f : array) {
@@ -31,26 +40,77 @@ public class Engine {
     public static void printArrayM(Object[][] array) {
 	for (int f = 0; f < array.length; f++) {
 	    for (int s = 0; s < array[0].length; s++) {
-	        if ((array[f][s].toString()).equals("*") && f < userMap.length && s < userMap[0].length) {
-		    System.out.print(cyanc + array[f][s] + defaultc);
-		}
-		else if (((array[f][s].toString()).equals("-") || (array[f][s].toString()).equals("|")) && f < userMap.length && s < userMap[0].length) {
-		    System.out.print(redc + array[f][s] + defaultc);
-		}
-		else if (((array[f][s].toString()).equals("+") || (array[f][s].toString()).equals("A") || (array[f][s].toString()).equals("&"))&& f < userMap.length && s < userMap[0].length) {
-		    System.out.print(greenc + array[f][s] + defaultc);
-		}
-	        else if ((array[f][s].toString()).equals("e") && f < userMap.length && s < userMap[0].length) {
-		    System.out.print(purplec + array[f][s] + defaultc);
+	        if ((array[f][s].toString()).equals("-")) {
+		    System.out.print(yellowDarkc + array[f][s] + defaultc);
 		}
 		else {
-		    System.out.print(array[f][s]);
+		    System.out.print(redc + array[f][s] + defaultc);
 		}
 	    }
 	    System.out.println();
 	}
     }
 
+    public static void main( String args[] ) {
+    	Graphics.setUp();
+    	printArrayM( Graphics.display );
+    }
+
+
+    public static void move() {
+
+	Scanner input = new Scanner(System.in);
+	//updateMazeGraphics();
+	printArrayM(Graphics.display);
+	//if (!(character.inBattle) && !(character.isShopping)) {	
+	    String in = input.nextLine();
+	    if (in.toUpperCase().equals("PLACE")) { //
+		//moveUp(character.getRLocation(), (character.getCLocation()));
+	    
+	    
+	    }
+	    else if (in.toUpperCase().equals("DIRECT")) {
+		//moveLeft(character.getRLocation(), (character.getCLocation()));
+	    
+
+	    }
+	    else if (in.toUpperCase().equals("END")) {
+		//moveDown(character.getRLocation(), (character.getCLocation()));
+	    
+
+	    }
+	    else if (in.toUpperCase().equals("POWER")) {
+		//moveRight(character.getRLocation(), (character.getCLocation()));
+	    
+
+	    }
+	    else if (in.toUpperCase().equals("SURRENDER")) {
+		chooseDrink();
+	    }
+	    else if (in.toUpperCase().equals("SETTINGS")) {
+		//character.settingsMode = true;
+		while (character.settingsMode) {
+		    settings();
+		}
+	    }
+	    else if (in.toUpperCase().equals("HELP") || in.equals("?")) {
+		help();
+	    }
+	    else {
+	        System.out.println("\nConfused? Enter ? or help for help.");
+		//pressEnter();
+	    }
+	    
+	}
+    }
+
+
+    public final static void clearConsole(){
+	System.out.print("\033[H\033[2J");  
+	System.out.flush();  
+    }
+
+   /*
     public static void help() {
 	Scanner in = new Scanner(System.in);
 	String input = "";
@@ -83,12 +143,9 @@ public class Engine {
 	character.setCLocation(1);
 	character.setRLocation(1);
     }
-    
-    public final static void clearConsole(){
-	System.out.print("\033[H\033[2J");  
-	System.out.flush();  
-    }
-    
+   */
+  
+  /*
     public final static void pressEnter() {
 	System.out.println("Enter something to continue");
 	Scanner con1 = new Scanner(System.in);
@@ -193,46 +250,10 @@ public class Engine {
 	    character.pickup( ((Floor) userMap[r][c]).item );
     	}
     }
+	*/
 
-    public static void move() {
 
-	Scanner input = new Scanner(System.in);
-	updateMazeGraphics();
-	printArrayM(Graphics.displayMazeGraphics(userMap));
-	if (!(character.inBattle) && !(character.isShopping)) {	
-	    String in = input.nextLine();
-	    if (in.toUpperCase().equals("W")) { //FPS keys :D
-		moveUp(character.getRLocation(), (character.getCLocation()));
-	    }
-	    else if (in.toUpperCase().equals("A")) {
-		moveLeft(character.getRLocation(), (character.getCLocation()));
-	    }
-	    else if (in.toUpperCase().equals("S")) {
-		moveDown(character.getRLocation(), (character.getCLocation()));
-	    }
-	    else if (in.toUpperCase().equals("D")) {
-		moveRight(character.getRLocation(), (character.getCLocation()));
-	    }
-	    else if (in.toUpperCase().equals("DRINK")) {
-		chooseDrink();
-	    }
-	    else if (in.toUpperCase().equals("SETTINGS")) {
-		character.settingsMode = true;
-		while (character.settingsMode) {
-		    settings();
-		}
-	    }
-	    else if (in.toUpperCase().equals("HELP") || in.equals("?")) {
-		help();
-	    }
-	    else {
-	        System.out.println("\nConfused? Enter ? or help for help.");
-		pressEnter();
-	    }
-	    
-	}
-    }
-    
+  /*
     public static void updateBattleGraphics() {
 	battleMap = new BattleMap(character,monster);
 	clearConsole();
@@ -527,5 +548,7 @@ public class Engine {
 	}
 	return true;
     }
-    
+   */
+
+
 }
