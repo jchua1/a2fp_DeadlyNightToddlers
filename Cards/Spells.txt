@@ -1,0 +1,277 @@
+{
+Ancestral Healing
+0
+
+{
+Arcane Explosion
+2
+
+{
+Arcane Intellect
+3
+
+{
+Arcane Missiles
+1
+
+{
+Arcane Shot
+1
+
+{
+Assassinate
+5
+
+{
+Backstab
+0
+
+{
+Blessing of Might
+1
+
+{
+Charge
+3
+
+{
+Claw
+1
+
+{
+Deadly Poison
+1
+
+{
+Drain Life
+3
+
+{
+Execute
+1
+
+{
+Fireball
+4
+
+{
+Frost Shock
+1
+
+{
+Hammer of Wrath
+4
+
+{
+Hand of Protection
+1
+
+{
+Healing Touch
+3
+
+{
+Hellfire
+4
+
+{
+Heroic Strike
+2
+
+{
+Hex
+3
+
+{
+Holy Light
+2
+
+{
+Holy Smite
+1
+
+{
+Innervate
+0
+
+{
+Mark of the Wild
+2
+
+{
+Mind Blast
+2
+
+{
+Multi-Shot
+4
+
+{
+Polymorph
+4
+
+{
+Power Word: Shield
+1
+
+{
+Rockbiter Weapon
+1
+
+{
+Sap
+2
+
+{
+Shadow Bolt
+3
+
+{
+Shadow Word: Pain
+2
+
+{
+Sinister Strike
+1
+
+{
+Tracking
+1
+
+{
+Wild Growth
+2
+
+{
+Windfury
+2
+
+{
+Animal Companion
+3
+
+{
+Blessing of Kings
+4
+
+{
+Bloodlust
+5
+
+{
+Cleave
+2
+
+{
+Consecration
+4
+
+{
+Corruption
+1
+
+{
+Divine Spirit
+2
+
+{
+Fan of Knives
+3
+
+{
+Flamestrike
+7
+
+{
+Frost Nova
+3
+
+{
+Frostbolt
+2
+
+{
+Holy Nova
+5
+
+{
+Humility
+1
+
+{
+Hunter's Mark
+1
+
+{
+Kill Command
+3
+
+{
+Mind Control
+10
+
+{
+Mind Vision
+1
+
+{
+Mirror Image
+1
+
+{
+Moonfire
+0
+
+{
+Mortal Coil
+1
+
+{
+Sacrificial Pact
+0
+
+{
+Savage Roar
+3
+
+{
+Shadow Word: Death
+3
+
+{
+Shield Block
+3
+
+{
+Shiv
+2
+
+{
+Soulfire
+1
+
+{
+Sprint
+7
+
+{
+Starfire
+6
+
+{
+Swipe
+4
+
+{
+Totemic Might
+0
+
+{
+Vanish
+6
+
+{
+Whirlwind
+1
+
+
