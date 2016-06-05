@@ -1,11 +1,16 @@
 public class Spell extends Card {
-  private int effect;
   
-  public Spell( int effect ) {
-    this.effect = effect;
+    private String name, effect;
   
-  }
+    public Spell(String n, int mana, String eff) {
+	name = n;
+	manaCost = mana;
+	effect = eff;
+    }
 
-
+    public String toString() {
+	return name;
+    }
 
 }
+
