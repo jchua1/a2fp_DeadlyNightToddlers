@@ -10,3 +10,7 @@ Updated Spell.java.
 06/04 
 Jiawei Chen 
 Creation of Hearthstone.java (Driver)
+
+06/04
+Yikai Wang
+Engine and Graphics modification. Changed layout of UI and commented out residual code.
