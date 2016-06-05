@@ -1,3 +1,8 @@
 05/22
 Jiawei Chen, Jason Chua, Yikai Wang:
 Submitted initial proposal for Hearthstone.
+
+06/04
+Jason Chua
+Created Collection.java, Minion.java, Weapon.java, and the text files containing all the basic cards.
+Updated Spell.java.
