@@ -6,3 +6,7 @@ Submitted initial proposal for Hearthstone.
 Jason Chua
 Created Collection.java, Minion.java, Weapon.java, and the text files containing all the basic cards.
 Updated Spell.java.
+
+06/04 
+Jiawei Chen 
+Creation of Hearthstone.java (Driver)
