@@ -1,11 +1,14 @@
 public class Card {
-  protected int manaCost = 0;
-  protected boolean isDed = false;
-  protected boolean isUsed = false;
-  protected String description = "";
-  protected String name = "";
-
-  public String toString() {
+    
+    protected int manaCost;
+    protected boolean isDead, isUsed;
+    protected String name, effect;
+    
+    public String toString() {
 	return name;
-  }
+    }
+
+    public int getCost() {
+	return manaCost;
+    }
 }
