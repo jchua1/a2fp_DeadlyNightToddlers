@@ -19,3 +19,8 @@ Engine and Graphics modification. Changed layout of UI and commented out residua
 Yikai Wang
 Updated Graphics and Engine to include up to date information. Shown after calling refresh(). 
 Hero.java added. Card.java made temporarily non-abstract.
+
+06/05 
+Jiawei Chen 
+Fixed and cleaned up Hearthstone.java, now compileable 
+Functionality to be added
