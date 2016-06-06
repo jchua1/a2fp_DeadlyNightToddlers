@@ -15,8 +15,6 @@ public class Hearthstone {
 	boolean entered = false;
 	boolean exitSession = false;
 	String enter; // for all user inputs
-
-	printTitle();
 		
 	while (!entered) {
 	    System.out.println("Press enter to begin.");
@@ -24,12 +22,6 @@ public class Hearthstone {
 	    entered = true;
 	    
 	}
-	
-	
-	while (!chosenClass) {
-
-	
-	    printTitle();
 	
 	    System.out.println( "Welcome to Hearthstone!" );	
 	    System.out.println();
@@ -51,8 +43,9 @@ public class Hearthstone {
 		    if (confirm()) {
 			chosenName = true;
 		    }
-		}		
+		}
 	    }
+    		
 
 	    //instead of having a game over, players come back here regardless of whether they win or lose their match (they keep playing until they voluntarily exit)
 	    while (!exitSession) {
@@ -68,22 +61,18 @@ public class Hearthstone {
 		String choice = in.nextLine();
 		
 		if(choice.toUpperCase().equals("HELP") || choice.equals("?")) {
-		    Engine.help();
+		    //Engine.help();
 		} 
 		else if (choice.toUpperCase().equals("EXIT")) { 
 		    System.out.println("Thanks for playing!"); 
 		    exitSession = true; 
 		} 
 		else if (choice.toUpperCase().equals("PLAY")) { 
-		    m.play(); 
+		    //m.play(); 
 		}
+		else { 
+		    System.out.println("That doesn't seem like a valid command.");
 	    }	    
-	}
-    }
-
-    public void showCharinfo( Character c ) {
-	System.out.println( "\n" + c.name );
-	c.displaystats();
     }
 
     public boolean confirm() { 
@@ -109,6 +98,6 @@ public class Hearthstone {
     }
     
     public static void main( String[] args ) {
-	MazeCeption m = new MazeCeption();	
+	Hearthstone m = new Hearthstone();	
     }
 }
