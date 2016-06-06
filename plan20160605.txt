@@ -1,0 +1,16 @@
+Things that still need to be done (CORE):
+1) Method to identify card effects and what they do.
+2) Methods of cards (placement, attack, etc).
+3) Implementation of hero and hero power.
+4) Interaction between cards (taunts, divine shields, etc).
+5) Players must be able to create decks by looking through their collection of cards.
+6) Players must be able to battle the AI. AI should not play like a potato.
+7) Display in terminal.
+
+Extra things:
+1) Different decks for AI's.
+2) Saving.
+3) Try processing (only if there is A LOT of time left).
+
+- The order of things that still need to be done must be followed.
+- 5, 6, and 7 MUST be done collaboratively. Everything else can be done individually.
