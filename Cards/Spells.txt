@@ -1,107 +1,107 @@
 {
 Ancestral Healing
 0
-
+6
 {
 Arcane Explosion
 2
-
+2
 {
 Arcane Intellect
 3
-
+2
 {
 Arcane Missiles
 1
-
+2
 {
 Arcane Shot
 1
-
+1
 {
 Assassinate
 5
-
+5
 {
 Backstab
 0
-
+5
 {
 Blessing of Might
 1
-
+3
 {
 Charge
 3
-
+8
 {
 Claw
 1
-
+0
 {
 Deadly Poison
 1
-
+5
 {
 Drain Life
 3
-
+7
 {
 Execute
 1
-
+8
 {
 Fireball
 4
-
+2
 {
 Frost Shock
 1
-
+6
 {
 Hammer of Wrath
 4
-
+3
 {
 Hand of Protection
 1
-
+3
 {
 Healing Touch
 3
-
+0
 {
 Hellfire
 4
-
+7
 {
 Heroic Strike
 2
-
+8
 {
 Hex
 3
-
+6
 {
 Holy Light
 2
-
+3
 {
 Holy Smite
 1
-
+4
 {
 Innervate
 0
-
+0
 {
 Mark of the Wild
 2
-
+0
 {
 Mind Blast
 2
-
+4
 {
 Multi-Shot
 4

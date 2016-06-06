@@ -1,12 +1,10 @@
 public class Minion extends Card {
 
-    private int health, attack;
-
-    public Minion(String n, int mana, int atk, int hp, String eff) {
+    public Minion(String n, int mana, int atk, int hp, int cl) {
 	name = n;
 	manaCost = mana;
 	attack = atk;
 	health = hp;
-	effect = eff;
+	clas = cl
     }
 }

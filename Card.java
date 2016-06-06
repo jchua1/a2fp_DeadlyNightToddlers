@@ -1,8 +1,8 @@
 public class Card {
     
-    protected int manaCost;
+    protected int manaCost, attack, health;
     protected boolean isDead, isUsed;
-    protected String name, effect;
+    protected String name, effect, clas;
     
     public String toString() {
 	return name;

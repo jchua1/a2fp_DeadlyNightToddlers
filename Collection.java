@@ -27,8 +27,8 @@ public class Collection {
 		    mana = Integer.parseInt(br.readLine());
 		    attack = Integer.parseInt(br.readLine());
 		    health = Integer.parseInt(br.readLine());
-		    effect = br.readLine();
-		    Card x = new Minion(name,mana,attack,health,effect);
+		    clas = Integer.parseInt(br.readLine());
+		    Card x = new Minion(name,mana,attack,health,clas);
 		    cards.add(x);
 		}
 	    }
@@ -51,8 +51,8 @@ public class Collection {
 		if (line.equals("{")) {
 		    name = br.readLine();
 		    mana = Integer.parseInt(br.readLine());
-		    effect = br.readLine();
-		    Card x = new Spell(name,mana,effect);
+		    clas = Integer.parseInt(br.readLine());
+		    Card x = new Spell(name,mana,clas);
 		    cards.add(x);
 		}
 	    }
@@ -79,8 +79,8 @@ public class Collection {
 		    mana = Integer.parseInt(br.readLine());
 		    attack = Integer.parseInt(br.readLine());
 		    health = Integer.parseInt(br.readLine());
-		    effect = br.readLine();
-		    Card x = new Weapon(name,mana,attack,health,effect);
+		    clas = Integer.parseInt(br.readLine());
+		    Card x = new Weapon(name,mana,attack,health,clas);
 		    cards.add(x);
 		}
 	    }

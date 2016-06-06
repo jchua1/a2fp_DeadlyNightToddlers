@@ -1,9 +1,11 @@
 public class Spell extends Card {
   
-    public Spell(String n, int mana, String eff) {
+    public Spell(String n, int mana, int cl) {
 	name = n;
 	manaCost = mana;
-	effect = eff;
+	clas = cl;
+	attack = null;
+	health = null;
     }
 }
 
