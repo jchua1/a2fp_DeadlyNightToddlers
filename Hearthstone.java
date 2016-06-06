@@ -2,10 +2,21 @@ import java.util.Scanner;
 
 public class Hearthstone {
 
+public String welcome() {
+	String s = "";
+	s += "  _    _                 _   _         _                   " + "\n";
+	s += " | |  | |               | | | |       | |                  " + "\n";
+	s += " | |__| | ___  __ _ _ __| |_| |__  ___| |_ ___  _ __   ___ " + "\n";
+	s += " |  __  |/ _ \/ _` | '__| __| '_ \/ __| __/ _ \| '_ \ / _ \" + "\n";
+	s += " | |  | |  __/ (_| | |  | |_| | | \__ \ || (_) | | | |  __/" + "\n";
+	s += " |_|  |_|\___|\__,_|_|   \__|_| |_|___/\__\___/|_| |_|\___|" + "\n";
+        return s;
+}
 
     public String name = "Bob";
 
     public Hearthstone() {
+    	System.out.print(welcome());
 	newGame();
     }
     
