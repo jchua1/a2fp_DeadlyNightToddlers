@@ -88,6 +88,12 @@ public class Engine {
 	    
 
 	    }
+	    else if(in.toUpperCase().equals("PEEP")) {
+
+
+
+
+	    }
 	    else if (in.toUpperCase().equals("END")) {
 		//moveDown(character.getRLocation(), (character.getCLocation()));
 	    
