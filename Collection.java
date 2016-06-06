@@ -5,14 +5,10 @@ import java.util.ArrayList;
 
 public class Collection {
 
-    private ArrayList<Minion> minions;
-    private ArrayList<Spell> spells;
-    private ArrayList<Weapon> weapons;
+    private ArrayList<Card> cards;
     
     public Collection() {
-	minions = new ArrayList<Minion>();
-	spells = new ArrayList<Spell>();
-	weapons = new ArrayList<Weapon>();
+	cards = new ArrayList<Card>();
     }
 
     public void addMinions() {
@@ -32,7 +28,8 @@ public class Collection {
 		    attack = Integer.parseInt(br.readLine());
 		    health = Integer.parseInt(br.readLine());
 		    effect = br.readLine();
-		    minions.add(new Minion(name,mana,attack,health,effect));
+		    Card x = new Minion(name,mana,attack,health,effect);
+		    cards.add(x);
 		}
 	    }
 	    reader.close();
@@ -55,7 +52,8 @@ public class Collection {
 		    name = br.readLine();
 		    mana = Integer.parseInt(br.readLine());
 		    effect = br.readLine();
-		    spells.add(new Spell(name,mana,effect));
+		    Card x = new Spell(name,mana,effect);
+		    cards.add(x);
 		}
 	    }
 	    reader.close();
@@ -82,7 +80,8 @@ public class Collection {
 		    attack = Integer.parseInt(br.readLine());
 		    health = Integer.parseInt(br.readLine());
 		    effect = br.readLine();
-		    weapons.add(new Weapon(name,mana,attack,health,effect));
+		    Card x = new Weapon(name,mana,attack,health,effect);
+		    cards.add(x);
 		}
 	    }
 	    reader.close();
@@ -92,15 +91,88 @@ public class Collection {
 	}
     }
 
+    public void organize() {
+	cards = sort(cards);
+    }
+
+    public ArrayList<Card> merge(ArrayList<Card> a, ArrayList<Card> b) {
+	ArrayList<Card> ret = new ArrayList<Card>();
+	int i = 0;
+	int ain = 0;
+	int bin = 0;
+	while (ain < a.size() && bin < b.size()) {
+	    if (a.get(ain).getCost() < b.get(bin).getCost()) {
+		ret.add(a.get(ain));
+		ain++;
+	    }
+	    else if (a.get(ain).getCost() > b.get(bin).getCost()) {
+		ret.add(b.get(bin));
+		bin++;
+	    }
+	    else {
+		if (a.get(ain).toString().compareTo(b.get(bin).toString()) < 0) {
+		    ret.add(a.get(ain));
+		    ain++;
+		}
+		else {
+		    ret.add(b.get(bin));
+		    bin++;
+		}
+	    }
+	    i++;
+	}
+	while (ain < a.size()) {
+	    ret.add(a.get(ain));
+	    ain++;
+	    i++;
+	}
+	while (bin < b.size()) {
+	    ret.add(b.get(bin));
+	    bin++;
+	    i++;
+	}
+	return ret;
+    }
+
+    public ArrayList<Card> sort(ArrayList<Card> arr) {
+	if (arr.size() == 1)
+	    return arr;
+	else {
+	    int half = arr.size()/2;
+	    ArrayList<Card> a = new ArrayList<Card>();
+	    ArrayList<Card> b = new ArrayList<Card>();
+	    for (int i = 0; i < half; i++)
+		a.add(arr.get(i));
+	    for (int i = half; i < arr.size(); i++)
+		b.add(arr.get(half+(i-half)));
+	    return merge(sort(a),sort(b));
+	}
+    }
     
+    public ArrayList<Card> filter(int mana) {
+	ArrayList<Card> ret = new ArrayList<Card>();
+	for (int i = 0; i < cards.size(); i++) {
+	    if (mana >= 7) {
+		if (cards.get(i).getCost() >= 7)
+		    ret.add(cards.get(i));
+	    }
+	    else {
+		if (cards.get(i).getCost() == mana)
+		    ret.add(cards.get(i));
+	    }
+	}
+	return ret;
+    }
+
     public static void main(String[] args) {
         Collection x = new Collection();
 	x.addMinions();
 	x.addSpells();
 	x.addWeapons();
-	System.out.println(x.minions);
-	System.out.println(x.spells);
-	System.out.println(x.weapons);
-	System.out.println(x.minions.size() + x.spells.size() + x.weapons.size());
+	System.out.println(x.cards);
+	System.out.println(x.cards.size());
+	x.organize();
+	System.out.println(x.cards);
+	System.out.println(x.filter(7));
     }
 }
