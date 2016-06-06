@@ -78,17 +78,18 @@ public class Engine {
 	printArrayM(Graphics.display);
 	//if (!(character.inBattle) && !(character.isShopping)) {	
 	    String in = input.nextLine();
-	    if (in.toUpperCase().equals("PLACE")) { //
+	    if (in.toUpperCase().indexOf("PLACE")) != -1) { //
 		//moveUp(character.getRLocation(), (character.getCLocation()));
-	    
+		String str = in.substring(6);
+	    	if( !isValidname(str, playerHand) )
 	    
 	    }
-	    else if (in.toUpperCase().equals("DIRECT")) {
+	    else if (in.toUpperCase().indexOf("DIRECT") != -1) {
 		//moveLeft(character.getRLocation(), (character.getCLocation()));
 	    
 
 	    }
-	    else if(in.toUpperCase().equals("PEEP")) {
+	    else if(in.toUpperCase().indexOf("PEEP") != -1) {
 
 
 
@@ -127,7 +128,14 @@ public class Engine {
 	    }
 	    
 	}
-
+	
+public static boolean isValidName( String str, ArrayList<Card> a ) {
+	for( String s : a ) {
+		if( s.equals(str) ) return true;
+	}
+	
+	return false;
+}
 
     public final static void clearConsole(){
 	System.out.print("\033[H\033[2J");  
