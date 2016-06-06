@@ -22,5 +22,13 @@ Hero.java added. Card.java made temporarily non-abstract.
 
 06/05 
 Jiawei Chen 
-Fixed and cleaned up Hearthstone.java, now compileable 
-Functionality to be added
+Fixed and cleaned up Hearthstone.java, now compileable.
+Functionality to be added.
+
+06/05
+Jason Chua
+Added methods to Card.java.
+Modified Collection.java to have only one arraylist that holds all cards instead of having 3 arraylists for each type of card.
+Added methods to organize and filter cards in Collection.java.
+Created plan20160605.
+
