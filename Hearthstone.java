@@ -79,7 +79,7 @@ public class Hearthstone {
 		    exitSession = true; 
 		} 
 		else if (choice.toUpperCase().equals("PLAY")) { 
-		    //m.play(); 
+		    play(); 
 		}
 		else { 
 		    System.out.println("That doesn't seem like a valid command.");
@@ -106,7 +106,17 @@ public class Hearthstone {
     }
 
     public void play() {
-
+	Scanner in = new Scanner( System.in );
+	
+	String choice = "";
+		
+	while (Engine.opponentHero.health > 0 && Engine.playerHero.health > 0) {
+	    Graphics.refresh();
+	    Engine.printArrayM( Graphics.display );
+	    System.out.println ("What will you do next?");
+	    choice = in.nextLine(); 	
+	    Engine.move(choice);
+	}
     }
     
     public static void main( String[] args ) {

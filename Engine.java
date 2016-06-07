@@ -71,13 +71,10 @@ public class Engine {
     }
 
 
-    public static void move() {
+    public static void move(String in) {
 
-	Scanner input = new Scanner(System.in);
 	//updateMazeGraphics();
-	printArrayM(Graphics.display);
 	//if (!(character.inBattle) && !(character.isShopping)) {	
-	    String in = input.nextLine();
 	    if (in.toUpperCase().indexOf("PLACE") != -1) { //
 		//moveUp(character.getRLocation(), (character.getCLocation()));
 			String str = in.substring(6);
