@@ -5,6 +5,6 @@ public class Minion extends Card {
 	manaCost = mana;
 	attack = atk;
 	health = hp;
-	clas = cl
+	clas = cl;
     }
 }
