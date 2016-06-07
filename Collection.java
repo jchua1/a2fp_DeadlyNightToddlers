@@ -97,20 +97,20 @@ public class Collection {
 	int ain = 0;
 	int bin = 0;
 	while (ain < a.size() && bin < b.size()) {
-	    if (a.get(ain).getClas() < b.get(bin).getClas()) {
+	    if (a.get(ain).clas < b.get(bin).clas) {
 		ret.add(a.get(ain));
 		ain++;
 	    }
-	    else if (a.get(ain).getClas() > b.get(bin).getClas()) {
+	    else if (a.get(ain).clas > b.get(bin).clas) {
 		ret.add(b.get(bin));
 		bin++;
 	    }
 	    else {
-		if (a.get(ain).getCost() < b.get(bin).getCost()) {
+		if (a.get(ain).manaCost < b.get(bin).manaCost) {
 		    ret.add(a.get(ain));
 		    ain++;
 		}
-		else if (a.get(ain).getCost() > b.get(bin).getCost()) {
+		else if (a.get(ain).manaCost > b.get(bin).manaCost) {
 		    ret.add(b.get(bin));
 		    bin++;
 		}
@@ -159,11 +159,11 @@ public class Collection {
 	ArrayList<Card> ret = new ArrayList<Card>();
 	for (int i = 0; i < cards.size(); i++) {
 	    if (mana == 7) {
-		if (cards.get(i).getCost() >= 7)
+		if (cards.get(i).manaCost >= 7)
 		    ret.add(cards.get(i));
 	    }
 	    else {
-		if (cards.get(i).getCost() == mana)
+		if (cards.get(i).manaCost == mana)
 		    ret.add(cards.get(i));
 	    }
 	}
@@ -173,7 +173,7 @@ public class Collection {
     public ArrayList<Card> filterClass(int clas) {
 	ArrayList<Card> ret = new ArrayList<Card>();
 	for (int i = 0; i < cards.size(); i++) {
-	    if (cards.get(i).getClas() == clas)
+	    if (cards.get(i).clas == clas)
 		ret.add(cards.get(i));
 	}
 	return ret;

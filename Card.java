@@ -10,18 +10,6 @@ public class Card {
 	return name;
     }
 
-    public int getCost() {
-	return manaCost;
-    }
-
-    public int getClas() {
-	return clas;
-    }
-
-    public int getAttack() {
-	return attack;
-    }
-
     public void lowerHealth(int dmg) {
 	health -= dmg;
 	if (health < 0) 
@@ -35,6 +23,6 @@ public class Card {
 
     public void direct(Card target) {
 	target.lowerHealth(attack);
-	lowerHealth(target.getAttack());
+	lowerHealth(target.attack);
     }
 }
