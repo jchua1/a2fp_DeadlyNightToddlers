@@ -92,9 +92,11 @@ public class Engine {
 	    String name1 = strlong.substring(0, strlong.indexOf(" "));
 	    String name2 = strlong.substring(strlong.indexOf(" ")+1);
 	   	Card caster = getCard(name1, playerMinions); Card dest = getCard(name2, opponentMinions);
-
-	   		//if( (caster != null) && (dest != null) ) 
-	   		//else System.out.println("\nConfused? Enter ? or help for help.");
+			
+			if((caster == null) && (name1.equals(playerHero.toString())) ) caster = playerHero;
+			if((dest == null) && (name2.equals(opponentHero.toString())) ) dest = opponentHero;
+	   		//if( (caster != null) && (dest != null) )  
+			//else System.out.println("\nConfused? Enter ? or help for help.");
 	    }
 	    else if( in.toUpperCase().indexOf("PEEP") != -1) {
 	    	String str = in.substring(5);
@@ -103,6 +105,12 @@ public class Engine {
 	    		c = getCard(str, opponentMinions);
 	    		if( c == null ) {
 	    			c = getCard(str, playerHand);
+				if( (c == null) && (str.equals(playerHero.toString()) ) ) {
+					c = playerHero;
+					if( (c == null) && (str.equals(playerWeapon.toString())) ) {
+					c = playerWeapon;
+					}
+				}
 	    		}
 	    	}
 	    	if( c != null ) System.out.println( c.showDescription() );
