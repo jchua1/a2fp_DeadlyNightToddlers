@@ -3,27 +3,28 @@ Fiery War Axe
 2
 3
 2
-
+8
 {
 Light's Justice
 1
 1
 4
-
+3
 {
 Arcanite Reaper
 5
 5
 2
-
+8
 {
 Assassin's Blade
 5
 3
 4
-
+5
 {
 Truesilver Champion
 4
 4
 2
+3
