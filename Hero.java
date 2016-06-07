@@ -1,8 +1,6 @@
 public class Hero extends Card {
-  protected int armor = 0;
-  protected String power = "";
-  protected String description = "";
-  protected String name = "";
+  public int armor = 0;
+  public String power = "";
 
   public Hero() {
 	  health = 30;
