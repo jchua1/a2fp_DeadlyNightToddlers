@@ -32,3 +32,7 @@ Modified Collection.java to have only one arraylist that holds all cards instead
 Added methods to organize and filter cards in Collection.java.
 Created plan20160605.
 
+06/06
+Yikai Wang
+Engine: move() updated to match game mechanics. Added showDescription() for Cards.
+

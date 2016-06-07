@@ -15,4 +15,8 @@ public class Card {
     public int getClas() {
 	return clas;
     }
+
+    public String showDescription() {
+    	return "";
+    }
 }

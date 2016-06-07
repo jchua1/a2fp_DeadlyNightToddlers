@@ -78,22 +78,35 @@ public class Engine {
 	printArrayM(Graphics.display);
 	//if (!(character.inBattle) && !(character.isShopping)) {	
 	    String in = input.nextLine();
-	    if (in.toUpperCase().indexOf("PLACE")) != -1) { //
+	    if (in.toUpperCase().indexOf("PLACE") != -1) { //
 		//moveUp(character.getRLocation(), (character.getCLocation()));
-		String str = in.substring(6);
-	    	if( !isValidname(str, playerHand) )
-	    
+			String str = in.substring(6);
+	    	Card c = getCard(str, playerHand);
+
+	    	if( c != null ) playerMinions.add(c);
+	    	else System.out.println("\nConfused? Enter ? or help for help.");
 	    }
 	    else if (in.toUpperCase().indexOf("DIRECT") != -1) {
 		//moveLeft(character.getRLocation(), (character.getCLocation()));
-	    
+	    String strlong = in.substring(7);
+	    String name1 = strlong.substring(0, strlong.indexOf(" "));
+	    String name2 = strlong.substring(strlong.indexOf(" ")+1);
+	   	Card caster = getCard(name1, playerMinions); Card dest = getCard(name2, opponentMinions);
 
+	   		//if( (caster != null) && (dest != null) ) 
+	   		//else System.out.println("\nConfused? Enter ? or help for help.");
 	    }
-	    else if(in.toUpperCase().indexOf("PEEP") != -1) {
-
-
-
-
+	    else if( in.toUpperCase().indexOf("PEEP") != -1) {
+	    	String str = in.substring(5);
+	    	Card c = getCard(str, playerMinions);
+	    	if( c == null ) {
+	    		c = getCard(str, opponentMinions);
+	    		if( c == null ) {
+	    			c = getCard(str, playerHand);
+	    		}
+	    	}
+	    	if( c != null ) System.out.println( c.showDescription() );
+	    	else System.out.println("\nConfused? Enter ? or help for help.");
 	    }
 	    else if (in.toUpperCase().equals("END")) {
 		//moveDown(character.getRLocation(), (character.getCLocation()));
@@ -129,13 +142,13 @@ public class Engine {
 	    
 	}
 	
-public static boolean isValidName( String str, ArrayList<Card> a ) {
-	for( String s : a ) {
-		if( s.equals(str) ) return true;
+	public static Card getCard( String str, ArrayList<Card> a ) {
+		for( Card s : a ) {
+			if( s.toString().equals(str) ) return s;
+		}
+		
+		return null;
 	}
-	
-	return false;
-}
 
     public final static void clearConsole(){
 	System.out.print("\033[H\033[2J");  
