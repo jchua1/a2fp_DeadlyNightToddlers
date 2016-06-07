@@ -4,8 +4,8 @@ public class Spell extends Card {
 	name = n;
 	manaCost = mana;
 	clas = cl;
-	attack = null;
-	health = null;
+	attack = -1;
+	health = -1;
     }
 }
 
