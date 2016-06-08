@@ -1,0 +1,16 @@
+Things that still need to be done (CORE):
+1) Methods of cards (placement, attack, etc).
+2) Implementation of hero and hero power.
+3) Players must be able to create decks by looking through their collection of cards.
+4) Players must be able to battle the AI. AI should not play like a potato.
+5) Display in terminal.
+6) Method to identify card effects and what they do. Interaction between cards.
+
+Extra things:
+1) Different decks for AI's.
+2) Saving.
+3) Card effects can be removed if other processes require attention. A basic version of the game where minions attack each other can be created.
+3) Try processing (only if there is A LOT of time left).
+
+- The order of things that still need to be done must be followed.
+- 5, 6, and 7 MUST be done collaboratively. Everything else can be done individually.
