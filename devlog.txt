@@ -42,3 +42,7 @@ Added new instance variable clas to represent card class in Card.java.
 Added accessor method to access clas.
 Added integers to represent the classes for each card in text files.
 Modified Collection.java to accurately replicate how the card collection is displayed in the actual game and created a method to filter by card class.
+
+06/07
+Jason Chua
+Started on code for displaying the collection in terminal.
