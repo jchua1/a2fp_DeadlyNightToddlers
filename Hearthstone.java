@@ -91,8 +91,11 @@ public class Hearthstone {
 	    Graphics.refresh();
 	    Engine.printArrayM( Graphics.display );
 	    System.out.println ("What will you do next?");
-	    choice = in.nextLine(); 	
-	    Engine.move(choice);
+	    while (choice.equals("end") == false) {
+		choice = in.nextLine();
+		Engine.move(choice);
+	    }
+	    choice = "";
 	}
     }
     
@@ -114,7 +117,7 @@ public class Hearthstone {
 		Engine.helpC();
 	    }
 	    else if (command.toUpperCase().equals("NEXT") 
-		     && (p+1)*8 < Engine.playerCollection.display.size())
+		&& (p+1)*8 < Engine.playerCollection.display.size())
 		p++;
 	    else if (command.toUpperCase().equals("PREVIOUS")
 		     && p-1 >= 0)

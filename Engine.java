@@ -112,7 +112,7 @@ public class Engine {
 	    else System.out.println("\nConfused? Enter ? or help for help.");
 	}
 	else if (in.toUpperCase().equals("END")) {
-
+	    System.out.println ("Turn end!");
 	}
 	else if (in.toUpperCase().equals("POWER")) {
 	    
@@ -125,11 +125,10 @@ public class Engine {
 
 	}
 	else if (in.toUpperCase().equals("HELP") || in.equals("?")) {
-
+	    helpG();
 	}
 	else {
 	    System.out.println("\nConfused? Enter ? or help for help.");
-	    //pressEnter();
 	}
 	    
     }
@@ -164,6 +163,19 @@ public class Engine {
 	s += "NEXT: Check your next page of available cards.\n"; 
 	s += "PREVIOUS: Check your previous page of available cards.\n"; 
 	s += "EXIT: Exit your collection.\n"; 
+	System.out.println (s);
     }
 
+    //commands to be used while in game 
+    public static void helpG(){
+	String s = ""; 
+	s += "PLACE: \n"; 
+	s += "DIRECT: \n"; 
+	s += "PEEP: \n"; 
+	s += "END: End your turn!\n"; 
+	s += "POWER: Use your hero power!\n"; 
+	s += "CONCEDE: Forfeit the match.\n"; 
+	s += "SETTINGS: \n"; 
+	System.out.println (s);
+    }
 }
