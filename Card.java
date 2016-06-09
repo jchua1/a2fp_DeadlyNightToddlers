@@ -4,7 +4,7 @@ public class Card {
     public boolean isDead, isUsed;
     public String name = "";
     public String effect; 
-	public String description = "";
+    public String description = "";
     
     public String toString() {
 	return name;
@@ -15,10 +15,6 @@ public class Card {
 	if (health < 0) 
 	    health = 0;
 	isDead = true;
-    }
-
-    public String showDescription() {
-    	return description;
     }
 
     public void direct(Card target) {
