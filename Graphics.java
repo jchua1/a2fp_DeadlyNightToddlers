@@ -33,41 +33,32 @@ public class Graphics {
     }
 
     public static void AddCardDisp() {
-	addTo( display, convertString( "Opponent: Mr. Kappa" ), 0 );
+	addTo( display, convertString( "Opponent Hero: " + Engine.opponentHero.name ), 0 );
 	addTo( display, convertString( "---------------------------------------------------------------------------" ), 5 );
-	addTo( display, convertString( "Player: Dat Boi" ), 6 );
+	addTo( display, convertString( "Player Hero: " + Engine.playerHero.name ), 10 );
 
-	String s = "Hand: "; String temp = s;
-
-	for( int i = 0; i < Engine.opponentHand.size(); i++ ) {
-	    temp += Engine.opponentHand.get(i).toString() + " ";
-	}
-	temp += "Cards Left: " + Engine.opponentDeck.size() + " Mana: " + Engine.opponentMana;
-
+	String temp;
+	temp = "Cards Left: " + Engine.opponentDeck.size() + " | Mana: " + Engine.opponentMana;
 	addTo( display, convertString( temp ), 1 );
 
-	temp = s;
-
+	temp = "";
 	for( int i = 0; i < Engine.playerHand.size(); i++ ) {
 	    temp += Engine.playerHand.get(i).toString() + " ";
 	}
-	temp += "Cards Left: " + Engine.playerDeck.size() + " Mana: " + Engine.playerMana;
-
-	addTo( display, convertString( temp ), 10 );
-
-	s = "Weapon: "; temp = s;
-	temp += Engine.opponentWeapon.toString() + " Hero: " + Engine.opponentHero.toString() + " Health: " + 
-	    Engine.opponentHero.health + " | " + Engine.opponentHero.armor + " Armor  Power: " + Engine.opponentHero.power;
-
+	temp += "Cards Left: " + Engine.playerDeck.size() + " | Mana: " + Engine.playerMana;
+	addTo( display, convertString( temp ), 9 );
+	
+	temp = "Weapon: " + Engine.opponentWeapon.toString() 
+	    + " Health: " + Engine.opponentHero.health + " | " 
+	    + Engine.opponentHero.armor + " Armor";
 	addTo( display, convertString( temp ), 2 );
 
-	temp = s;
-	temp += Engine.playerWeapon.toString() + " Hero: " + Engine.playerHero.toString() + " Health: " + 
-	    Engine.playerHero.health + " | " + Engine.playerHero.armor + " Armor  Power: " + Engine.playerHero.power;
+	temp = "Weapon: " + Engine.playerWeapon.toString() 
+	    + " Health: " + Engine.playerHero.health + " | " 
+	    + Engine.playerHero.armor + " Armor";
+	addTo( display, convertString( temp ), 8 );
 
-	addTo( display, convertString( temp ), 9 );
-
-	s = "Minions: "; temp = s;
+	temp = "Minions: ";
 	for( int i = 0; i < Engine.opponentMinions.size(); i++ ) {
 	    if( temp.length() > display[0].length ) {
 		addTo( display, convertString( temp.substring(0, temp.length() - Engine.opponentMinions.get(i).toString().length() - 1) ), 3 );
@@ -75,10 +66,12 @@ public class Graphics {
 	    }
 	    temp += Engine.opponentMinions.get(i).toString() + " ";
 	}
-	if( temp.substring(0, 9).equals( s ) ) addTo( display, convertString( temp ), 3 );
-	else addTo( display, convertString( temp ), 4 );
+	if( temp.substring(0, 9).equals( "Minions: " ) ) 
+	    addTo( display, convertString( temp ), 3 );
+	else 
+	    addTo( display, convertString( temp ), 4 );
 
-	temp = s;
+	temp = "Minions: ";
 	for( int i = 0; i < Engine.playerMinions.size(); i++ ) {
 	    if( temp.length() > display[0].length ) {
 		addTo( display, convertString( temp.substring(0, temp.length() - Engine.playerMinions.get(i).toString().length() - 1) ), 7 );
@@ -86,8 +79,10 @@ public class Graphics {
 	    }
 	    temp += Engine.playerMinions.get(i).toString() + " ";
 	}
-	if( temp.substring(0, 9).equals( s ) ) addTo( display, convertString( temp ), 7 );
-	else addTo( display, convertString( temp ), 8 );
+	if( temp.substring(0, 9).equals( "Minions: " ) ) 
+	    addTo( display, convertString( temp ), 6 );
+	else 
+	    addTo( display, convertString( temp ), 7 );
     }
 
 }
