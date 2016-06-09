@@ -46,7 +46,7 @@ public class Hearthstone {
 	    String choice = in.nextLine();
 		
 	    if(choice.toUpperCase().equals("HELP") || choice.equals("?")) {
-		//Engine.help();
+		Engine.helpH();
 	    } 
 	    else if (choice.toUpperCase().equals("EXIT")) { 
 		System.out.println("Thanks for playing!"); 
@@ -110,8 +110,11 @@ public class Hearthstone {
 	    Engine.playerCollection.showCards(p);
 	    System.out.println("What will you do next?");
 	    command = in.nextLine();
-	    if (command.toUpperCase().equals("NEXT") 
-		&& (p+1)*8 < Engine.playerCollection.display.size())
+	    if (command.toUpperCase().equals("HELP")){ 
+		Engine.helpC();
+	    }
+	    else if (command.toUpperCase().equals("NEXT") 
+		     && (p+1)*8 < Engine.playerCollection.display.size())
 		p++;
 	    else if (command.toUpperCase().equals("PREVIOUS")
 		     && p-1 >= 0)

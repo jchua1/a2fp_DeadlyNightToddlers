@@ -147,6 +147,23 @@ public class Engine {
 	System.out.flush();  
     }
 
-	
+    //commands that can be used while on the home screen
+    public static void helpH(){ 
+	String s = ""; 
+	s += "Current commands:\n";
+	s += "PLAY: Start a match!\n";
+	s += "EXIT: Exit the terminal!\n"; 
+	s += "MY COLLECTION: Check out your collection of cards!"; 
+	System.out.println (s);
+    }
+    
+    //commands that can be used while browsing the collection
+    public static void helpC(){ 
+	String s = "";
+	s += "Current commands:\n"; 
+	s += "NEXT: Check your next page of available cards.\n"; 
+	s += "PREVIOUS: Check your previous page of available cards.\n"; 
+	s += "EXIT: Exit your collection.\n"; 
+    }
 
 }
