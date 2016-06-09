@@ -186,10 +186,10 @@ public class Collection {
 	return ret;
     }
 
-    public void showCards() {
+    public void showCards(int p) {
 	String ret = "";
-	int clas = 0;
-	for (int i = 0; i < display.size(); i++) {
+	int clas = display.get(p*8).clas;
+	for (int i = p*8; i < display.size() && i < p*8+8; i++) {
 	    if (display.get(i).clas == clas) {
 		if (clas == 0)
 		    ret += "Druid Cards:\n";

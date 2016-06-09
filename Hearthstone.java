@@ -1,4 +1,4 @@
-import java.util.Scanner; 
+import java.util.*;
 
 public class Hearthstone {
 
@@ -21,7 +21,6 @@ public class Hearthstone {
     public void newGame() {
 	Scanner entrance = new Scanner(System.in);
 	boolean entered = false;
-	boolean inCollection = false;
 	boolean exitSession = false;
 	String enter;
 		
@@ -98,17 +97,38 @@ public class Hearthstone {
     }
     
     public void collection() {
+	System.out.println("Accessing your collection...");
 	Engine.playerCollection.addMinions();
 	Engine.playerCollection.addSpells();
 	Engine.playerCollection.addWeapons();
-	Engine.playerCollection.organize();/*
+	Engine.playerCollection.organize();
 	Scanner in = new Scanner(System.in);
 	String command = "";
-	inCollection = true;
+	boolean inCollection = true;
+	int p = 0;
 	while (inCollection) {
-	    
-	}*/
-	Engine.playerCollection.showCards();
+	    Engine.playerCollection.showCards(p);
+	    System.out.println("What will you do next?");
+	    command = in.nextLine();
+	    if (command.toUpperCase().equals("NEXT") 
+		&& (p+1)*8 < Engine.playerCollection.display.size())
+		p++;
+	    else if (command.toUpperCase().equals("PREVIOUS")
+		     && p-1 >= 0)
+		p--;
+	    else if (command.toUpperCase().equals("NEXT") 
+		     && (p+1)*8 > Engine.playerCollection.display.size())
+		System.out.println("You are on the last page!");
+	    else if (command.toUpperCase().equals("PREVIOUS")
+		     && p-1 < 0)
+		System.out.println("You are on the first page!");
+	    else if (command.toUpperCase().equals("EXIT")) {
+		System.out.println("Leaving your collection...");
+		inCollection = false;
+	    }
+	    else 
+		System.out.println("Not a valid command!");
+	}
     }
 	    
     
