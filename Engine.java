@@ -10,9 +10,9 @@ public class Engine {
     public static ArrayList<Card> playerHand = new ArrayList<Card>();
     public static ArrayList<Card> opponentHand = new ArrayList<Card>();
 
-    public static Hero playerHero = new Hero(); 
+    public static Hero playerHero = new Hero(0); 
     public static int playerMana = 1;
-    public static Hero opponentHero = new Hero(); 
+    public static Hero opponentHero = new Hero(1); 
     public static int opponentMana = 1;
 
     public static Card playerWeapon = new Card();
@@ -106,7 +106,7 @@ public class Engine {
 		    }
 		}
 	    }
-	    if( c != null ) System.out.println( c.showDescription() );
+	    if( c != null ) System.out.println( c.description );
 	    else System.out.println("\nConfused? Enter ? or help for help.");
 	}
 	else if (in.toUpperCase().equals("END")) {
@@ -134,9 +134,9 @@ public class Engine {
 	
     public static Card getCard( String str, ArrayList<Card> a ) {
 	for( Card s : a ) {
-	    if( s.toString().equals(str) ) return s;
+	    if( s.toString().equals(str) ) 
+		return s;
 	}
-		
 	return null;
     }
 
