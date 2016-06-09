@@ -151,7 +151,7 @@ public class Engine {
 	String s = ""; 
 	s += "Current commands:\n";
 	s += "PLAY: Start a match!\n";
-	s += "EXIT: Exit the terminal!\n"; 
+	s += "EXIT: Quit Game!\n"; 
 	s += "MY COLLECTION: Check out your collection of cards!"; 
 	System.out.println (s);
     }
@@ -169,9 +169,9 @@ public class Engine {
     //commands to be used while in game 
     public static void helpG(){
 	String s = ""; 
-	s += "PLACE: \n"; 
-	s += "DIRECT: \n"; 
-	s += "PEEP: \n"; 
+	s += "PLACE <your card> \n"; 
+	s += "DIRECT <your card> <some other card> \n"; 
+	s += "PEEP <any card> \n"; 
 	s += "END: End your turn!\n"; 
 	s += "POWER: Use your hero power!\n"; 
 	s += "CONCEDE: Forfeit the match.\n"; 
