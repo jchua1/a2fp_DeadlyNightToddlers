@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Engine {
     
+    public static Collection playerCollection = new Collection();
+
     public static Stack playerDeck = new Stack();
     public static Stack opponentDeck = new Stack();
 
@@ -144,5 +146,7 @@ public class Engine {
 	System.out.print("\033[H\033[2J");  
 	System.out.flush();  
     }
+
+	
 
 }

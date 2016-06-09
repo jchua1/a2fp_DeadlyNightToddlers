@@ -55,10 +55,10 @@ public class Hearthstone {
 	    } 
 	    else if (choice.toUpperCase().equals("PLAY")) { 
 		play(); 
-	    }/*
-	    else if (choice.toUpperCase().equals("COLLECTION")) {
+	    }
+	    else if (choice.toUpperCase().equals("MY COLLECTION")) {
 		collection();
-		}*/
+	    }
 	    else { 
 		System.out.println("That doesn't seem like a valid command.");
 	    }	    
@@ -96,15 +96,20 @@ public class Hearthstone {
 	    Engine.move(choice);
 	}
     }
-    /*
+    
     public void collection() {
+	Engine.playerCollection.addMinions();
+	Engine.playerCollection.addSpells();
+	Engine.playerCollection.addWeapons();
+	Engine.playerCollection.organize();/*
 	Scanner in = new Scanner(System.in);
 	String command = "";
 	inCollection = true;
 	while (inCollection) {
 	    
-	}
 	}*/
+	Engine.playerCollection.showCards();
+    }
 	    
     
     public static void main( String[] args ) {

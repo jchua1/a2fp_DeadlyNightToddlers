@@ -6,9 +6,13 @@ import java.util.ArrayList;
 public class Collection {
 
     private ArrayList<Card> cards;
+    public ArrayList<Card> display;
+    public boolean filtered;
     
     public Collection() {
 	cards = new ArrayList<Card>();
+	display = cards;
+	filtered = false;
     }
 
     public void addMinions() {
@@ -89,6 +93,7 @@ public class Collection {
     
     public void organize() {
 	cards = sort(cards);
+	display = cards;
     }
 
     public ArrayList<Card> merge(ArrayList<Card> a, ArrayList<Card> b) {
@@ -156,6 +161,7 @@ public class Collection {
     }
     
     public ArrayList<Card> filterCost(int mana) {
+	filtered = true;
 	ArrayList<Card> ret = new ArrayList<Card>();
 	for (int i = 0; i < cards.size(); i++) {
 	    if (mana == 7) {
@@ -171,12 +177,45 @@ public class Collection {
     }
 
     public ArrayList<Card> filterClass(int clas) {
+	filtered = true;
 	ArrayList<Card> ret = new ArrayList<Card>();
 	for (int i = 0; i < cards.size(); i++) {
 	    if (cards.get(i).clas == clas)
 		ret.add(cards.get(i));
 	}
 	return ret;
+    }
+
+    public void showCards() {
+	String ret = "";
+	int clas = 0;
+	for (int i = 0; i < display.size(); i++) {
+	    if (display.get(i).clas == clas) {
+		if (clas == 0)
+		    ret += "Druid Cards:\n";
+		else if (clas == 1)
+		    ret += "\nHunter Cards:\n";
+		else if (clas == 2)
+		    ret += "\nMage Cards:\n";
+		else if (clas == 3)
+		    ret += "\nPaladin Cards:\n";
+		else if (clas == 4)
+		    ret += "\nPriest Cards:\n";
+		else if (clas == 5)
+		    ret += "\nRogue Cards:\n";
+		else if (clas == 6)
+		    ret += "\nShaman Cards:\n";
+		else if (clas == 7)
+		    ret += "\nWarlock Cards:\n";
+		else if (clas == 8)
+		    ret += "\nWarrior Cards:\n";
+		else 
+		    ret += "\nGeneral Cards:\n";
+		clas++;
+	    }
+	    ret += display.get(i) + "\n";
+	}
+	System.out.println(ret);
     }
 
     public static void main(String[] args) {
@@ -186,7 +225,8 @@ public class Collection {
 	x.addWeapons();
 	x.organize();
 	System.out.println(x.cards);
-	System.out.println(x.filterCost(7));
-	System.out.println(x.filterClass(0));
+	System.out.println(x.display);
+	//System.out.println(x.filterCost(7));
+	//System.out.println(x.filterClass(0));
     }
 }
