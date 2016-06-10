@@ -1,7 +1,8 @@
 public class Card {
     
     public int manaCost, attack, health, clas;
-    public boolean isDead, isUsed;
+    public boolean isDead = false; 
+    public boolean isUsed = false;
     public String name = "";
     public String effect; 
     public String description = "";
