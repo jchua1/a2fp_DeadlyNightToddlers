@@ -352,7 +352,7 @@ public class Collection {
 		System.out.println("Size: " + deck.size() + " cards");
 		System.out.println();
 	    }
-	    else if (command.toUpperCase().equals("REMOVE") // FINISH REMOVE AND ADD METHOD TO DISPLAY DECK
+	    else if (command.toUpperCase().equals("REMOVE") // FINISH REMOVE AND FILTER/UNFILTER AND ADD METHOD TO DISPLAY DECK AND EDIT CREATE DECK FOR CASE IF THERE IS ALREADY ONE DECK
 		     && deck.size() > 0) {
 		System.out.println("What card do you want to remove?");
 		choice = in.nextLine();
