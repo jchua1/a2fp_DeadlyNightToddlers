@@ -46,3 +46,10 @@ Modified Collection.java to accurately replicate how the card collection is disp
 06/07
 Jason Chua
 Started on code for displaying the collection in terminal.
+
+06/09
+Jason Chua
+Removed unnecessary code.
+Edited board display.
+Created methods to display and view card collection.
+Created methods to make a deck.
