@@ -107,6 +107,11 @@ public class Hearthstone {
 		    choice = "end"; 
 		}
 	    }
+	    
+	    if( Engine.playerMana < 10 ) {
+	    	Engine.playerMana += 1;
+	    }
+	    
 	    choice = "";
 	    Engine.clearConsole(); 
 	    winCond();
