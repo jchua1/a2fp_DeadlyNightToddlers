@@ -1,18 +1,16 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Collection {
 
     private ArrayList<Card> cards;
     public ArrayList<Card> display;
-    public boolean filtered;
     
     public Collection() {
 	cards = new ArrayList<Card>();
 	display = cards;
-	filtered = false;
     }
 
     public void addMinions() {
@@ -160,8 +158,7 @@ public class Collection {
 	}
     }
     
-    public ArrayList<Card> filterCost(int mana) {
-	filtered = true;
+    public void filterCost(int mana) {
 	ArrayList<Card> ret = new ArrayList<Card>();
 	for (int i = 0; i < cards.size(); i++) {
 	    if (mana == 7) {
@@ -173,17 +170,16 @@ public class Collection {
 		    ret.add(cards.get(i));
 	    }
 	}
-	return ret;
+	display = ret;
     }
 
-    public ArrayList<Card> filterClass(int clas) {
-	filtered = true;
+    public void filterClass(int clas) {
 	ArrayList<Card> ret = new ArrayList<Card>();
 	for (int i = 0; i < cards.size(); i++) {
-	    if (cards.get(i).clas == clas)
+	    if (cards.get(i).clas == clas || cards.get(i).clas == 9)
 		ret.add(cards.get(i));
 	}
-	return ret;
+	display = ret;
     }
 
     public void showCards(int p) {
@@ -194,39 +190,180 @@ public class Collection {
 		if (clas == 0)
 		    ret += "Druid Cards:\n";
 		else if (clas == 1)
-		    ret += "\nHunter Cards:\n";
+		    ret += "Hunter Cards:\n";
 		else if (clas == 2)
-		    ret += "\nMage Cards:\n";
+		    ret += "Mage Cards:\n";
 		else if (clas == 3)
-		    ret += "\nPaladin Cards:\n";
+		    ret += "Paladin Cards:\n";
 		else if (clas == 4)
-		    ret += "\nPriest Cards:\n";
+		    ret += "Priest Cards:\n";
 		else if (clas == 5)
-		    ret += "\nRogue Cards:\n";
+		    ret += "Rogue Cards:\n";
 		else if (clas == 6)
-		    ret += "\nShaman Cards:\n";
+		    ret += "Shaman Cards:\n";
 		else if (clas == 7)
-		    ret += "\nWarlock Cards:\n";
+		    ret += "Warlock Cards:\n";
 		else if (clas == 8)
-		    ret += "\nWarrior Cards:\n";
+		    ret += "Warrior Cards:\n";
 		else 
-		    ret += "\nGeneral Cards:\n";
-		clas++;
+		    ret += "General Cards:\n";
+		clas = -1;
 	    }
 	    ret += display.get(i) + "\n";
+	    if (i < display.size()-1
+		&& display.get(i).clas != display.get(i+1).clas) {
+		clas = display.get(i+1).clas;
+		ret += "\n";
+	    }
 	}
+	ret += "\nPage: " + (p+1);
 	System.out.println(ret);
     }
 
-    public static void main(String[] args) {
-        Collection x = new Collection();
-	x.addMinions();
-	x.addSpells();
-	x.addWeapons();
-	x.organize();
-	System.out.println(x.cards);
-	System.out.println(x.display);
-	//System.out.println(x.filterCost(7));
-	//System.out.println(x.filterClass(0));
+    public boolean checkPage(int p, String choice) {
+	for (int i = p*8; i < display.size() && i < p*8+8; i++) {
+	    if (display.get(i).name.toUpperCase().equals(choice.toUpperCase()))
+		return true;
+	}
+	return false;
+    }
+
+    public Card getCard(int p, String choice) {
+	for (int i = p*8; i < display.size() && i < p*8+8; i++) {
+	    if (display.get(i).name.toUpperCase().equals(choice.toUpperCase()))
+		return display.get(i);
+	}
+	return null;
+    }
+
+    public boolean checkDeck(ArrayList<Card> deck, String choice) {
+	int count = 0;
+	for (int i = 0; i < deck.size(); i++) {
+	    if (deck.get(i).name.toUpperCase().equals(choice.toUpperCase()))
+		count++;
+	}
+	return count < 2;
+    }
+
+    public void makeDeck(int heroChoice) {
+	Engine.clearConsole();
+	Scanner in = new Scanner(System.in);
+	int p = 0;
+	boolean makingDeck = true;
+	String command = "";
+	String choice = "";
+	filterClass(heroChoice);
+	ArrayList<Card> deck = new ArrayList<Card>();
+	while (makingDeck) {
+	    showCards(p);
+	    System.out.println("What would you like to do?");
+	    command = in.nextLine();
+	    if (command.toUpperCase().equals("NEXT") 
+		&& (p+1)*8 < Engine.playerCollection.display.size()) {
+		Engine.clearConsole();
+		p++;
+	    }
+	    else if (command.toUpperCase().equals("PREVIOUS")
+		     && p-1 >= 0) {
+		Engine.clearConsole();
+		p--;
+	    }
+	    else if (command.toUpperCase().equals("NEXT") 
+		     && (p+1)*8 > Engine.playerCollection.display.size()) {
+		Engine.clearConsole();
+		System.out.println("You are on the last page!");
+		System.out.println();
+	    }
+	    else if (command.toUpperCase().equals("PREVIOUS")
+		     && p-1 < 0) {
+		Engine.clearConsole();
+		System.out.println("You are on the first page!");
+		System.out.println();
+	    }
+	    else if (command.toUpperCase().equals("ADD")
+		     && deck.size() < 30) {
+		System.out.println("What card do you want to add?");
+		choice = in.nextLine();
+		Engine.clearConsole();
+		if (checkPage(p,choice)) {
+		    if (checkDeck(deck,choice)) {
+			deck.add(getCard(p,choice));
+			System.out.println("Card added!");
+			System.out.println();
+		    }
+		    else {
+			System.out.println("You already have 2 copies of that card in your deck!");
+			System.out.println();
+		    }
+		}
+		else {
+		    System.out.println("Card does not exist or is not on this page!");
+		    System.out.println();
+		}
+	    }
+	    else if (command.toUpperCase().equals("ADD")
+		     && deck.size() == 30) {
+		Engine.clearConsole();
+		System.out.println("Deck limit reached!");
+		System.out.println();
+	    }
+	    else if (command.toUpperCase().equals("DONE")
+		     && deck.size() == 30) {
+		for (int i = 0; i < deck.size(); i++)
+		    Engine.playerDeck.push(deck.get(i));
+		Engine.clearConsole();
+		System.out.println("Deck created!");
+		System.out.println();
+		makingDeck = false;
+	    }
+	    else if (command.toUpperCase().equals("DONE")
+		     && deck.size() < 30) {
+		int yn = -1;
+		Engine.clearConsole();
+		while (yn != 0) {
+		    System.out.println("You do not yet have a complete deck of 30 cards. Would you like to exit?");
+		    System.out.println("Enter yes or no.");
+		    System.out.println("Note: This deck will not be saved.");
+		    choice = in.nextLine();
+		    if (choice.toUpperCase().equals("YES")) {
+			yn = 0;
+			makingDeck = false;
+		    }
+		    else if (choice.toUpperCase().equals("NO"))
+			yn = 0;
+		    else {
+			Engine.clearConsole();
+			System.out.println("Invalid input!");
+			System.out.println();
+		    }
+		    Engine.clearConsole();
+		}
+	    }
+	    else if (command.toUpperCase().equals("SIZE")) {
+		Engine.clearConsole();
+		System.out.println("Size: " + deck.size() + " cards");
+		System.out.println();
+	    }
+	    else if (command.toUpperCase().equals("REMOVE") // FINISH REMOVE AND ADD METHOD TO DISPLAY DECK
+		     && deck.size() > 0) {
+		System.out.println("What card do you want to remove?");
+	    }
+	    else if (command.toUpperCase().equals("REMOVE")
+		     && deck.size() == 0) {
+		Engine.clearConsole();
+		System.out.println("Your deck is empty!");
+		System.out.println();
+	    }
+	    else {
+		Engine.clearConsole();
+		System.out.println("Invalid command!");
+		System.out.println();
+	    }
+	}
+	display = cards;
+    }
+
+    public void unfilter() {
+	display = cards;
     }
 }

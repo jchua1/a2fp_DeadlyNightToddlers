@@ -6,8 +6,8 @@ public class Engine {
     
     public static Collection playerCollection = new Collection();
 
-    public static Stack playerDeck = new Stack();
-    public static Stack opponentDeck = new Stack();
+    public static Stack<Card> playerDeck = new Stack<Card>();
+    public static Stack<Card> opponentDeck = new Stack<Card>();
 
     public static ArrayList<Card> playerHand = new ArrayList<Card>();
     public static ArrayList<Card> opponentHand = new ArrayList<Card>();
