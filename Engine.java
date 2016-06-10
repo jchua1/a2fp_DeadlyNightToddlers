@@ -178,4 +178,14 @@ public class Engine {
 	s += "SETTINGS: \n"; 
 	System.out.println (s);
     }
+    public static int calcTotalDmg( ArrayList<Cards> a ) {
+    	int t = 0;
+    	for( Card c : a ) {
+    		t += c.damage;
+    	}
+    	return t;
+    }
+    public static void AIMove() {
+    	
+    }
 }
