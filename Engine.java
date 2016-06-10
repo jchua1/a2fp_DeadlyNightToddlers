@@ -183,6 +183,7 @@ public class Engine {
     	return t;
     }
     public static void AIMove() {
-    	
+    	int dmg = calcTotalDmg( opponentMinions ) + opponentHero.attack;
+    	if( dmg >= playerHero.health ) playerHero.health = 0;
     }
 }
