@@ -12,9 +12,10 @@ public class Card {
 
     public void lowerHealth(int dmg) {
 	health -= dmg;
-	if (health < 0) 
+	if (health < 0) {
 	    health = 0;
-	isDead = true;
+	    isDead = true;
+	}
     }
 
     public void direct(Card target) {
