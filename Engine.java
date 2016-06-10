@@ -175,10 +175,10 @@ public class Engine {
 	s += "SETTINGS: \n"; 
 	System.out.println (s);
     }
-    public static int calcTotalDmg( ArrayList<Cards> a ) {
+    public static int calcTotalDmg( ArrayList<Card> a ) {
     	int t = 0;
     	for( Card c : a ) {
-    		t += c.damage;
+    		t += c.attack;
     	}
     	return t;
     }
