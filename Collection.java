@@ -236,13 +236,21 @@ public class Collection {
 	return null;
     }
 
-    public boolean checkDeck(ArrayList<Card> deck, String choice) {
+    public int getCardIndex(int p, String choice) {
+	for (int i = p*8; i < display.size() && i < p*8+8; i++) {
+	    if (display.get(i).name.toUpperCase().equals(choice.toUpperCase()))
+		return i;
+	}
+	return -1;
+    }
+
+    public int checkDeck(ArrayList<Card> deck, String choice) {
 	int count = 0;
 	for (int i = 0; i < deck.size(); i++) {
 	    if (deck.get(i).name.toUpperCase().equals(choice.toUpperCase()))
 		count++;
 	}
-	return count < 2;
+	return count;
     }
 
     public void makeDeck(int heroChoice) {
@@ -286,7 +294,7 @@ public class Collection {
 		choice = in.nextLine();
 		Engine.clearConsole();
 		if (checkPage(p,choice)) {
-		    if (checkDeck(deck,choice)) {
+		    if (checkDeck(deck,choice) < 2) {
 			deck.add(getCard(p,choice));
 			System.out.println("Card added!");
 			System.out.println();
@@ -347,11 +355,27 @@ public class Collection {
 	    else if (command.toUpperCase().equals("REMOVE") // FINISH REMOVE AND ADD METHOD TO DISPLAY DECK
 		     && deck.size() > 0) {
 		System.out.println("What card do you want to remove?");
+		choice = in.nextLine();
+		Engine.clearConsole();
+		if (checkDeck(deck,choice) > 0) {
+		    deck.remove(getCardIndex(p,choice));
+		    System.out.println("Card removed!");
+		    System.out.println();
+		}
+		else {
+		    System.out.println("You don't have that card in your deck!");
+		    System.out.println();
+		}
 	    }
 	    else if (command.toUpperCase().equals("REMOVE")
 		     && deck.size() == 0) {
 		Engine.clearConsole();
 		System.out.println("Your deck is empty!");
+		System.out.println();
+	    }
+	    else if (command.toUpperCase().equals("SHOW")) {
+		Engine.clearConsole();
+		System.out.println(deck);
 		System.out.println();
 	    }
 	    else {
