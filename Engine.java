@@ -175,6 +175,7 @@ public class Engine {
 	s += "SETTINGS: \n"; 
 	System.out.println (s);
     }
+    
     public static int calcTotalDmg( ArrayList<Card> a ) {
     	int t = 0;
     	for( Card c : a ) {
@@ -182,8 +183,22 @@ public class Engine {
     	}
     	return t;
     }
+    
+   public static Card MinionLeastHealth( ArrayList<Card> a ) {
+   	Card min = a.get(0);
+   	for( Card c : a ) {
+   		if( min.health > c.health ) min = c;
+   	}
+   	return min;
+   }
+    
     public static void AIMove() {
     	int dmg = calcTotalDmg( opponentMinions ) + opponentHero.attack;
-    	if( dmg >= playerHero.health ) playerHero.health = 0;
+    	if( dmg >= playerHero.health ) {
+    		System.out.println( opponentHero.name + " and his minions attacked " + playerHero.name " for " + dmg ".");
+    		playerHero.health = 0;
+    	}
+    	//else if( dmg >=   )
+    	
     }
 }
