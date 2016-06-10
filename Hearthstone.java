@@ -164,19 +164,21 @@ public class Hearthstone {
 	    }
 	    else if (command.toUpperCase().equals("FILTER")) {
 		int mana = -1;
+		Engine.clearConsole();
 		while (mana < 0 || mana > 7) { 
-		    Engine.clearConsole();
 		    System.out.println("Show cards of what mana cost?");
 		    System.out.println("0 1 2 3 4 5 6 7+");
 		    System.out.println("Note: Enter 7 to show cards of 7+ mana");
 		    mana = in.nextInt();
 		    if (mana < 0 || mana > 7) {
+			Engine.clearConsole();
 			System.out.println("Invalid input!");
 			System.out.println();
 		    }
 		    in.nextLine();
 		}
 		Engine.playerCollection.filterCost(mana);
+		Engine.clearConsole();
 	    }
 	    else if (command.toUpperCase().equals("UNFILTER")) {
 		Engine.playerCollection.unfilter();
@@ -184,11 +186,10 @@ public class Hearthstone {
 		System.out.println("Filter removed.");
 		System.out.println();
 	    }
-	    else if (command.toUpperCase().equals("CREATE DECK")) {
-		int choice = -2;
-		if (choice == -2)
-		    Engine.clearConsole();
-		choice = -1;
+	    else if (command.toUpperCase().equals("CREATE DECK")
+		     && Engine.playerDeck.empty()) {
+		Engine.clearConsole();
+		int choice = -1;
 		while (choice < 0 || choice > 8) {
 		    System.out.println("Choose your hero.");
 		    System.out.println("Warrior | Shaman | Rogue");
@@ -220,6 +221,28 @@ public class Hearthstone {
 		    }
 		}
 		Engine.playerCollection.makeDeck(choice);
+	    }
+	    else if (command.toUpperCase().equals("CREATE DECK")
+		     && !(Engine.playerDeck.empty())) {
+		int yn = -1;
+		Engine.clearConsole();
+		while (yn != 0) {
+		    System.out.println("You already have a deck.");
+		    System.out.println("Do you want to delete it and create a new one?");
+		    System.out.println("Enter yes or no.");
+		    command = in.nextLine();
+		    if (command.toUpperCase().equals("YES")) {
+			yn = 0;
+			Engine.playerDeck = new Stack<Card>();
+		    }
+		    else if (command.toUpperCase().equals("NO"))
+			yn = 0;
+		    else {
+			Engine.clearConsole();
+			System.out.println("Invalid input!");
+			System.out.println();
+		    }
+		}
 	    }
 	    else  {
 		Engine.clearConsole();

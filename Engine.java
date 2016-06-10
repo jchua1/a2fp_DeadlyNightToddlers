@@ -184,7 +184,7 @@ public class Engine {
     	return t;
     }
     
-   public static Card MinionLeastHealth( ArrayList<Card> a ) {
+   public static Card minionLeastHealth( ArrayList<Card> a ) {
    	Card min = a.get(0);
    	for( Card c : a ) {
    		if( min.health > c.health ) min = c;
@@ -192,10 +192,10 @@ public class Engine {
    	return min;
    }
     
-    public static void AIMove() {
+    public static void aiMove() {
     	int dmg = calcTotalDmg( opponentMinions ) + opponentHero.attack;
     	if( dmg >= playerHero.health ) {
-    		System.out.println( opponentHero.name + " and his minions attacked " + playerHero.name " for " + dmg ".");
+	    System.out.println( opponentHero.name + " and his minions attacked " + playerHero.name + " for " + dmg + ".");
     		playerHero.health = 0;
     	}
     	//else if( dmg >=   )

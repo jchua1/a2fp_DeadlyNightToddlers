@@ -253,6 +253,8 @@ public class Collection {
 	return count;
     }
 
+   
+
     public void makeDeck(int heroChoice) {
 	Engine.clearConsole();
 	Scanner in = new Scanner(System.in);
