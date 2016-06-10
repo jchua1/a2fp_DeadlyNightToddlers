@@ -119,10 +119,7 @@ public class Engine {
 
 	}
 	else if (in.toUpperCase().equals("CONCEDE")) {
-
-	}
-	else if (in.toUpperCase().equals("SETTINGS")) {
-
+	    playerHero.health = 0;
 	}
 	else if (in.toUpperCase().equals("HELP") || in.equals("?")) {
 	    helpG();

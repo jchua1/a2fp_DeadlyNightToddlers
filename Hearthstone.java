@@ -103,8 +103,13 @@ public class Hearthstone {
 	    while (choice.equals("end") == false) {
 		choice = in.nextLine();
 		Engine.move(choice);
+		if (Engine.playerHero.health == 0) { 
+		    choice = "end"; 
+		}
 	    }
 	    choice = "";
+	    Engine.clearConsole(); 
+	    winCond();
 	}
     }
     
@@ -218,7 +223,15 @@ public class Hearthstone {
 	}
     }
 	    
-    
+    public static void winCond () { 
+	if (Engine.playerHero.health == 0) { 
+	    System.out.println ("You have lost the match!"); 
+	}
+	else { 
+	    System.out.println ("You have won the match!"); 
+	}
+    }
+
     public static void main( String[] args ) {
 	Hearthstone m = new Hearthstone();	
     }
