@@ -209,11 +209,12 @@ public class Engine {
     public static void aiMove() {
     	int dmg = calcTotalDmg( opponentMinions ) + opponentHero.attack;
     	if( dmg >= playerHero.health ) {
-	    System.out.println( opponentHero.name + " and his minions attacked " + playerHero.name + " for " + dmg + ".");
+	    	System.out.println( opponentHero.name + " and his minions attacked " + playerHero.name + " for " + dmg + ".");
     		playerHero.health = 0;
     	}
+
     	else {
-    		if( (opponent Mana > 2) || ((opponentMana <= 2) && (Math.random() < 0.5)) ) {
+    		if( (opponentMana > 2) || ((opponentMana <= 2) && (Math.random() < 0.5)) ) {
     			Card c = minionMana( opponentMana );
     			opponentMinions.add(c);
     			opponentHand.remove(c);
@@ -221,7 +222,7 @@ public class Engine {
     		}
     		
      		while( dmg >=  minionLeastHealth( playerMinions ) ) {
-     			Card c = minionLeastHealth( playerMinions )
+     			Card c = minionLeastHealth( playerMinions );
     			c.lowerHealth(dmg);
     			playerMinions.remove(c);
     		}
