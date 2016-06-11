@@ -215,13 +215,13 @@ public class Engine {
 
     	else {
     		if( (opponentMana > 2) || ((opponentMana <= 2) && (Math.random() < 0.5)) ) {
-    			Card c = minionMana( opponentMana );
+    			Card c = minionMana( opponentMana, opponentMinions );
     			opponentMinions.add(c);
     			opponentHand.remove(c);
     			opponentMana-=c.manaCost;
     		}
     		
-     		while( dmg >=  minionLeastHealth( playerMinions ) ) {
+     		while( dmg >=  minionLeastHealth( playerMinions ).health ) {
      			Card c = minionLeastHealth( playerMinions );
     			c.lowerHealth(dmg);
     			playerMinions.remove(c);
