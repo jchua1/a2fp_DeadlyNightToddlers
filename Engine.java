@@ -94,8 +94,9 @@ public class Engine {
 			
 	    if((caster == null) && (name1.equals(playerHero.toString())) ) caster = playerHero;
 	    if((dest == null) && (name2.equals(opponentHero.toString())) ) dest = opponentHero;
-	    //if( (caster != null) && (dest != null) )  
-	    //else System.out.println("\nConfused? Enter ? or help for help.");
+	    
+	    if( (caster != null) && (dest != null) )  dest.lowerHealth( caster.attack );
+	    else System.out.println("\nConfused? Enter ? or help for help.");
 	}
 	else if( in.toUpperCase().indexOf("PEEP") != -1) {
 	    String str = in.substring(5);
