@@ -53,3 +53,7 @@ Removed unnecessary code.
 Edited board display.
 Created methods to display and view card collection.
 Created methods to make a deck.
+
+06/10
+Jason Chua
+Added more methods for deck creation to show deck and remove cards.
