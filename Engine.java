@@ -198,7 +198,13 @@ public class Engine {
 	    System.out.println( opponentHero.name + " and his minions attacked " + playerHero.name + " for " + dmg + ".");
     		playerHero.health = 0;
     	}
-    	//else if( dmg >=   )
-    	
+    	else {
+    		//if( player )
+     		while( dmg >=  minionLeastHealth( playerMinions ) ) {
+     			Card c = minionLeastHealth( playerMinions )
+    			c.lowerHealth(dmg);
+    			playerMinions.remove(c);
+    		}
+    	}
     }
 }
