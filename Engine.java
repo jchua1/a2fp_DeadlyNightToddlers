@@ -79,7 +79,11 @@ public class Engine {
 	    String str = in.substring(6);
 	    Card c = getCard(str, playerHand);
 
-	    if( c != null ) playerMinions.add(c);
+	    if( c != null ) {
+	    	playerMinions.add(c);
+	    	playerHand.remove(c);
+	    }
+	    
 	    else System.out.println("\nConfused? Enter ? or help for help.");
 	}
 	else if (in.toUpperCase().indexOf("DIRECT") != -1) {
@@ -191,6 +195,16 @@ public class Engine {
    	}
    	return min;
    }
+   
+   public static Card minionMana( int m, ArrayList<Card> a ) {
+   	Card minion = a.get(0);
+   	if( minion.manaCost == m ) return minion;
+   	
+      	for( Card c : a ) {
+   		if( (minion.manaCost < c.manaCost) && (c.manaCost <= m) ) minion = c;
+   	}
+   	return minion;
+   }
     
     public static void aiMove() {
     	int dmg = calcTotalDmg( opponentMinions ) + opponentHero.attack;
@@ -199,7 +213,13 @@ public class Engine {
     		playerHero.health = 0;
     	}
     	else {
-    		//if( player )
+    		if( (opponent Mana > 2) || ((opponentMana <= 2) && (Math.random() < 0.5)) ) {
+    			Card c = minionMana( opponentMana );
+    			opponentMinions.add(c);
+    			opponentHand.remove(c);
+    			opponentMana-=c.manaCost;
+    		}
+    		
      		while( dmg >=  minionLeastHealth( playerMinions ) ) {
      			Card c = minionLeastHealth( playerMinions )
     			c.lowerHealth(dmg);
