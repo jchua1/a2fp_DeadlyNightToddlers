@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.ArrayList;
+import java.io.*;
 
 public class Engine {
     
@@ -25,20 +26,20 @@ public class Engine {
 
     public static String defaultc = "\u001B[0m";
     public static String blackc = "\u001B[30m";
-    public static String redc = "\u001B[31m";
-    public static String greenc = "\u001B[32m";
-    public static String yellowc = "\u001B[33m";
-    public static String bluec = "\u001B[34m";
-    public static String purplec = "\u001B[35m";
-    public static String cyanc = "\u001B[36m";
-    public static String whitec = "\u001B[37m";
+    public static String redc = "\u001B[31m"; //warrior
+    public static String greenc = "\u001B[32m"; //druid
+    public static String yellowc = "\u001B[33m"; //paladin
+    public static String bluec = "\u001B[34m"; //mage
+    public static String purplec = "\u001B[35m"; //warlock
+    public static String cyanc = "\u001B[36m"; 
+    public static String whitec = "\u001B[37m"; //priest
 
     public static String blueDarkc = "\u001B[1;34m";
-    public static String redDarkc = "\u001B[1;31m";
-    public static String greenDarkc = "\u001B[1;32m";
+    public static String redDarkc = "\u001B[1;31m"; 
+    public static String greenDarkc = "\u001B[1;32m"; //hunter
     public static String yellowDarkc = "\u001B[1;33m";
-    public static String magnetaDarkc = "\u001B[1;35m";
-    public static String cyanDarkc = "\u001B[1;36m";
+    public static String magentaDarkc = "\u001B[1;35m"; //rogue
+    public static String cyanDarkc = "\u001B[1;36m"; //shaman
 
     public static void printArray(Object[][] array) {
 	for (Object[] f : array) {
@@ -134,6 +135,59 @@ public class Engine {
 	}
 	    
     }
+
+    public static void useDefault() {
+	try {
+	    FileReader reader = new FileReader("Cards/Default.txt");
+	    BufferedReader br = new BufferedReader(reader);
+	    String line;
+	    while ((line = br.readLine()) != null) {
+		for (int i = 0; i < 2; i++)
+		    playerDeck.push(getCard(line,playerCollection.cards));
+	    }
+	    reader.close();
+	}
+	catch (IOException e) {
+	    e.printStackTrace();
+	}
+    }
+
+    public static void chooseHero() {
+	Scanner in = new Scanner(System.in);
+	clearConsole();
+	int choice = -1;
+	while (choice < 0 || choice > 8) {
+	    System.out.println("Choose your hero.");
+	    System.out.println("Warrior | Shaman | Rogue");
+	    System.out.println("Paladin | Hunter | Druid");
+	    System.out.println("Warlock |  Mage  | Priest");
+	    String heroChoice = in.nextLine();
+	    if (heroChoice.toUpperCase().equals("DRUID"))
+		choice = 0;
+	    else if (heroChoice.toUpperCase().equals("HUNTER"))
+		choice = 1;
+	    else if (heroChoice.toUpperCase().equals("MAGE"))
+		choice = 2;
+	    else if (heroChoice.toUpperCase().equals("PALADIN"))
+		choice = 3;
+	    else if (heroChoice.toUpperCase().equals("PRIEST"))
+		choice = 4;
+	    else if (heroChoice.toUpperCase().equals("ROGUE"))
+		choice = 5;
+	    else if (heroChoice.toUpperCase().equals("SHAMAN"))
+		choice = 6;
+	    else if (heroChoice.toUpperCase().equals("WARLOCK"))
+		choice = 7;
+	    else if (heroChoice.toUpperCase().equals("WARRIOR"))
+		choice = 8;
+	    else {
+		Engine.clearConsole();
+		System.out.println("Invalid choice!");
+		System.out.println();
+	    }
+	}
+	Engine.playerCollection.makeDeck(choice);
+    }
 	
     public static Card getCard( String str, ArrayList<Card> a ) {
 	for( Card s : a ) {
@@ -184,49 +238,49 @@ public class Engine {
     public static int calcTotalDmg( ArrayList<Card> a ) {
     	int t = 0;
     	for( Card c : a ) {
-    		t += c.attack;
+	    t += c.attack;
     	}
     	return t;
     }
     
-   public static Card minionLeastHealth( ArrayList<Card> a ) {
+    public static Card minionLeastHealth( ArrayList<Card> a ) {
    	Card min = a.get(0);
    	for( Card c : a ) {
-   		if( min.health > c.health ) min = c;
+	    if( min.health > c.health ) min = c;
    	}
    	return min;
-   }
+    }
    
-   public static Card minionMana( int m, ArrayList<Card> a ) {
+    public static Card minionMana( int m, ArrayList<Card> a ) {
    	Card minion = a.get(0);
    	if( minion.manaCost == m ) return minion;
    	
       	for( Card c : a ) {
-   		if( (minion.manaCost < c.manaCost) && (c.manaCost <= m) ) minion = c;
+	    if( (minion.manaCost < c.manaCost) && (c.manaCost <= m) ) minion = c;
    	}
    	return minion;
-   }
+    }
     
     public static void aiMove() {
     	int dmg = calcTotalDmg( opponentMinions ) + opponentHero.attack;
     	if( dmg >= playerHero.health ) {
-	    	System.out.println( opponentHero.name + " and his minions attacked " + playerHero.name + " for " + dmg + ".");
-    		playerHero.health = 0;
+	    System.out.println( opponentHero.name + " and his minions attacked " + playerHero.name + " for " + dmg + ".");
+	    playerHero.health = 0;
     	}
 
     	else {
-    		if( (opponentMana > 2) || ((opponentMana <= 2) && (Math.random() < 0.5)) ) {
-    			Card c = minionMana( opponentMana, opponentMinions );
-    			opponentMinions.add(c);
-    			opponentHand.remove(c);
-    			opponentMana-=c.manaCost;
-    		}
+	    if( (opponentMana > 2) || ((opponentMana <= 2) && (Math.random() < 0.5)) ) {
+		Card c = minionMana( opponentMana, opponentMinions );
+		opponentMinions.add(c);
+		opponentHand.remove(c);
+		opponentMana-=c.manaCost;
+	    }
     		
-     		while( dmg >=  minionLeastHealth( playerMinions ).health ) {
-     			Card c = minionLeastHealth( playerMinions );
-    			c.lowerHealth(dmg);
-    			playerMinions.remove(c);
-    		}
+	    while( dmg >=  minionLeastHealth( playerMinions ).health ) {
+		Card c = minionLeastHealth( playerMinions );
+		c.lowerHealth(dmg);
+		playerMinions.remove(c);
+	    }
     	}
     }
 }
