@@ -57,5 +57,20 @@ Created methods to make a deck.
 06/10
 Jason Chua
 Added more methods for deck creation to show deck and remove cards.
+
 Yikai Wang
 Updated Engine with primitive AI.
+
+06/11
+Jason Chua
+Decreased the number of cards shown on each page to 6.
+Added color to font for different card classes.
+Edited conditionals in Collection.java and Hearthstone.java to improve readability.
+Changed functionality of removing cards from deck.
+Created method for hero choice in Engine.java.
+Created condition for trying to make a deck when there is already an existing deck.
+Wrote text file with names of the cards in the default deck.
+Created method to show deck in home screen and to use the default deck.
+
+
+
