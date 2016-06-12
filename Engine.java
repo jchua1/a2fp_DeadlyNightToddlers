@@ -180,9 +180,12 @@ public class Engine {
 		choice = 7;
 	    else if (heroChoice.toUpperCase().equals("WARRIOR"))
 		choice = 8;
+		else if (heroChoice.toUpperCase().equals("help") || heroChoice.equals("?")) {
+			helpD();
+		}
 	    else {
 		Engine.clearConsole();
-		System.out.println("Invalid choice!");
+		System.out.println("Invalid choice! Confused? Enter ? or help for help.");
 		System.out.println();
 	    }
 	}
@@ -203,13 +206,20 @@ public class Engine {
     }
 
     //commands that can be used while on the home screen
+    public static void helpD() {
+	String s = ""; 
+	s += "Current commands:\n";
+	s += "Type the name of the class of the hero you want to play as."; 
+	System.out.println(s);
+    }
+
     public static void helpH(){ 
 	String s = ""; 
 	s += "Current commands:\n";
 	s += "PLAY: Start a match!\n";
 	s += "EXIT: Quit Game!\n"; 
 	s += "MY COLLECTION: Check out your collection of cards!"; 
-	System.out.println (s);
+	System.out.println(s);
     }
     
     //commands that can be used while browsing the collection
@@ -227,7 +237,7 @@ public class Engine {
 	String s = ""; 
 	s += "PLACE <your card> \n"; 
 	s += "DIRECT <your card> <some other card> \n"; 
-	s += "PEEP <any card> \n"; 
+	s += "PEEP <any card>: show the stats and description of any card! \n"; 
 	s += "END: End your turn!\n"; 
 	s += "POWER: Use your hero power!\n"; 
 	s += "CONCEDE: Forfeit the match.\n"; 
@@ -274,12 +284,14 @@ public class Engine {
 		opponentMinions.add(c);
 		opponentHand.remove(c);
 		opponentMana-=c.manaCost;
+		System.out.println( opponentHero.name + " used " + c.name + " for " + c.manaCost + "." );
 	    }
     		
 	    while( dmg >=  minionLeastHealth( playerMinions ).health ) {
 		Card c = minionLeastHealth( playerMinions );
 		c.lowerHealth(dmg);
 		playerMinions.remove(c);
+		System.out.println( opponentHero.name + " defeated " + c.name + " with " + dmg + "!" );
 	    }
     	}
     }
