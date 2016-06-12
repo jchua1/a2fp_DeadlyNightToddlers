@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Collection {
 
-    private ArrayList<Card> cards;
+    public ArrayList<Card> cards;
     public ArrayList<Card> display;
     
     public Collection() {
@@ -184,29 +184,30 @@ public class Collection {
 
     public void showCards(int p) {
 	String ret = "";
-	int clas = display.get(p*8).clas;
-	for (int i = p*8; i < display.size() && i < p*8+8; i++) {
+	String c;
+	int clas = display.get(p*6).clas;
+	for (int i = p*6; i < display.size() && i < p*6+6; i++) {
 	    if (display.get(i).clas == clas) {
 		if (clas == 0)
-		    ret += "Druid Cards:\n";
+		    ret += Engine.greenc + "Druid Cards:\n";	
 		else if (clas == 1)
-		    ret += "Hunter Cards:\n";
-		else if (clas == 2)
-		    ret += "Mage Cards:\n";
-		else if (clas == 3)
-		    ret += "Paladin Cards:\n";
-		else if (clas == 4)
-		    ret += "Priest Cards:\n";
-		else if (clas == 5)
-		    ret += "Rogue Cards:\n";
-		else if (clas == 6)
-		    ret += "Shaman Cards:\n";
-		else if (clas == 7)
-		    ret += "Warlock Cards:\n";
-		else if (clas == 8)
-		    ret += "Warrior Cards:\n";
+		    ret += Engine.redDarkc + "Hunter Cards:\n";
+		else if (clas == 2) 
+		    ret += Engine.blueDarkc + "Mage Cards:\n";
+		else if (clas == 3) 
+		    ret += Engine.yellowc + "Paladin Cards:\n";
+		else if (clas == 4) 		    
+		    ret += Engine.whitec + "Priest Cards:\n";
+		else if (clas == 5)	    
+		    ret += Engine.magentaDarkc + "Rogue Cards:\n";
+		else if (clas == 6) 		    
+		    ret += Engine.cyanDarkc + "Shaman Cards:\n";
+		else if (clas == 7) 		    
+		    ret += Engine.purplec + "Warlock Cards:\n";
+		else if (clas == 8) 		    
+		    ret += Engine.redc + "Warrior Cards:\n";
 		else 
-		    ret += "General Cards:\n";
+		    ret += Engine.defaultc + "General Cards:\n";
 		clas = -1;
 	    }
 	    ret += display.get(i) + "\n";
@@ -216,12 +217,12 @@ public class Collection {
 		ret += "\n";
 	    }
 	}
-	ret += "\nPage: " + (p+1);
+	ret += Engine.defaultc + "\nPage: " + (p+1);
 	System.out.println(ret);
     }
 
     public boolean checkPage(int p, String choice) {
-	for (int i = p*8; i < display.size() && i < p*8+8; i++) {
+	for (int i = p*6; i < display.size() && i < p*6+6; i++) {
 	    if (display.get(i).name.toUpperCase().equals(choice.toUpperCase()))
 		return true;
 	}
@@ -229,19 +230,18 @@ public class Collection {
     }
 
     public Card getCard(int p, String choice) {
-	for (int i = p*8; i < display.size() && i < p*8+8; i++) {
+	for (int i = p*6; i < display.size() && i < p*6+6; i++) {
 	    if (display.get(i).name.toUpperCase().equals(choice.toUpperCase()))
 		return display.get(i);
 	}
 	return null;
     }
 
-    public int getCardIndex(int p, String choice) {
-	for (int i = p*8; i < display.size() && i < p*8+8; i++) {
-	    if (display.get(i).name.toUpperCase().equals(choice.toUpperCase()))
-		return i;
+    public void removeCard(ArrayList<Card> deck, String choice) {
+	for (int i = 0; i < deck.size(); i++) {
+	    if (deck.get(i).name.toUpperCase().equals(choice.toUpperCase()))
+		deck.remove(i);
 	}
-	return -1;
     }
 
     public int checkDeck(ArrayList<Card> deck, String choice) {
@@ -252,8 +252,6 @@ public class Collection {
 	}
 	return count;
     }
-
-   
 
     public void makeDeck(int heroChoice) {
 	Engine.clearConsole();
@@ -268,85 +266,81 @@ public class Collection {
 	    showCards(p);
 	    System.out.println("What would you like to do?");
 	    command = in.nextLine();
-	    if (command.toUpperCase().equals("NEXT") 
-		&& (p+1)*8 < Engine.playerCollection.display.size()) {
+	    if (command.toUpperCase().equals("NEXT")) {
 		Engine.clearConsole();
-		p++;
+		if ((p+1)*6 < display.size())
+		    p++;
+		else {
+		    System.out.println("You are on the last page!");
+		    System.out.println();
+		}
 	    }
-	    else if (command.toUpperCase().equals("PREVIOUS")
-		     && p-1 >= 0) {
+	    else if (command.toUpperCase().equals("PREVIOUS")) {
 		Engine.clearConsole();
-		p--;
+		if (p-1 >= 0)
+		    p--;
+		else {
+		    System.out.println("You are on the first page!");
+		    System.out.println();
+		}
 	    }
-	    else if (command.toUpperCase().equals("NEXT") 
-		     && (p+1)*8 > Engine.playerCollection.display.size()) {
-		Engine.clearConsole();
-		System.out.println("You are on the last page!");
-		System.out.println();
-	    }
-	    else if (command.toUpperCase().equals("PREVIOUS")
-		     && p-1 < 0) {
-		Engine.clearConsole();
-		System.out.println("You are on the first page!");
-		System.out.println();
-	    }
-	    else if (command.toUpperCase().equals("ADD")
-		     && deck.size() < 30) {
-		System.out.println("What card do you want to add?");
-		choice = in.nextLine();
-		Engine.clearConsole();
-		if (checkPage(p,choice)) {
-		    if (checkDeck(deck,choice) < 2) {
-			deck.add(getCard(p,choice));
-			System.out.println("Card added!");
-			System.out.println();
+	    else if (command.toUpperCase().equals("ADD")) {
+		if (deck.size() < 30) {
+		    System.out.println("What card do you want to add?");
+		    choice = in.nextLine();
+		    Engine.clearConsole();
+		    if (checkPage(p,choice)) {
+			if (checkDeck(deck,choice) < 2) {
+			    deck.add(getCard(p,choice));
+			    System.out.println("Card added!");
+			    System.out.println();
+			}
+			else {
+			    System.out.println("You already have 2 copies of that card in your deck!");
+			    System.out.println();
+			}
 		    }
 		    else {
-			System.out.println("You already have 2 copies of that card in your deck!");
+			System.out.println("Card does not exist or is not on this page!");
 			System.out.println();
 		    }
 		}
 		else {
-		    System.out.println("Card does not exist or is not on this page!");
+		    Engine.clearConsole();
+		    System.out.println("Deck limit reached!");
 		    System.out.println();
 		}
 	    }
-	    else if (command.toUpperCase().equals("ADD")
-		     && deck.size() == 30) {
-		Engine.clearConsole();
-		System.out.println("Deck limit reached!");
-		System.out.println();
-	    }
 	    else if (command.toUpperCase().equals("DONE")
 		     && deck.size() == 30) {
-		for (int i = 0; i < deck.size(); i++)
-		    Engine.playerDeck.push(deck.get(i));
-		Engine.clearConsole();
-		System.out.println("Deck created!");
-		System.out.println();
-		makingDeck = false;
-	    }
-	    else if (command.toUpperCase().equals("DONE")
-		     && deck.size() < 30) {
-		int yn = -1;
-		Engine.clearConsole();
-		while (yn != 0) {
-		    System.out.println("You do not yet have a complete deck of 30 cards. Would you like to exit?");
-		    System.out.println("Enter yes or no.");
-		    System.out.println("Note: This deck will not be saved.");
-		    choice = in.nextLine();
-		    if (choice.toUpperCase().equals("YES")) {
-			yn = 0;
-			makingDeck = false;
-		    }
-		    else if (choice.toUpperCase().equals("NO"))
-			yn = 0;
-		    else {
-			Engine.clearConsole();
-			System.out.println("Invalid input!");
-			System.out.println();
-		    }
+		if (deck.size() == 30) {
+		    for (int i = 0; i < deck.size(); i++)
+			Engine.playerDeck.push(deck.get(i));
 		    Engine.clearConsole();
+		    System.out.println("Deck created!");
+		    System.out.println();
+		    makingDeck = false;
+		}
+		else {
+		    int yn = -1;
+		    Engine.clearConsole();
+		    while (yn != 0) {
+			System.out.println("You do not yet have a complete deck of 30 cards. Would you like to exit? (YES/NO)");
+			System.out.println("Note: This deck will not be saved.");
+			choice = in.nextLine();
+			if (choice.toUpperCase().equals("YES")) {
+			    yn = 0;
+			    makingDeck = false;
+			}
+			else if (choice.toUpperCase().equals("NO"))
+			    yn = 0;
+			else {
+			    Engine.clearConsole();
+			    System.out.println("Invalid input!");
+			    System.out.println();
+			}
+			Engine.clearConsole();
+		    }
 		}
 	    }
 	    else if (command.toUpperCase().equals("SIZE")) {
@@ -354,26 +348,26 @@ public class Collection {
 		System.out.println("Size: " + deck.size() + " cards");
 		System.out.println();
 	    }
-	    else if (command.toUpperCase().equals("REMOVE") // FINISH REMOVE AND FILTER/UNFILTER AND ADD METHOD TO DISPLAY DECK AND EDIT CREATE DECK FOR CASE IF THERE IS ALREADY ONE DECK
-		     && deck.size() > 0) {
-		System.out.println("What card do you want to remove?");
-		choice = in.nextLine();
-		Engine.clearConsole();
-		if (checkDeck(deck,choice) > 0) {
-		    deck.remove(getCardIndex(p,choice));
-		    System.out.println("Card removed!");
-		    System.out.println();
+	    else if (command.toUpperCase().equals("REMOVE")) {
+		if (deck.size() > 0) {
+		    System.out.println("What card do you want to remove?");
+		    choice = in.nextLine();
+		    Engine.clearConsole();
+		    if (checkDeck(deck,choice) > 0) {
+			removeCard(deck,choice);
+			System.out.println("Card removed!");
+			System.out.println();
+		    }
+		    else {
+			System.out.println("You don't have that card in your deck!");
+			System.out.println();
+		    }
 		}
 		else {
-		    System.out.println("You don't have that card in your deck!");
+		    Engine.clearConsole();
+		    System.out.println("Your deck is empty!");
 		    System.out.println();
 		}
-	    }
-	    else if (command.toUpperCase().equals("REMOVE")
-		     && deck.size() == 0) {
-		Engine.clearConsole();
-		System.out.println("Your deck is empty!");
-		System.out.println();
 	    }
 	    else if (command.toUpperCase().equals("SHOW")) {
 		Engine.clearConsole();
