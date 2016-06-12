@@ -80,4 +80,5 @@ Created method to show deck in home screen and to use the default deck.
 06/11 
 Jiawei Chen 
 second default deck and methods to search txt files
-
+Yikai Wang
+AI with more conditionals and "Direct" command update
