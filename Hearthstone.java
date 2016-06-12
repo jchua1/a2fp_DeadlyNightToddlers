@@ -59,11 +59,47 @@ public class Hearthstone {
 	    } 
 	    else if (choice.toUpperCase().equals("PLAY")) { 
 		Engine.clearConsole();
-		play(); 
+		if (Engine.playerDeck.empty()) {
+		    int yn = -1;
+		    while (yn != 0) {
+			System.out.println("You don't have a deck!");
+			System.out.println("Would you like to use a default deck? (YES/NO)");
+			choice = in.nextLine();
+			if (choice.toUpperCase().equals("YES")) {
+			    yn = 0;
+			    Engine.useDefault();
+			    System.out.println("You are now using the default deck!");
+			    System.out.println();
+			}
+			else if (choice.toUpperCase().equals("NO"))
+			    yn = 0;
+			else {
+			    Engine.clearConsole();
+			    System.out.println("Invalid input!");
+			    System.out.println();
+			}
+		    }
+		}
+		else
+		    play();
 	    }
 	    else if (choice.toUpperCase().equals("MY COLLECTION")) {
 		Engine.clearConsole();
 		collection();
+	    }
+	    else if (choice.toUpperCase().equals("SHOW")) {
+		Engine.clearConsole();
+		if (Engine.playerDeck.empty())
+		    System.out.println("You don't have a deck!");
+		else
+		    System.out.println(Engine.playerDeck);
+		System.out.println();
+	    }
+	    else if (choice.toUpperCase().equals("USE DEFAULT")) {
+		Engine.clearConsole();
+		Engine.useDefault();
+		System.out.println("You are now using the default deck!");
+		System.out.println();
 	    }
 	    else {
 		Engine.clearConsole();
@@ -71,24 +107,6 @@ public class Hearthstone {
 		System.out.println();
 	    }	    
 	}
-    }
-
-    public boolean confirm() { 
-    	System.out.println( "Are you sure? (YES/NO)" );
-
-    	Scanner in = new Scanner( System.in );
-	    
-	String s = in.nextLine();
-
-    	if( s.toUpperCase().equals( "YES" ) ) {
-	    return true;
-    	}
-
-    	return false;
-    }
-
-    public void tutorial() {
-    
     }
 
     public void play() {
@@ -121,6 +139,7 @@ public class Hearthstone {
     public void collection() {
 	Engine.clearConsole();
 	System.out.println("Accessing your collection...");
+	System.out.println();
 	Scanner in = new Scanner(System.in);
 	String command = "";
 	boolean inCollection = true;
@@ -134,27 +153,25 @@ public class Hearthstone {
 		Engine.clearConsole();
 		Engine.helpC();
 	    }
-	    else if (command.toUpperCase().equals("NEXT") 
-		     && (p+1)*8 < Engine.playerCollection.display.size()) {
+	    else if (command.toUpperCase().equals("NEXT")) {
 		Engine.clearConsole();
-		p++;
+		if ((p+1)*6 < Engine.playerCollection.display.size()) {
+		    p++;
+		}
+		else {
+		    System.out.println("You are on the last page!");
+		    System.out.println();
+		}
 	    }
-	    else if (command.toUpperCase().equals("PREVIOUS")
-		     && p-1 >= 0) {
+	    else if (command.toUpperCase().equals("PREVIOUS")) {
 		Engine.clearConsole();
-		p--;
-	    }
-	    else if (command.toUpperCase().equals("NEXT") 
-		     && (p+1)*8 > Engine.playerCollection.display.size()) {
-		Engine.clearConsole();
-		System.out.println("You are on the last page!");
-		System.out.println();
-	    }
-	    else if (command.toUpperCase().equals("PREVIOUS")
-		     && p-1 < 0) {
-		Engine.clearConsole();
-		System.out.println("You are on the first page!");
-		System.out.println();
+		if (p-1 >= 0) {
+		    p--;
+		}
+		else {
+		    System.out.println("You are on the first page!");
+		    System.out.println();
+		}
 	    }
 	    else if (command.toUpperCase().equals("EXIT")) {
 		Engine.clearConsole();
@@ -178,69 +195,39 @@ public class Hearthstone {
 		    in.nextLine();
 		}
 		Engine.playerCollection.filterCost(mana);
+		p = 0;
 		Engine.clearConsole();
 	    }
 	    else if (command.toUpperCase().equals("UNFILTER")) {
 		Engine.playerCollection.unfilter();
+		p = 0;
 		Engine.clearConsole();
 		System.out.println("Filter removed.");
 		System.out.println();
 	    }
-	    else if (command.toUpperCase().equals("CREATE DECK")
-		     && Engine.playerDeck.empty()) {
-		Engine.clearConsole();
-		int choice = -1;
-		while (choice < 0 || choice > 8) {
-		    System.out.println("Choose your hero.");
-		    System.out.println("Warrior | Shaman | Rogue");
-		    System.out.println("Paladin | Hunter | Druid");
-		    System.out.println("Warlock |  Mage  | Priest");
-		    String heroChoice = in.nextLine();
-		    if (heroChoice.toUpperCase().equals("DRUID"))
-			choice = 0;
-		    else if (heroChoice.toUpperCase().equals("HUNTER"))
-			choice = 1;
-		    else if (heroChoice.toUpperCase().equals("MAGE"))
-			choice = 2;
-		    else if (heroChoice.toUpperCase().equals("PALADIN"))
-			choice = 3;
-		    else if (heroChoice.toUpperCase().equals("PRIEST"))
-			choice = 4;
-		    else if (heroChoice.toUpperCase().equals("ROGUE"))
-			choice = 5;
-		    else if (heroChoice.toUpperCase().equals("SHAMAN"))
-			choice = 6;
-		    else if (heroChoice.toUpperCase().equals("WARLOCK"))
-			choice = 7;
-		    else if (heroChoice.toUpperCase().equals("WARRIOR"))
-			choice = 8;
-		    else {
-			Engine.clearConsole();
-			System.out.println("Invalid choice!");
-			System.out.println();
-		    }
-		}
-		Engine.playerCollection.makeDeck(choice);
-	    }
-	    else if (command.toUpperCase().equals("CREATE DECK")
-		     && !(Engine.playerDeck.empty())) {
-		int yn = -1;
-		Engine.clearConsole();
-		while (yn != 0) {
-		    System.out.println("You already have a deck.");
-		    System.out.println("Do you want to delete it and create a new one?");
-		    System.out.println("Enter yes or no.");
-		    command = in.nextLine();
-		    if (command.toUpperCase().equals("YES")) {
-			yn = 0;
-			Engine.playerDeck = new Stack<Card>();
-		    }
-		    else if (command.toUpperCase().equals("NO"))
-			yn = 0;
-		    else {
-			Engine.clearConsole();
-			System.out.println("Invalid input!");
-			System.out.println();
+	    else if (command.toUpperCase().equals("CREATE DECK")) {
+		if (Engine.playerDeck.empty())
+		    Engine.chooseHero();
+		else {
+		    int yn = -1;
+		    Engine.clearConsole();
+		    while (yn != 0) {
+			System.out.println("You already have a deck.");
+			System.out.println("Do you want to delete it and create a new one? (YES/NO)");
+			command = in.nextLine();
+			if (command.toUpperCase().equals("YES")) {
+			    yn = 0;
+			    Engine.playerDeck = new Stack<Card>();
+			    Engine.chooseHero();
+			}
+			else if (command.toUpperCase().equals("NO"))
+			    yn = 0;
+			else {
+			    Engine.clearConsole();
+			    System.out.println("Invalid input!");
+			    System.out.println();
+			    Engine.clearConsole();
+			}
 		    }
 		}
 	    }
