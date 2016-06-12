@@ -12,6 +12,64 @@ public class Collection {
 	cards = new ArrayList<Card>();
 	display = cards;
     }
+    
+    public Card getMini (String s) { 
+	try {
+	    FileReader reader = new FileReader("Cards/Minions.txt");
+	    BufferedReader br = new BufferedReader(reader);
+	    String line, name;
+	    int mana, attack, health, clas;
+	    while ((line = br.readLine()) != null) {
+		if (line.equals("{")) {
+		    line = br.readLine();
+		    if (line.equals(s)) {
+			name = s;
+			mana = Integer.parseInt(br.readLine());
+			attack = Integer.parseInt(br.readLine());
+			health = Integer.parseInt(br.readLine());
+			clas = Integer.parseInt(br.readLine());
+			Card x = new Minion(name,mana,attack,health,clas);
+			//System.out.println(name);
+			return x;
+		    }
+		}
+	    }
+	    reader.close();
+	}
+	catch (IOException e) {
+	    e.printStackTrace();
+	}
+	return null;
+    }
+    
+    public Card getSpell (String s) {
+
+	try {
+	    FileReader reader = new FileReader("Cards/Spells.txt");
+	    BufferedReader br = new BufferedReader(reader);
+	    String line, name;
+	    int mana, clas;
+	    while ((line = br.readLine()) != null) {
+		if (line.equals("{")) {
+		    line = br.readLine(); 
+		    if (line.equals(s)) {
+			name = s;
+			mana = Integer.parseInt(br.readLine());
+			clas = Integer.parseInt(br.readLine());
+			Card x = new Spell(name,mana,clas);
+			//System.out.println (name);
+			return x;
+		    }
+		}
+	    }
+	    reader.close();
+	}
+	catch (IOException e) {
+	    e.printStackTrace();
+	}
+	return null;
+
+    }
 
     public void addMinions() {
 	try {
