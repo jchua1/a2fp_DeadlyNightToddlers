@@ -54,6 +54,11 @@ Edited board display.
 Created methods to display and view card collection.
 Created methods to make a deck.
 
+
+06/10
+Jiawei Chen 
+made concede option 
+
 06/10
 Jason Chua
 Added more methods for deck creation to show deck and remove cards.
@@ -72,5 +77,7 @@ Created condition for trying to make a deck when there is already an existing de
 Wrote text file with names of the cards in the default deck.
 Created method to show deck in home screen and to use the default deck.
 
-
+06/11 
+Jiawei Chen 
+second default deck and methods to search txt files
 
