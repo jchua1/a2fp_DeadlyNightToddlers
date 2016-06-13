@@ -262,10 +262,15 @@ public class Hearthstone {
     }
 	    
     public static void winCond () { 
-	if (Engine.playerHero.health == 0)
+	if (Engine.playerHero.health <= 0) {
 	    System.out.println ("You have lost the match!"); 
-	else if (Engine.opponentHero.health == 0)
-	    System.out.println ("You have won the match!"); 
+	    Engine.reset();
+	}
+	else if (Engine.opponentHero.health <= 0) {
+	    System.out.println ("You have won the match!");
+	    Engine.reset();
+	    }
+	     
     }
 
     public static void main( String[] args ) {

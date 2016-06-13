@@ -394,4 +394,25 @@ public class Engine {
 
     	}
     }
+
+    public static void reset() {
+    	playerCollection = new Collection();
+
+    	playerDeck = new Stack<Card>();
+    	opponentDeck = new Stack<Card>();
+
+    	playerHand = new ArrayList<Card>();
+    	opponentHand = new ArrayList<Card>();
+
+    	pTurnMana = 1;
+    	playerMana = 1;
+    	oTurnMana = 1;
+    	opponentMana = 1;
+
+    	playerWeapon = new Card();
+    	opponentWeapon = new Card();
+
+    	opponentMinions = new ArrayList<Card>();
+    	playerMinions = new ArrayList<Card>();
+    }
 }
