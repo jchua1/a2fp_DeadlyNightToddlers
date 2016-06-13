@@ -86,3 +86,8 @@ AI with more conditionals and "Direct" command update
 06/12
 Yikai Wang
 aiMove() implemented. Help menu adjusted. Engine.reset() added for replayability.
+
+Jason Chua
+Finished game mechanics (Mulligan, Fatigue, Card Limit, Shuffling).
+Finished player move options.
+Fixed bugs.
