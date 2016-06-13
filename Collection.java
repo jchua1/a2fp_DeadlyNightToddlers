@@ -317,8 +317,7 @@ public class Collection {
 		    System.out.println();
 		}
 	    }
-	    else if (command.toUpperCase().equals("DONE")
-		     && deck.size() == 30) {
+	    else if (command.toUpperCase().equals("DONE")) {
 		if (deck.size() == 30) {
 		    for (int i = 0; i < deck.size(); i++)
 			Engine.playerDeck.push(deck.get(i));
@@ -331,7 +330,7 @@ public class Collection {
 		    int yn = -1;
 		    Engine.clearConsole();
 		    while (yn != 0) {
-			System.out.println("You do not yet have a complete deck of 30 cards. Would you like to exit? (YES/NO)");
+			System.out.println("You do not yet have a complete deck of 30 cards.\n Would you like to exit? (YES/NO)");
 			System.out.println("Note: This deck will not be saved.");
 			choice = in.nextLine();
 			if (choice.toUpperCase().equals("YES")) {

@@ -62,7 +62,7 @@ public class Engine {
 		Card c = getCardC(choice,playerHand);
 		if ((c.manaCost <= pTurnMana) && (c != null)) {
 		    pTurnMana -= c.manaCost;
-		    Engine.clearConsole();
+		    clearConsole();
 		    System.out.println("You played " + c + "!");
 		    System.out.println(c.getStats());
 		    playerMinions.add(c);
@@ -70,7 +70,7 @@ public class Engine {
 		    System.out.println();
 		}
 		else {
-		    Engine.clearConsole();
+		    clearConsole();
 		    System.out.println("You don't have enough mana to play " + c + "!");
 		    System.out.println();
 		}
@@ -91,62 +91,96 @@ public class Engine {
 		    if (ch <= opponentMinions.size() && ch >= 0) {
 			if (ch == 0) {
 			    opponentHero.lowerHealth(caster.attack);
-			    Engine.clearConsole();
+			    clearConsole();
 			    System.out.println("You attacked the enemy hero with " + caster + "!");
 			    System.out.println();
 			}
 			else {
 			    Card dest = opponentMinions.get(ch-1);
 			    caster.direct(dest);
-			    Engine.clearConsole();
+			    clearConsole();
 			    System.out.println("You attacked " + dest + " with " + caster + "!");
 			    System.out.println();
 			}
 		    }
 		    else {
-			Engine.clearConsole();
+			clearConsole();
 			System.out.println("There is no minion at that position!");
 			System.out.println();
 		    }
 		}
 		else {
-		    Engine.clearConsole();
+		    clearConsole();
 		    System.out.println("Give that minion a turn to get ready!");
 		    System.out.println();
 		}
 	    }
 	    else {
-		Engine.clearConsole();
+		clearConsole();
 		System.out.println("There is no minion at that position!");
 		System.out.println();
 	    }
 	}
 	else if(input.toUpperCase().equals("INFO")) {
-	    System.out.println("Get the information of what card?");
+	    System.out.println("Choose where to select a card from. (Hand, Minions, Opponent Minions)");
 	    choice = in.nextLine();
-	    Engine.clearConsole();
-	    if (check(playerMinions,choice)) {
-		Card c = getCard(choice,playerMinions);
-		System.out.println("Info for " + c + ": " + c.getStats());
-		System.out.println();
+	    int ch;
+	    if (choice.toUpperCase().equals("HAND")) {
+		System.out.println("Get the information of a card at which position? (1-10)");
+		ch = in.nextInt();
+		in.nextLine();
+		if (ch <= playerHand.size() && ch >= 1) {
+		    Card c = playerHand.get(ch-1);
+		    clearConsole();
+		    System.out.println("Info for " + c + ": " + c.getStats());
+		    System.out.println();
+		}
+		else {
+		    clearConsole();
+		    System.out.println("There is no minion at that position!");
+		    System.out.println();
+		}
 	    }
-	    else if (check(playerHand,choice)) {
-		Card c = getCard(choice,playerHand);
-		System.out.println("Info for " + c + ": " + c.getStats());
-		System.out.println();
+	    else if (choice.toUpperCase().equals("MINIONS")) {
+		System.out.println("Get the information of a card at which position? (1-7)");
+		ch = in.nextInt();
+		in.nextLine();
+		if (ch <= playerMinions.size() && ch >= 1) {
+		    Card c = playerMinions.get(ch-1);
+		    clearConsole();
+		    System.out.println("Info for " + c + ": " + c.getStats());
+		    System.out.println();
+		}
+		else {
+		    clearConsole();
+		    System.out.println("There is no minion at that position!");
+		    System.out.println();
+		}
 	    }
-	    else if (check(opponentMinions,choice)) {
-		Card c = getCard(choice,opponentMinions);
-		System.out.println("Info for " + c + ": " + c.getStats());
-		System.out.println();
+	    else if (choice.toUpperCase().equals("OPPONENT MINIONS")) {
+		System.out.println("Get the information of a card at which position? (1-7)");
+		ch = in.nextInt();
+		in.nextLine();
+		if (ch <= opponentMinions.size() && ch >= 1) {
+		    Card c = opponentMinions.get(ch-1);
+		    clearConsole();
+		    System.out.println("Info for " + c + ": " + c.getStats());
+		    System.out.println();
+		}
+		else {
+		    clearConsole();
+		    System.out.println("There is no minion at that position!");
+		    System.out.println();
+		}
 	    }
 	    else {
-		System.out.println("That card is not in your hand or on the field!");
+		clearConsole();
+		System.out.println("Invalid input!");
 		System.out.println();
 	    }
 	}
 	else if (input.toUpperCase().equals("END")) {
-	    Engine.clearConsole();
+	    clearConsole();
 	    System.out.println ("Turn end!");
 	    System.out.println();
 	}
@@ -161,7 +195,7 @@ public class Engine {
 	    helpG();
 	}
 	else {
-	    Engine.clearConsole();
+	    clearConsole();
 	    System.out.println("Confused? Enter 'help' for help.");
 	    System.out.println();
 	}
@@ -251,7 +285,7 @@ public class Engine {
 			helpD();
 		}
 	    else {
-		Engine.clearConsole();
+		clearConsole();
 		System.out.println("Invalid choice! Confused? Enter 'help' for help.");
 		System.out.println();
 	    }
