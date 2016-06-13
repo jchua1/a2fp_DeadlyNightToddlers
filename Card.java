@@ -18,8 +18,19 @@ public class Card {
     }
 
     public void direct(Card target) {
-	target.lowerHealth(attack);
-	lowerHealth(target.attack);
+	if ((!(target instanceof Hero)) && (!(((Hero)target).armor > 0))) {
+	    target.lowerHealth(attack);
+	    lowerHealth(target.attack);
+	}
+	else {
+	    int holder = ((Hero)target).armor; 
+	    int holder2 = attack;
+	    ((Hero) target).armor -= attack; 
+	    holder2 -= holder;
+	    if (((Hero)target).armor > 0) { 
+		target.lowerHealth(holder2); 
+	    }
+	}
     }
 
     public String getStats() {
