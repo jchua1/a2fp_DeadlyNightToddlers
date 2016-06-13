@@ -29,7 +29,6 @@ public class Hearthstone {
 	Engine.playerCollection.addWeapons();
 	Engine.playerCollection.organize();
 	Engine.oppDefault();
-	Engine.opponentMinions.add(Engine.opponentDeck.get(0));
 		
 	while (!entered) {
 	    System.out.println("Press enter to begin.");

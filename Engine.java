@@ -189,8 +189,9 @@ public class Engine {
 	    if (pTurnMana < 2) { 
 		System.out.println("You don't have enough mana!"); 
 	    }
-	    else
+	    else {
 		playerHero.power();
+		}
 	}
 	else if (input.toUpperCase().equals("CONCEDE")) {
 	    playerHero.health = 0;
@@ -446,7 +447,7 @@ public class Engine {
 
 
 	    if( (opponentMana > 2) || ((opponentMana <= 2) && (Math.random() < 0.5)) ) {
-		Card c = minionMana( opponentMana, opponentMinions );
+		Card c = minionMana( opponentMana, opponentHand );
 		opponentMinions.add(c);
 		opponentHand.remove(c);
 		opponentMana-=c.manaCost;
@@ -455,6 +456,7 @@ public class Engine {
 
 	    if( opponentMana >= 2 ) {
 	    	opponentHero.power();
+	    	System.out.println( opponentHero.name + " used hero power!" );
 	    }
 
 	    if( playerMinions.size() == 0 ) {
