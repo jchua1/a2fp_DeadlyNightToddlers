@@ -27,8 +27,9 @@ public class Card {
 	    int holder2 = attack;
 	    ((Hero) target).armor -= attack; 
 	    holder2 -= holder;
-	    if (((Hero)target).armor > 0) { 
+	    if (((Hero)target).armor < 0) { 
 		target.lowerHealth(holder2); 
+		((Hero)target).armor = 0;
 	    }
 	}
     }
