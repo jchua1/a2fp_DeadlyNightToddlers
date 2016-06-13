@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Hero extends Card {
     public int armor, power;
 
@@ -42,6 +44,37 @@ public class Hero extends Card {
 	health = 30;
     }	
 
+    public static void power (Hero x) { 
+	Engine.pTurnMana -= 2;
+	if (x.name.equals("Druid")) {
+	    Engine.playerHero.armor += 1; 
+	    Engine.playerHero.attack += 1;
+	}
+	else if (x.name.equals("Hunter")) {
+	    Engine.opponentHero.health -= 2; 
+	}
+	else if (x.name.equals("Mage")) { 
+	    System.out.println("Type an index or '8' to direct hero power at.");
+	    System.out.println("Type 8 if you want to direct hero power at opponent.");
+	    Scanner in = new Scanner( System.in );	
+	    int choice = in.nextInt();
+	    if (choice == 8) { 
+		Engine.opponentHero.health -= 1; 
+	    }
+	    else { 
+		Card dest = Engine.opponentMinions.get(choice-1);
+		dest.health -= 1; 
+	    }
+	}
+	else if (x.name.equals("Priest")) { 
+	    Engine.playerHero.health += 2; 
+	}
+	else if (x.name.equals("Warrior")) { 
+	    Engine.playerHero.armor += 2; 
+	}
+	System.out.println ("Hero power has been used!"); 
+    }
+	    
     public String toString() {
 	return name;
     }
