@@ -245,7 +245,7 @@ public class Engine {
 		choice = 7;
 	    else if (heroChoice.toUpperCase().equals("WARRIOR"))
 		choice = 8;
-		else if (heroChoice.toUpperCase().equals("help") || heroChoice.equals("?")) {
+		else if (heroChoice.toUpperCase().equals("HELP") || heroChoice.equals("?")) {
 			helpD();
 		}
 	    else {
@@ -292,7 +292,9 @@ public class Engine {
 	s += "Current commands:\n";
 	s += "PLAY: Start a match!\n";
 	s += "EXIT: Quit Game!\n"; 
-	s += "MY COLLECTION: Check out your collection of cards!"; 
+	s += "MY COLLECTION: Check out your collection of cards!\n"; 
+	s += "SHOW: Look at your current deck!\n"; 
+	s += "USE DEFAULT: Use the default deck!\n";
 	System.out.println(s);
     }
     
@@ -303,9 +305,26 @@ public class Engine {
 	s += "NEXT: Check your next page of available cards.\n"; 
 	s += "PREVIOUS: Check your previous page of available cards.\n"; 
 	s += "EXIT: Exit your collection.\n"; 
+	s += "FILTER: Filters cards by mana cost.\n";
+	s += "UNFILER: Returns to default display.\n";
+	s += "CREATE DECK: Creates a new deck, can only have one saved deck at a time.\n";
 	System.out.println (s);
     }
 
+ 
+    //commands used while making a deck
+    public static void helpCC () { 
+	String s = ""; 
+	s += "Current commands:\n"; 
+	s += "NEXT: Check your next page of available cards.\n"; 
+	s += "PREVIOUS: Check your previous page of available cards.\n";
+	s += "ADD: Add card on the page into deck.\n"; 
+	s += "DONE: Finish editing the deck (must have 30 cards).\n"; 
+	s += "SIZE: Returns the size of deck you're currently editing.\n"; 
+	s += "REMOVE: Remove a card from your deck.\n";
+	System.out.println(s);
+    }
+    
     //commands to be used while in game 
     public static void helpG(){
 	String s = ""; 
@@ -361,12 +380,19 @@ public class Engine {
 		System.out.println( opponentHero.name + " used " + c.name + " for " + c.manaCost + "." );
 	    }
     		
-	    while( dmg >=  minionLeastHealth( playerMinions ).health ) {
+	    while( playerMinions.size() > 0 && dmg >=  minionLeastHealth( playerMinions ).health ) {
 		Card c = minionLeastHealth( playerMinions );
 		c.lowerHealth(dmg);
 		playerMinions.remove(c);
 		System.out.println( opponentHero.name + " defeated " + c.name + " with " + dmg + "!" );
 	    }
+
+	    if( playerMinions.size() == 0 ) {
+	    	dmg = calcTotalDmg( opponentMinions ) + opponentHero.attack;
+	    	playerHero.lowerHealth( dmg );
+	    	System.out.println( opponentHero.name + " attacked " + playerHero.name + " with " + dmg + "!" );
+	    }
+
     	}
     }
 }
