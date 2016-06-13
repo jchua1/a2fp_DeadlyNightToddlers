@@ -131,6 +131,7 @@ public class Hearthstone {
 	    	Engine.draw(Engine.opponentHand,Engine.opponentDeck,1);
 
 	    while (!choice.toUpperCase().equals("END")) {
+		Engine.clearConsole();
 		Graphics.showBoard();
 		System.out.println ("What will you do next?");
 		choice = in.nextLine();
