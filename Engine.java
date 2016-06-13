@@ -387,6 +387,23 @@ public class Engine {
     	}
 
     	else {
+
+    	ArrayList<Card> minionNotused = copyArraylist( opponentMinions );
+    	dmg = calcTotalDmg( minionNotused );
+
+	    while( playerMinions.size() > 0 && dmg >=  minionLeastHealth( playerMinions ).health ) {
+		Card c = minionLeastHealth( playerMinions );
+
+		ArrayList<Card> usedMinions = optimalMinions( c.health, minionNotused );
+		dmg = calcTotalDmg( usedMinions );
+		minionNotused = deleteDups( usedMinions, minionNotused );
+
+		c.lowerHealth(dmg);
+		playerMinions.remove(c);
+		System.out.println( opponentHero.name + "'s minions defeated " + c.name + " with " + dmg + "!" );
+	    }
+
+
 	    if( (opponentMana > 2) || ((opponentMana <= 2) && (Math.random() < 0.5)) ) {
 		Card c = minionMana( opponentMana, opponentMinions );
 		opponentMinions.add(c);
@@ -394,20 +411,50 @@ public class Engine {
 		opponentMana-=c.manaCost;
 		System.out.println( opponentHero.name + " used " + c.name + " for " + c.manaCost + "." );
 	    }
-    		
-	    while( playerMinions.size() > 0 && dmg >=  minionLeastHealth( playerMinions ).health ) {
-		Card c = minionLeastHealth( playerMinions );
-		c.lowerHealth(dmg);
-		playerMinions.remove(c);
-		System.out.println( opponentHero.name + " defeated " + c.name + " with " + dmg + "!" );
-	    }
 
 	    if( playerMinions.size() == 0 ) {
+	    	dmg = calcTotalDmg( minionNotused ) + opponentHero.attack;
 	    	playerHero.lowerHealth( dmg );
 	    	System.out.println( opponentHero.name + " attacked " + playerHero.name + " with " + dmg + "!" );
 	    }
 
     	}
+    }
+
+    public static ArrayList<Card> copyArraylist( ArrayList<Card> a ) {
+    	ArrayList<Card> copy = new ArrayList<Card>();
+    	for( Card c : a ) { copy.add(c); }
+    	return copy;
+    }
+
+    public static ArrayList<Card> deleteDups( ArrayList<Card> orig, ArrayList<Card> dup ) {
+    	for(int i = 0; i < orig.size(); i++) {
+    		int n = 0;
+    		while( n < dup.size() ) {
+    			if( orig.get(i).name.equals( dup.get(n).name ) ){
+    				dup.remove(n);
+    				break;
+    			}
+    			else {
+    				n++;
+    			}
+    		}
+    	}
+    	return dup;
+    }
+
+    public static ArrayList<Card> optimalMinions( int health, ArrayList<Card> a ) {
+    	for( int i = 0; i < a.size(); i++ ) {
+    		ArrayList<Card> copy = copyArraylist( a );
+    		copy.remove(i);
+    		if( possibleKill( health, copy ) ) return optimalMinions( health, copy );
+    	}
+
+    	return a;
+    }
+
+    public static boolean possibleKill( int health, ArrayList<Card> a ) {
+    	return calcTotalDmg( a ) >= health;
     }
 
     public static void reset() {
