@@ -350,12 +350,18 @@ public class Engine {
 		System.out.println( opponentHero.name + " used " + c.name + " for " + c.manaCost + "." );
 	    }
     		
-	    while( dmg >=  minionLeastHealth( playerMinions ).health ) {
+	    while( playerMinions.size() > 0 && dmg >=  minionLeastHealth( playerMinions ).health ) {
 		Card c = minionLeastHealth( playerMinions );
 		c.lowerHealth(dmg);
 		playerMinions.remove(c);
 		System.out.println( opponentHero.name + " defeated " + c.name + " with " + dmg + "!" );
 	    }
+
+	    if( playerMinions.size() == 0 ) {
+	    	playerHero.lowerHealth( dmg );
+	    	System.out.println( opponentHero.name + " attacked " + playerHero.name + " with " + dmg + "!" );
+	    }
+
     	}
     }
 }

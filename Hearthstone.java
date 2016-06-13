@@ -120,8 +120,11 @@ public class Hearthstone {
 	Engine.draw(Engine.playerHand,Engine.playerDeck,3);
 	Engine.draw(Engine.opponentHand,Engine.opponentDeck,4);
 	while (Engine.opponentHero.health > 0 && Engine.playerHero.health > 0) {
-	    Engine.draw(Engine.playerHand,Engine.playerDeck,1);
-	    Engine.draw(Engine.opponentHand,Engine.opponentDeck,1);
+		if( Engine.playerHand.size() < 10 )
+	    	Engine.draw(Engine.playerHand,Engine.playerDeck,1);
+	    if( Engine.opponentHand.size() < 10 )
+	    	Engine.draw(Engine.opponentHand,Engine.opponentDeck,1);
+
 	    while (!choice.toUpperCase().equals("END")) {
 		Graphics.showBoard();
 		System.out.println ("What will you do next?");
@@ -131,11 +134,20 @@ public class Hearthstone {
 		    choice = "end"; 
 		}
 	    }
+
 	    Engine.checkMinions(Engine.playerMinions);
+
 	    if( Engine.playerMana < 10 ) {
 	    	Engine.playerMana += 1;
 		Engine.pTurnMana = Engine.playerMana;
 	    }
+
+	    Engine.aiMove();
+	    if( Engine.opponentMana < 10 ) {
+	    	Engine.opponentMana += 1;
+		Engine.oTurnMana = Engine.opponentMana;
+	    }
+
 	    choice = "";
 	    winCond();
 	}
