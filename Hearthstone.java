@@ -122,13 +122,10 @@ public class Hearthstone {
 	Scanner in = new Scanner( System.in );
 	String choice = "";
 	Engine.shuffle(Engine.playerDeck);
-	Engine.draw(Engine.playerHand,Engine.playerDeck,3);
-	Engine.draw(Engine.opponentHand,Engine.opponentDeck,4);
+	Engine.shuffle(Engine.opponentDeck);
+	Engine.mulligan();
 	while (Engine.opponentHero.health > 0 && Engine.playerHero.health > 0) {
-		if( Engine.playerHand.size() < 10 )
-	    	Engine.draw(Engine.playerHand,Engine.playerDeck,1);
-	    if( Engine.opponentHand.size() < 10 )
-	    	Engine.draw(Engine.opponentHand,Engine.opponentDeck,1);
+	    Engine.draw(Engine.playerHand,Engine.playerDeck,1);
 
 	    while (!choice.toUpperCase().equals("END")) {
 		Graphics.showBoard();
@@ -146,8 +143,8 @@ public class Hearthstone {
 	    	Engine.playerMana += 1;
 		Engine.pTurnMana = Engine.playerMana;
 	    }
-
-	    Engine.aiMove();
+	    Engine.draw(Engine.opponentHand,Engine.opponentDeck,1);
+	    //Engine.aiMove();
 	    if( Engine.opponentMana < 10 ) {
 	    	Engine.opponentMana += 1;
 		Engine.oTurnMana = Engine.opponentMana;

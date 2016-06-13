@@ -18,11 +18,14 @@ public class Engine {
     public static int oTurnMana = 1;
     public static int opponentMana = 1;
 
-    public static Card playerWeapon = new Card();
-    public static Card opponentWeapon = new Card();
+    //public static Card playerWeapon = new Card();
+    //public static Card opponentWeapon = new Card();
 
     public static ArrayList<Card> opponentMinions = new ArrayList<Card>();
     public static ArrayList<Card> playerMinions = new ArrayList<Card>();
+
+    public static int playerFatigue = 1;
+    public static int opponentFatigue = 1;
 
     public static String defaultc = "\u001B[0m";
     public static String blackc = "\u001B[30m";
@@ -216,6 +219,19 @@ public class Engine {
 	}
     }
 
+    public static void mulligan() {
+	if (Math.random() < 0.5) {
+	    draw(playerHand,playerDeck,2);
+	    draw(opponentHand,opponentDeck,3);
+	    opponentMana = oTurnMana = 2;
+	}
+	else {
+	    draw(playerHand,playerDeck,3);
+	    draw(opponentHand,opponentDeck,2);
+	    playerMana = pTurnMana = 2;
+	}
+    }
+		    
     public static void checkMinions(ArrayList<Card> minions) {
 	for (int i = 0; i < minions.size(); i++)
 	    minions.get(i).time--;
@@ -231,7 +247,7 @@ public class Engine {
 		    playerDeck.push(getCardC(line,playerCollection.cards));
 	    }
 	    reader.close();
-	    playerHero = new Hero(2);
+	    playerHero = new Hero(8);
 	}
 	catch (IOException e) {
 	    e.printStackTrace();
@@ -327,8 +343,26 @@ public class Engine {
     }
 
     public static void draw(ArrayList<Card> hand, Stack<Card> deck, int x) {
-	for (int i = 0; i < x; i++)
-	    hand.add(deck.pop());
+	for (int i = 0; i < x; i++) {
+	    if (!deck.empty()) {
+		if (hand.size() < 10)
+		    hand.add(deck.pop());
+		else
+		    deck.pop();
+	    }
+	    else {
+		if (hand == playerHand) {
+		    playerHero.lowerHealth(playerFatigue);
+		    System.out.println("You took " + playerFatigue + " damage from fatigue!");
+		    playerFatigue++;
+		}
+		else {
+		    opponentHero.lowerHealth(opponentFatigue);
+		    System.out.println("Opponent took " + opponentFatigue + " damage from fatigue!");
+		    opponentFatigue++;
+		}
+	    }
+	}
     }
 
     public final static void clearConsole(){
