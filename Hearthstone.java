@@ -161,6 +161,7 @@ public class Hearthstone {
 	Engine.clearConsole();
 	System.out.println("Accessing your collection...");
 	System.out.println();
+	Engine.playerCollection.unfilter();
 	Scanner in = new Scanner(System.in);
 	String command = "";
 	boolean inCollection = true;

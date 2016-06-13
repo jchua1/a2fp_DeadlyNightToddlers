@@ -229,9 +229,8 @@ public class Engine {
 	    BufferedReader br = new BufferedReader(reader);
 	    String line;
 	    while ((line = br.readLine()) != null) {
-		Card c = getCardC(line,playerCollection.cards);
 		for (int i = 0; i < 2; i++)
-		    playerDeck.push(c);
+		    playerDeck.push(getCardC(line,playerCollection.cards));
 	    }
 	    reader.close();
 	    playerHero = new Hero(2);
@@ -325,6 +324,7 @@ public class Engine {
     }
 
     public static void draw(ArrayList<Card> hand, Stack<Card> deck, int x) {
+	System.out.println(deck.empty());
 	for (int i = 0; i < x; i++)
 	    hand.add(deck.pop());
     }
@@ -507,8 +507,6 @@ public class Engine {
     }
 
     public static void reset() {
-    	playerCollection = new Collection();
-
     	playerDeck = new Stack<Card>();
     	opponentDeck = new Stack<Card>();
 
