@@ -18,11 +18,7 @@ public class Card {
     }
 
     public void direct(Card target) {
-	if ((!(target instanceof Hero)) && (!(((Hero)target).armor > 0))) {
-	    target.lowerHealth(attack);
-	    lowerHealth(target.attack);
-	}
-	else {
+	if ( (target instanceof Hero) && (((Hero)target).armor > 0) ) {
 	    int holder = ((Hero)target).armor; 
 	    int holder2 = attack;
 	    ((Hero) target).armor -= attack; 
@@ -31,6 +27,11 @@ public class Card {
 		target.lowerHealth(holder2); 
 		((Hero)target).armor = 0;
 	    }
+	}
+
+	else {
+		target.lowerHealth(attack);
+	    lowerHealth(target.attack);
 	}
     }
 

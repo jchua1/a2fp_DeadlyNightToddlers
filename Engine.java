@@ -454,8 +454,17 @@ public class Engine {
 
 		minionNotused = notUsed();
 
-		checkBoard();
-		System.out.println( opponentHero.name + "'s minions defeated " + c.name + " with " + dmg + "!" );
+		playerMinions.remove(c);
+		
+		int n = 0;
+		while( n < opponentMinions.size() ) {
+			if( opponentMinions.get(n).health <= 0 )
+				opponentMinions.remove(n);
+			else
+				n++;
+		}
+
+		System.out.println( opponentHero.name + "'s minions attacked " + c.name + " with " + dmg + "!" );
 	    }
 
 	    checkMinions( opponentMinions );
@@ -488,8 +497,8 @@ public class Engine {
     	for( int i = 0; i < opponentMinions.size(); i++ ) {
     		int n = 0;
     		while( n < usedCards.size() ) {
-    			if( usedCards.get(n).name.equals( opponentMinions.get(i) ) ) {
-    				opponentMinions.get(i).direct(c);
+    			if( usedCards.get(n).name.equals( opponentMinions.get(i).name ) ) {
+    				opponentMinions.get(i).health -= c.attack;
     				opponentMinions.get(i).time = 1;
     				usedCards.remove(n);
     			}
