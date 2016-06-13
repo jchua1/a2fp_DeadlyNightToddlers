@@ -363,6 +363,7 @@ public class Collection {
 			System.out.println();
 		    }
 		}
+		
 		else {
 		    Engine.clearConsole();
 		    System.out.println("Your deck is empty!");
@@ -374,6 +375,12 @@ public class Collection {
 		System.out.println(deck);
 		System.out.println();
 	    }
+	    else if (command.toUpperCase().equals("HELP") || 
+		     command.equals("?")) { 
+		Engine.clearConsole(); 
+		Engine.helpCC(); 
+	    }
+
 	    else {
 		Engine.clearConsole();
 		System.out.println("Invalid command!");

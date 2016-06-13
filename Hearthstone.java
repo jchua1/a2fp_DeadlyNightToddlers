@@ -102,6 +102,9 @@ public class Hearthstone {
 	    }
 	    else if (choice.toUpperCase().equals("USE DEFAULT")) {
 		Engine.clearConsole();
+		while (!Engine.playerDeck.empty()) { 
+		    Engine.playerDeck.pop(); 
+		}
 		Engine.useDefault();
 		System.out.println("You are now using the default deck!");
 		System.out.println();
@@ -166,7 +169,8 @@ public class Hearthstone {
 	    System.out.println();
 	    System.out.println("What would you like to do?");
 	    command = in.nextLine();
-	    if (command.toUpperCase().equals("HELP")){ 
+	    if (command.toUpperCase().equals("HELP") ||
+		command.equals("?")){ 
 		Engine.clearConsole();
 		Engine.helpC();
 	    }
