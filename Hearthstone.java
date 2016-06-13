@@ -121,6 +121,7 @@ public class Hearthstone {
     public void play() {
 	Scanner in = new Scanner( System.in );
 	String choice = "";
+	Engine.shuffle(Engine.playerDeck);
 	Engine.draw(Engine.playerHand,Engine.playerDeck,3);
 	Engine.draw(Engine.opponentHand,Engine.opponentDeck,4);
 	while (Engine.opponentHero.health > 0 && Engine.playerHero.health > 0) {
