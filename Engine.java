@@ -185,7 +185,10 @@ public class Engine {
 	    System.out.println();
 	}
 	else if (input.toUpperCase().equals("POWER")) {
-	    
+	    if (pTurnMana < 2) { 
+		System.out.println("You don't have enough mana!"); 
+	    }
+	    Hero.power(playerHero);
 
 	}
 	else if (input.toUpperCase().equals("CONCEDE")) {
