@@ -333,8 +333,7 @@ public class Engine {
 	s += "INFO: show the stats and description of any card! \n"; 
 	s += "END: End your turn!\n"; 
 	s += "POWER: Use your hero power!\n"; 
-	s += "CONCEDE: Forfeit the match.\n"; 
-	s += "SETTINGS: \n"; 
+	s += "CONCEDE: Forfeit the match.\n";
 	System.out.println (s);
     }
     
@@ -394,5 +393,26 @@ public class Engine {
 	    }
 
     	}
+    }
+
+    public static void reset() {
+    	playerCollection = new Collection();
+
+    	playerDeck = new Stack<Card>();
+    	opponentDeck = new Stack<Card>();
+
+    	playerHand = new ArrayList<Card>();
+    	opponentHand = new ArrayList<Card>();
+
+    	pTurnMana = 1;
+    	playerMana = 1;
+    	oTurnMana = 1;
+    	opponentMana = 1;
+
+    	playerWeapon = new Card();
+    	opponentWeapon = new Card();
+
+    	opponentMinions = new ArrayList<Card>();
+    	playerMinions = new ArrayList<Card>();
     }
 }
