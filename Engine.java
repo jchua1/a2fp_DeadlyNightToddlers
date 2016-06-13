@@ -79,23 +79,32 @@ public class Engine {
 	    }
 	}
 	else if (input.toUpperCase().equals("ATTACK")) {
-	    System.out.println("What will you attack with?");
-	    choice = in.nextLine();
-	    if (check(playerMinions,choice)) {
-		Card caster = getCard(choice,playerMinions);
+	    System.out.println("Attack with card at which position? (1-7)");
+	    int ch = in.nextInt();
+	    in.nextLine();
+	    if (ch <= playerMinions.size() && ch >= 1) {
+		Card caster = playerMinions.get(ch-1);
 		if (caster.time <= 0) {
-		    System.out.println("What will you attack?");
-		    choice = in.nextLine();
-		    if (check(opponentMinions,choice)) {
-			Card dest = getCard(choice,opponentMinions);
-			caster.direct(dest);
-			Engine.clearConsole();
-			System.out.println("You attacked " + dest + " with " + caster + "!");
-			System.out.println();
+		    System.out.println("Attack card at which position? (0-7: Entering 0 attacks the enemy hero)");
+		    ch = in.nextInt();
+		    if (ch <= opponentMinions.size() && ch >= 0) {
+			if (ch == 0) {
+			    opponentHero.lowerHealth(caster.attack);
+			    Engine.clearConsole();
+			    System.out.println("You attacked the enemy hero with " + caster + "!");
+			    System.out.println();
+			}
+			else {
+			    Card dest = opponentMinions.get(ch-1);
+			    caster.direct(dest);
+			    Engine.clearConsole();
+			    System.out.println("You attacked " + dest + " with " + caster + "!");
+			    System.out.println();
+			}
 		    }
 		    else {
 			Engine.clearConsole();
-			System.out.println("Your opponent does not have that card on the field!");
+			System.out.println("There is no minion at that position!");
 			System.out.println();
 		    }
 		}
@@ -106,7 +115,9 @@ public class Engine {
 		}
 	    }
 	    else {
-		System.out.println("You don't have that card on the field!");
+		Engine.clearConsole();
+		System.out.println("There is no minion at that position!");
+		System.out.println();
 	    }
 	}
 	else if(input.toUpperCase().equals("INFO")) {
@@ -115,17 +126,17 @@ public class Engine {
 	    Engine.clearConsole();
 	    if (check(playerMinions,choice)) {
 		Card c = getCard(choice,playerMinions);
-		System.out.println("Info for " + c + ": " + c.description);
+		System.out.println("Info for " + c + ": " + c.getStats());
 		System.out.println();
 	    }
 	    else if (check(playerHand,choice)) {
 		Card c = getCard(choice,playerHand);
-		System.out.println("Info for " + c + ": " + c.description);
+		System.out.println("Info for " + c + ": " + c.getStats());
 		System.out.println();
 	    }
 	    else if (check(opponentMinions,choice)) {
 		Card c = getCard(choice,opponentMinions);
-		System.out.println("Info for " + c + ": " + c.description);
+		System.out.println("Info for " + c + ": " + c.getStats());
 		System.out.println();
 	    }
 	    else {
