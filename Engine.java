@@ -322,8 +322,7 @@ public class Engine {
 	s += "INFO: show the stats and description of any card! \n"; 
 	s += "END: End your turn!\n"; 
 	s += "POWER: Use your hero power!\n"; 
-	s += "CONCEDE: Forfeit the match.\n"; 
-	s += "SETTINGS: \n"; 
+	s += "CONCEDE: Forfeit the match.\n";
 	System.out.println (s);
     }
     
