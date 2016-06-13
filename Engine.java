@@ -454,7 +454,7 @@ public class Engine {
 	    }
 
 	    if( opponentMana >= 2 ) {
-	    	Hero.power( opponentHero );
+	    	opponentHero.power();
 	    }
 
 	    if( playerMinions.size() == 0 ) {
