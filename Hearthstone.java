@@ -43,7 +43,7 @@ public class Hearthstone {
     		
 	while (!exitSession) {
 	    System.out.println("What would you like to do?");
-	    System.out.println("Type '?' or 'help' for a manual if you need help.");
+	    System.out.println("Type 'help' for a manual if you need help.");
 	    System.out.println("Type 'exit' if you would like to stop playing."); 
 	    System.out.println();
 
@@ -85,8 +85,10 @@ public class Hearthstone {
 			}
 		    }
 		}
-		else
+		else {
 		    play();
+		}
+
 	    }
 	    else if (choice.toUpperCase().equals("MY COLLECTION")) {
 		Engine.clearConsole();

@@ -161,7 +161,7 @@ public class Engine {
 	}
 	else {
 	    Engine.clearConsole();
-	    System.out.println("Confused? Enter ? or help for help.");
+	    System.out.println("Confused? Enter 'help' for help.");
 	    System.out.println();
 	}
 	checkBoard();
@@ -250,7 +250,7 @@ public class Engine {
 		}
 	    else {
 		Engine.clearConsole();
-		System.out.println("Invalid choice! Confused? Enter ? or help for help.");
+		System.out.println("Invalid choice! Confused? Enter 'help' for help.");
 		System.out.println();
 	    }
 	}
@@ -328,9 +328,9 @@ public class Engine {
     //commands to be used while in game 
     public static void helpG(){
 	String s = ""; 
-	s += "PLACE <your card> \n"; 
-	s += "DIRECT <your card> <some other card> \n"; 
-	s += "PEEP <any card>: show the stats and description of any card! \n"; 
+	s += "USE: use a card (places it) \n"; 
+	s += "ATTACK: Type the name of card you want to use, and then the name of the card you wish to attack \n"; 
+	s += "INFO: show the stats and description of any card! \n"; 
 	s += "END: End your turn!\n"; 
 	s += "POWER: Use your hero power!\n"; 
 	s += "CONCEDE: Forfeit the match.\n"; 
