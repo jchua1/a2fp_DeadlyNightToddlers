@@ -13,9 +13,11 @@ public class Engine {
     public static ArrayList<Card> playerHand = new ArrayList<Card>();
     public static ArrayList<Card> opponentHand = new ArrayList<Card>();
 
-    public static Hero playerHero = new Hero(0); 
+    public static Hero playerHero;
+    public static int pTurnMana = 1;
     public static int playerMana = 1;
-    public static Hero opponentHero = new Hero(1); 
+    public static Hero opponentHero; 
+    public static int oTurnMana = 1;
     public static int opponentMana = 1;
 
     public static Card playerWeapon = new Card();
@@ -26,119 +28,153 @@ public class Engine {
 
     public static String defaultc = "\u001B[0m";
     public static String blackc = "\u001B[30m";
-    public static String redc = "\u001B[31m"; //warrior
-    public static String greenc = "\u001B[32m"; //druid
-    public static String yellowc = "\u001B[33m"; //paladin
-    public static String bluec = "\u001B[34m"; //mage
-    public static String purplec = "\u001B[35m"; //warlock
-    public static String cyanc = "\u001B[36m"; 
-    public static String whitec = "\u001B[37m"; //priest
+    public static String redc = "\u001B[31m";
+    public static String greenc = "\u001B[32m";
+    public static String yellowc = "\u001B[33m";
+    public static String bluec = "\u001B[34m";
+    public static String purplec = "\u001B[35m";
+    public static String cyanc = "\u001B[36m";
+    public static String whitec = "\u001B[37m";
 
     public static String blueDarkc = "\u001B[1;34m";
-    public static String redDarkc = "\u001B[1;31m"; 
-    public static String greenDarkc = "\u001B[1;32m"; //hunter
+    public static String redDarkc = "\u001B[1;31m";
+    public static String greenDarkc = "\u001B[1;32m";
     public static String yellowDarkc = "\u001B[1;33m";
-    public static String magentaDarkc = "\u001B[1;35m"; //rogue
-    public static String cyanDarkc = "\u001B[1;36m"; //shaman
+    public static String magentaDarkc = "\u001B[1;35m";
+    public static String cyanDarkc = "\u001B[1;36m";
 
-    public static void printArray(Object[][] array) {
-	for (Object[] f : array) {
-	    for (Object s : f) {
-		System.out.print(s);
-	    }
-	    System.out.println();
-	}
+
+    public static boolean check(ArrayList<Card> a, String choice) {
+	for (int i = 0; i < a.size(); i++)
+	    if (a.get(i).name.toUpperCase().equals(choice.toUpperCase()))
+		return true;
+	return false;
     }
 
-    public static void printArrayM(Object[][] array) {
-	for (int f = 0; f < array.length; f++) {
-	    for (int s = 0; s < array[0].length; s++) {
-	        if ((array[f][s].toString()).equals("-")) {
-		    System.out.print(yellowDarkc + array[f][s] + defaultc);
-		}
-		else if((array[f][s].toString()).equals(":")) {
-		    System.out.print(blueDarkc + array[f][s] + defaultc);
+
+    public static void move(String input) {
+	Scanner in = new Scanner(System.in);
+	String choice = "";
+	if (input.toUpperCase().equals("USE")) {
+	    System.out.println("What card will you use?");
+	    choice = in.nextLine();
+	    if (check(playerHand,choice)) {
+		Card c = getCard(choice,playerHand);
+		if (c.manaCost <= pTurnMana) {
+		    pTurnMana -= c.manaCost;
+		    Engine.clearConsole();
+		    System.out.println("You played " + c + "!");
+		    playerMinions.add(c);
+		    playerHand.remove(c);
+		    System.out.println();
 		}
 		else {
-		    System.out.print(redc + array[f][s] + defaultc);
+		    Engine.clearConsole();
+		    System.out.println("You don't have enough mana to play " + c + "!");
+		    System.out.println();
 		}
 	    }
-	    System.out.println();
-	}
-    }
-
-    public static void main( String args[] ) {
-    	Graphics.refresh();
-    	printArrayM( Graphics.display );
-    }
-
-
-    public static void move(String in) {
-
-	//updateMazeGraphics();	
-	if (in.toUpperCase().indexOf("PLACE") != -1) {
-	    String str = in.substring(6);
-	    Card c = getCard(str, playerHand);
-
-	    if( c != null ) {
-	    	playerMinions.add(c);
-	    	playerHand.remove(c);
+	    else {
+		System.out.println("You don't have that card in your hand!");
 	    }
-	    
-	    else System.out.println("\nConfused? Enter ? or help for help.");
 	}
-	else if (in.toUpperCase().indexOf("DIRECT") != -1) {
-	    String strlong = in.substring(7);
-	    String name1 = strlong.substring(0, strlong.indexOf(" "));
-	    String name2 = strlong.substring(strlong.indexOf(" ")+1);
-	    Card caster = getCard(name1, playerMinions); Card dest = getCard(name2, opponentMinions);
-			
-	    if((caster == null) && (name1.equals(playerHero.toString())) ) caster = playerHero;
-	    if((dest == null) && (name2.equals(opponentHero.toString())) ) dest = opponentHero;
-	    
-	    if( (caster != null) && (dest != null) )  dest.lowerHealth( caster.attack );
-	    else System.out.println("\nConfused? Enter ? or help for help.");
-	}
-	else if( in.toUpperCase().indexOf("PEEP") != -1) {
-	    String str = in.substring(5);
-	    Card c = getCard(str, playerMinions);
-	    if( c == null ) {
-		c = getCard(str, opponentMinions);
-		if( c == null ) {
-		    c = getCard(str, playerHand);
-		    if( (c == null) && (str.equals(playerHero.toString()) ) ) {
-			c = playerHero;
-			if( (c == null) && (str.equals(playerWeapon.toString())) ) {
-			    c = playerWeapon;
-			}
+	else if (input.toUpperCase().equals("ATTACK")) {
+	    System.out.println("What will you attack with?");
+	    choice = in.nextLine();
+	    if (check(playerMinions,choice)) {
+		Card caster = getCard(choice,playerMinions);
+		if (caster.time <= 0) {
+		    System.out.println("What will you attack?");
+		    choice = in.nextLine();
+		    if (check(opponentMinions,choice)) {
+			Card dest = getCard(choice,opponentMinions);
+			caster.direct(dest);
+			Engine.clearConsole();
+			System.out.println("You attacked " + dest + " with " + caster + "!");
+			System.out.println();
+		    }
+		    else {
+			Engine.clearConsole();
+			System.out.println("Your opponent does not have that card on the field!");
+			System.out.println();
 		    }
 		}
+		else {
+		    Engine.clearConsole();
+		    System.out.println("Give that minion a turn to get ready!");
+		    System.out.println();
+		}
 	    }
-	    if( c != null ) System.out.println( c.description );
-	    else System.out.println("\nConfused? Enter ? or help for help.");
+	    else {
+		System.out.println("You don't have that card on the field!");
+	    }
 	}
-	else if (in.toUpperCase().equals("END")) {
+	else if(input.toUpperCase().equals("INFO")) {
+	    System.out.println("Get the information of what card?");
+	    choice = in.nextLine();
+	    Engine.clearConsole();
+	    if (check(playerMinions,choice)) {
+		Card c = getCard(choice,playerMinions);
+		System.out.println("Info for " + c + ": " + c.description);
+		System.out.println();
+	    }
+	    else if (check(playerHand,choice)) {
+		Card c = getCard(choice,playerHand);
+		System.out.println("Info for " + c + ": " + c.description);
+		System.out.println();
+	    }
+	    else if (check(opponentMinions,choice)) {
+		Card c = getCard(choice,opponentMinions);
+		System.out.println("Info for " + c + ": " + c.description);
+		System.out.println();
+	    }
+	    else {
+		System.out.println("That card is not in your hand or on the field!");
+		System.out.println();
+	    }
+	}
+	else if (input.toUpperCase().equals("END")) {
+	    Engine.clearConsole();
 	    System.out.println ("Turn end!");
+	    System.out.println();
 	}
-	else if (in.toUpperCase().equals("POWER")) {
+	else if (input.toUpperCase().equals("POWER")) {
 	    
 
 	}
-	else if (in.toUpperCase().equals("CONCEDE")) {
+	else if (input.toUpperCase().equals("CONCEDE")) {
 	    playerHero.health = 0;
 	}
-	else if (in.toUpperCase().equals("HELP") || in.equals("?")) {
+	else if (input.toUpperCase().equals("HELP") || in.equals("?")) {
 	    helpG();
 	}
 	else {
-	    System.out.println("\nConfused? Enter ? or help for help.");
+	    Engine.clearConsole();
+	    System.out.println("Confused? Enter ? or help for help.");
+	    System.out.println();
 	}
-	    
+	checkBoard();
+    }
+
+    public static void checkBoard() {
+	for (int i = 0; i < playerMinions.size(); i++) {
+	    if (playerMinions.get(i).isDead)
+		playerMinions.remove(i);
+	}
+	for (int i = 0; i < opponentMinions.size(); i++) {
+	    if (opponentMinions.get(i).isDead)
+		opponentMinions.remove(i);
+	}
+    }
+
+    public static void checkMinions(ArrayList<Card> minions) {
+	for (int i = 0; i < minions.size(); i++)
+	    minions.get(i).time--;
     }
 
     public static void useDefault() {
 	try {
-	    FileReader reader = new FileReader("Cards/Default.txt");
+	    FileReader reader = new FileReader("Cards/Test.txt");
 	    BufferedReader br = new BufferedReader(reader);
 	    String line;
 	    while ((line = br.readLine()) != null) {
@@ -146,6 +182,24 @@ public class Engine {
 		    playerDeck.push(getCard(line,playerCollection.cards));
 	    }
 	    reader.close();
+	    playerHero = new Hero(2);
+	}
+	catch (IOException e) {
+	    e.printStackTrace();
+	}
+    }
+
+    public static void oppDefault() {
+	try {
+	    FileReader reader = new FileReader("Cards/Test.txt");
+	    BufferedReader br = new BufferedReader(reader);
+	    String line;
+	    while ((line = br.readLine()) != null) {
+		for (int i = 0; i < 2; i++)
+		    opponentDeck.push(getCard(line,playerCollection.cards));
+	    }
+	    reader.close();
+	    opponentHero = new Hero(0);
 	}
 	catch (IOException e) {
 	    e.printStackTrace();
@@ -194,10 +248,19 @@ public class Engine {
 	
     public static Card getCard( String str, ArrayList<Card> a ) {
 	for( Card s : a ) {
-	    if( s.toString().equals(str) ) 
+	    if( s.toString().toUpperCase().equals(str.toUpperCase()) ) 
 		return s;
 	}
 	return null;
+    }
+
+    public void shuffle(Stack<Card> deck) {
+     
+    }
+
+    public static void draw(ArrayList<Card> hand, Stack<Card> deck, int x) {
+	for (int i = 0; i < x; i++)
+	    hand.add(deck.pop());
     }
 
     public final static void clearConsole(){

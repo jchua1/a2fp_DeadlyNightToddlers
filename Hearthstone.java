@@ -28,6 +28,8 @@ public class Hearthstone {
 	Engine.playerCollection.addSpells();
 	Engine.playerCollection.addWeapons();
 	Engine.playerCollection.organize();
+	Engine.oppDefault();
+	Engine.opponentMinions.add(Engine.opponentDeck.get(0));
 		
 	while (!entered) {
 	    System.out.println("Press enter to begin.");
@@ -57,7 +59,7 @@ public class Hearthstone {
 		System.out.println("Thanks for playing!"); 
 		exitSession = true; 
 	    } 
-	    else if (choice.toUpperCase().equals("PLAY")) { 
+	    else if (choice.toUpperCase().equals("PLAY")) {
 		Engine.clearConsole();
 		if (Engine.playerDeck.empty()) {
 		    int yn = -1;
@@ -68,11 +70,14 @@ public class Hearthstone {
 			if (choice.toUpperCase().equals("YES")) {
 			    yn = 0;
 			    Engine.useDefault();
+			    Engine.clearConsole();
 			    System.out.println("You are now using the default deck!");
 			    System.out.println();
 			}
-			else if (choice.toUpperCase().equals("NO"))
+			else if (choice.toUpperCase().equals("NO")) {
+			    Engine.clearConsole();
 			    yn = 0;
+			}
 			else {
 			    Engine.clearConsole();
 			    System.out.println("Invalid input!");
@@ -111,27 +116,27 @@ public class Hearthstone {
 
     public void play() {
 	Scanner in = new Scanner( System.in );
-	
 	String choice = "";
-		
+	Engine.draw(Engine.playerHand,Engine.playerDeck,3);
+	Engine.draw(Engine.opponentHand,Engine.opponentDeck,4);
 	while (Engine.opponentHero.health > 0 && Engine.playerHero.health > 0) {
-	    Graphics.refresh();
-	    Engine.printArrayM( Graphics.display );
-	    System.out.println ("What will you do next?");
-	    while (choice.equals("end") == false) {
+	    Engine.draw(Engine.playerHand,Engine.playerDeck,1);
+	    Engine.draw(Engine.opponentHand,Engine.opponentDeck,1);
+	    while (!choice.toUpperCase().equals("END")) {
+		Graphics.showBoard();
+		System.out.println ("What will you do next?");
 		choice = in.nextLine();
 		Engine.move(choice);
 		if (Engine.playerHero.health == 0) { 
 		    choice = "end"; 
 		}
 	    }
-	    
+	    Engine.checkMinions(Engine.playerMinions);
 	    if( Engine.playerMana < 10 ) {
 	    	Engine.playerMana += 1;
+		Engine.pTurnMana = Engine.playerMana;
 	    }
-	    
 	    choice = "";
-	    Engine.clearConsole(); 
 	    winCond();
 	}
     }
@@ -239,12 +244,10 @@ public class Hearthstone {
     }
 	    
     public static void winCond () { 
-	if (Engine.playerHero.health == 0) { 
+	if (Engine.playerHero.health == 0)
 	    System.out.println ("You have lost the match!"); 
-	}
-	else { 
+	else if (Engine.opponentHero.health == 0)
 	    System.out.println ("You have won the match!"); 
-	}
     }
 
     public static void main( String[] args ) {
