@@ -63,7 +63,6 @@ made concede option
 Jason Chua
 Added more methods for deck creation to show deck and remove cards.
 
-06/10
 Yikai Wang
 Updated Engine with primitive AI.
 
@@ -81,16 +80,9 @@ Created method to show deck in home screen and to use the default deck.
 06/11 
 Jiawei Chen 
 second default deck and methods to search txt files
-
-06/11
 Yikai Wang
 AI with more conditionals and "Direct" command update
 
 06/12
 Yikai Wang
-aiMove() implemented. Help menu adjusted. Engine.reset() added for replayability. AI has backtracking.
-
-06/12 
-Jiawei Chen 
-lots of playtesting and minor edits
-addition of hero power
+aiMove() implemented. Help menu adjusted. Engine.reset() added for replayability.
