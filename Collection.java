@@ -317,8 +317,7 @@ public class Collection {
 		    System.out.println();
 		}
 	    }
-	    else if (command.toUpperCase().equals("DONE")
-		     && deck.size() == 30) {
+	    else if (command.toUpperCase().equals("DONE")) {
 		if (deck.size() == 30) {
 		    for (int i = 0; i < deck.size(); i++)
 			Engine.playerDeck.push(deck.get(i));
