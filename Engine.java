@@ -450,7 +450,7 @@ public class Engine {
 	    	dmg = calcTotalDmg( minionNotused ) + opponentHero.attack;
 	    	if( dmg != 0 ) {
 	    		playerHero.lowerHealth( dmg );
-	    		System.out.println( opponentHero.name + " attacked " + playerHero.name + " with " + dmg + "!" );
+	    		System.out.println( opponentHero.name + "and " + opponentHero.name + "'s minions attacked " + playerHero.name + " with " + dmg + "!" );
 	    	}
 	    }
 
