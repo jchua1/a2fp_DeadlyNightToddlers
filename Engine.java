@@ -125,6 +125,7 @@ public class Engine {
 	    choice = in.nextLine();
 	    int ch;
 	    if (choice.toUpperCase().equals("HAND")) {
+	    try {
 		System.out.println("Get the information of a card at which position? (1-10)");
 		ch = in.nextInt();
 		in.nextLine();
@@ -139,9 +140,13 @@ public class Engine {
 		    System.out.println("There is no minion at that position!");
 		    System.out.println();
 		}
+		} catch(Exception e) { clearConsole();
+		    System.out.println("There is no minion at that position!");
+		    System.out.println(); }
 	    }
 	    else if (choice.toUpperCase().equals("MINIONS")) {
 		System.out.println("Get the information of a card at which position? (1-7)");
+		try {
 		ch = in.nextInt();
 		in.nextLine();
 		if (ch <= playerMinions.size() && ch >= 1) {
@@ -155,9 +160,13 @@ public class Engine {
 		    System.out.println("There is no minion at that position!");
 		    System.out.println();
 		}
+		} catch(Exception e) { clearConsole();
+		    System.out.println("There is no minion at that position!");
+		    System.out.println(); }
 	    }
 	    else if (choice.toUpperCase().equals("OPPONENT")) {
 		System.out.println("Get the information of a card at which position? (1-7)");
+		try {
 		ch = in.nextInt();
 		in.nextLine();
 		if (ch <= opponentMinions.size() && ch >= 1) {
@@ -171,6 +180,9 @@ public class Engine {
 		    System.out.println("There is no minion at that position!");
 		    System.out.println();
 		}
+		} catch(Exception e) { clearConsole();
+		    System.out.println("There is no minion at that position!");
+		    System.out.println(); }
 	    }
 	    else {
 		clearConsole();
@@ -433,19 +445,16 @@ public class Engine {
     	else {
 
     	ArrayList<Card> minionNotused = copyArraylist( opponentMinions );
-    	dmg = calcTotalDmg( minionNotused );
 
-	    while( playerMinions.size() > 0 && dmg >=  minionLeastHealth( playerMinions ).health && dmg > 0 ) {
+	    while( playerMinions.size() > 0 && calcTotalDmg( minionNotused ) >=  minionLeastHealth( playerMinions ).health ) {
 		Card c = minionLeastHealth( playerMinions );
 
 		ArrayList<Card> usedMinions = optimalMinions( c.health, minionNotused );
-		dmg = calcTotalDmg( usedMinions );
-		takeDmg( c.attack, usedMinions );
-		checkBoard();
+		takeDmg( c, usedMinions );
 
 		minionNotused = notUsed();
 
-		c.lowerHealth(dmg);
+		checkBoard();
 		System.out.println( opponentHero.name + "'s minions defeated " + c.name + " with " + dmg + "!" );
 	    }
 
@@ -475,12 +484,12 @@ public class Engine {
     	}
     }
 
-    public static void takeDmg( int attack, ArrayList<Card> usedCards ) {
+    public static void takeDmg( Card c, ArrayList<Card> usedCards ) {
     	for( int i = 0; i < opponentMinions.size(); i++ ) {
     		int n = 0;
     		while( n < usedCards.size() ) {
     			if( usedCards.get(n).name.equals( opponentMinions.get(i) ) ) {
-    				opponentMinions.get(i).lowerHealth( attack );
+    				opponentMinions.get(i).direct(c);
     				opponentMinions.get(i).time = 1;
     				usedCards.remove(n);
     			}
