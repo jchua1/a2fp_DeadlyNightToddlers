@@ -25,8 +25,8 @@ public class Hearthstone {
 	boolean exitSession = false;
 	String enter;
 	Engine.playerCollection.addMinions();
-	Engine.playerCollection.addSpells();
-	Engine.playerCollection.addWeapons();
+	//Engine.playerCollection.addSpells();
+	//Engine.playerCollection.addWeapons();
 	Engine.playerCollection.organize();
 	Engine.oppDefault();
 		
@@ -121,37 +121,69 @@ public class Hearthstone {
     public void play() {
 	Scanner in = new Scanner( System.in );
 	String choice = "";
+	int p = -1;
 	Engine.shuffle(Engine.playerDeck);
 	Engine.shuffle(Engine.opponentDeck);
 	Engine.mulligan();
+	if (Engine.playerMana < Engine.opponentMana)
+	    p = 1;
 	while (Engine.opponentHero.health > 0 && Engine.playerHero.health > 0) {
-	    Engine.draw(Engine.playerHand,Engine.playerDeck,1);
-
-	    while (!choice.toUpperCase().equals("END")) {
-		Graphics.showBoard();
-		System.out.println ("What will you do next?");
-		choice = in.nextLine();
-		Engine.move(choice);
-		if (Engine.playerHero.health == 0) { 
-		    choice = "end"; 
+	    if (p == 1) {
+		Engine.draw(Engine.playerHand,Engine.playerDeck,1);
+		while (!choice.toUpperCase().equals("END")) {
+		    Graphics.showBoard();
+		    System.out.println ("What will you do next?");
+		    choice = in.nextLine();
+		    Engine.move(choice);
+		    if (Engine.playerHero.health == 0) { 
+			choice = "end"; 
+		    }
 		}
-	    }
 
-	    Engine.checkMinions(Engine.playerMinions);
+		Engine.checkMinions(Engine.playerMinions);
 
-	    if( Engine.playerMana < 10 ) {
-	    	Engine.playerMana += 1;
-		Engine.pTurnMana = Engine.playerMana;
-	    }
-	    Engine.draw(Engine.opponentHand,Engine.opponentDeck,1);
-	    //Engine.aiMove();
-	    if( Engine.opponentMana < 10 ) {
-	    	Engine.opponentMana += 1;
-		Engine.oTurnMana = Engine.opponentMana;
-	    }
+		if( Engine.playerMana < 10 ) {
+		    Engine.playerMana += 1;
+		    Engine.pTurnMana = Engine.playerMana;
+		}
+		Engine.draw(Engine.opponentHand,Engine.opponentDeck,1);
+		Engine.aiMove();
+		if( Engine.opponentMana < 10 ) {
+		    Engine.opponentMana += 1;
+		    Engine.oTurnMana = Engine.opponentMana;
+		}
 
-	    choice = "";
-	    winCond();
+		choice = "";
+		winCond();
+	    }
+	    else {
+		Engine.checkMinions(Engine.playerMinions);
+
+		if( Engine.playerMana < 10 ) {
+		    Engine.playerMana += 1;
+		    Engine.pTurnMana = Engine.playerMana;
+		}
+		Engine.draw(Engine.opponentHand,Engine.opponentDeck,1);
+		Engine.aiMove();
+		if( Engine.opponentMana < 10 ) {
+		    Engine.opponentMana += 1;
+		    Engine.oTurnMana = Engine.opponentMana;
+		}
+
+		Engine.draw(Engine.playerHand,Engine.playerDeck,1);
+		while (!choice.toUpperCase().equals("END")) {
+		    Graphics.showBoard();
+		    System.out.println ("What will you do next?");
+		    choice = in.nextLine();
+		    Engine.move(choice);
+		    if (Engine.playerHero.health == 0) { 
+			choice = "end"; 
+		    }
+		}
+
+		choice = "";
+		winCond();
+	    }
 	}
     }
     

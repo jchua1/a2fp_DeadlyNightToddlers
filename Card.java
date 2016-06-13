@@ -3,6 +3,7 @@ public class Card {
     public int manaCost, attack, health, clas, time;
     public boolean isDead = false; 
     public boolean isUsed = false;
+    public boolean hasAttacked = false;
     public String name, effect, description, type;
     
     public String toString() {

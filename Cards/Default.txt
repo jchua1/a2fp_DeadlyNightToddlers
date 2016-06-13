@@ -7,9 +7,9 @@ Gnomish Inventor
 Sen'jin Shieldmasta
 Water Elemental
 Boulderfist Ogre
-Arcane Missiles
-Frostbolt
-Arcane Intellect
-Fireball
-Polymorph
-Flamestrike
+Elven Archer
+Voodoo Doctor
+Stonetusk Boar
+Razorfen Hunter
+Magma Rager
+Stormwind Champion

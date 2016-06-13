@@ -1,15 +1,15 @@
-Innervate
-Moonfire
-Claw
-Mark of the Wild
-Wild Growth
-Healing Touch
-Savage Roar
-Swipe
-Starfire
-Ironbark Protector
+Timber Wolf
+Houndmaster
+Murloc Raider
+Stonetusk Boar
+Voodoo Doctor
+Acidic Swamp Ooze
+Bloodfen Raptor
 Elven Archer
 Goldshire Footman
 Grimscale Oracle
-Murloc Raider
-Stonetusk Boar
+Bluegill Warrior
+Frostwolf Grunt
+Kobold Geomancer
+Murloc Tidehunter
+Novice Engineer

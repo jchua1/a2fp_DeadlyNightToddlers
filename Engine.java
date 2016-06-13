@@ -86,34 +86,42 @@ public class Engine {
 	    in.nextLine();
 	    if (ch <= playerMinions.size() && ch >= 1) {
 		Card caster = playerMinions.get(ch-1);
-		if (caster.time <= 0) {
-		    System.out.println("Attack minion at which position? (0-7: Entering 0 attacks the enemy hero)");
-		    ch = in.nextInt();
-		    if (ch <= opponentMinions.size() && ch >= 0) {
-			if (ch == 0) {
-			    opponentHero.lowerHealth(caster.attack);
-			    clearConsole();
-			    System.out.println("You attacked the enemy hero with " + caster + "!");
-			    System.out.println();
+		System.out.println(caster.hasAttacked);
+		if (!caster.hasAttacked) {
+		    if (caster.time <= 0) {
+			System.out.println("Attack minion at which position? (0-7: Entering 0 attacks the enemy hero)");
+			ch = in.nextInt();
+			if (ch <= opponentMinions.size() && ch >= 0) {
+			    caster.hasAttacked = true;
+			    if (ch == 0) {
+				opponentHero.lowerHealth(caster.attack);
+				clearConsole();
+				System.out.println("You attacked the enemy hero with " + caster + "!");
+				System.out.println();
+			    }
+			    else {
+				Card dest = opponentMinions.get(ch-1);
+				caster.direct(dest);
+				clearConsole();
+				System.out.println("You attacked " + dest + " with " + caster + "!");
+				System.out.println();
+			    }
 			}
 			else {
-			    Card dest = opponentMinions.get(ch-1);
-			    caster.direct(dest);
 			    clearConsole();
-			    System.out.println("You attacked " + dest + " with " + caster + "!");
+			    System.out.println("There is no minion at that position!");
 			    System.out.println();
 			}
-			caster.time = 1;
 		    }
 		    else {
 			clearConsole();
-			System.out.println("There is no minion at that position!");
+			System.out.println("Give that minion a turn to get ready!");
 			System.out.println();
 		    }
 		}
 		else {
 		    clearConsole();
-		    System.out.println("Give that minion a turn to get ready!");
+		    System.out.println("That minion has already attacked this turn!");
 		    System.out.println();
 		}
 	    }
@@ -197,6 +205,8 @@ public class Engine {
 	    clearConsole();
 	    System.out.println ("Turn end!");
 	    System.out.println();
+	    for (int i = 0; i < playerMinions.size(); i++)
+		playerMinions.get(i).hasAttacked = false;
 	}
 	else if (input.toUpperCase().equals("POWER")) {
 	    if (pTurnMana < 2) { 
@@ -251,7 +261,7 @@ public class Engine {
 
     public static void useDefault() {
 	try {
-	    FileReader reader = new FileReader("Cards/Test.txt");
+	    FileReader reader = new FileReader("Cards/Default.txt");
 	    BufferedReader br = new BufferedReader(reader);
 	    String line;
 	    while ((line = br.readLine()) != null) {
@@ -259,7 +269,7 @@ public class Engine {
 		    playerDeck.push(getCardC(line,playerCollection.cards));
 	    }
 	    reader.close();
-	    playerHero = new Hero(8);
+	    playerHero = new Hero(2);
 	}
 	catch (IOException e) {
 	    e.printStackTrace();
@@ -268,7 +278,7 @@ public class Engine {
 
     public static void oppDefault() {
 	try {
-	    FileReader reader = new FileReader("Cards/Test.txt");
+	    FileReader reader = new FileReader("Cards/Default2.txt");
 	    BufferedReader br = new BufferedReader(reader);
 	    String line;
 	    while ((line = br.readLine()) != null) {
@@ -276,7 +286,7 @@ public class Engine {
 		    opponentDeck.push(getCardC(line,playerCollection.cards));
 	    }
 	    reader.close();
-	    opponentHero = new Hero(0);
+	    opponentHero = new Hero(1);
 	}
 	catch (IOException e) {
 	    e.printStackTrace();
@@ -422,7 +432,7 @@ public class Engine {
 	s += "NEXT: Check your next page of available cards.\n"; 
 	s += "PREVIOUS: Check your previous page of available cards.\n";
 	s += "ADD: Add card on the page into deck.\n"; 
-	s += "DONE: Finish editing the deck (must have 30 cards).\n"; 
+	s += "DONE: Finish editing the deck.\n"; 
 	s += "SIZE: Returns the size of deck you're currently editing.\n"; 
 	s += "REMOVE: Remove a card from your deck.\n";
 	System.out.println(s);
@@ -431,12 +441,9 @@ public class Engine {
     //commands to be used while in game 
     public static void helpG(){
 	String s = ""; 
-	s += "USE: use a card (places it) \n"; 
-	s += "ATTACK: Type the name of card you want to use, and then the name of the card you wish to attack \n"; 
-	s += "INFO: Options\n";
-	s += "-MINIONS: show the stats and description of any of your minions! \n";
-	s += "-OPPONENT: show the stats and description of any of opponent's minions! \n";
-	s += "-HAND: Show stats of any card in your hand!";
+	s += "USE: Use a card. \n"; 
+	s += "ATTACK: Attack the opponent with one of your minions.\n"; 
+	s += "INFO: Gives you information about a card.\n";
 	s += "END: End your turn!\n"; 
 	s += "POWER: Use your hero power!\n"; 
 	s += "CONCEDE: Forfeit the match.\n";
@@ -498,7 +505,7 @@ public class Engine {
 				n++;
 		}
 
-		System.out.println( opponentHero.name + "'s minions attacked " + c.name + " with " + dmg + "!" );
+		System.out.println( opponentHero.name + "'s minions attacked " + c.name + " with " + dmg + " damage!" );
 	    }
 
 	    checkMinions( opponentMinions );
@@ -508,19 +515,14 @@ public class Engine {
 		opponentMinions.add(c);
 		opponentHand.remove(c);
 		opponentMana-=c.manaCost;
-		System.out.println( opponentHero.name + " used " + c.name + " for " + c.manaCost + "." );
-	    }
-
-	    if( opponentMana >= 2 ) {
-	    	opponentHero.power();
-	    	System.out.println( opponentHero.name + " used hero power!" );
+		System.out.println( opponentHero.name + " played " + c.name + "." );
 	    }
 
 	    if( playerMinions.size() == 0 ) {
 	    	dmg = calcTotalDmg( minionNotused ) + opponentHero.attack;
 	    	if( dmg != 0 ) {
 	    		playerHero.lowerHealth( dmg );
-	    		System.out.println( opponentHero.name + " and " + opponentHero.name + "'s minions attacked " + playerHero.name + " with " + dmg + "!" );
+	    		System.out.println( opponentHero.name + " and " + opponentHero.name + "'s minions attacked " + playerHero.name + " with " + dmg + " damage!" );
 	    	}
 	    }
 

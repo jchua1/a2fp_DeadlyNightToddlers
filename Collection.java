@@ -183,7 +183,6 @@ public class Collection {
     }
 
     public void showCards(int p) {
-	System.out.println(cards);
 	String ret = "";
 	String c;
 	int clas = display.get(p*6).clas;
