@@ -80,13 +80,13 @@ public class Engine {
 	    }
 	}
 	else if (input.toUpperCase().equals("ATTACK")) {
-	    System.out.println("Attack with card at which position? (1-7)");
+	    System.out.println("Attack with minion at which position? (1-7)");
 	    int ch = in.nextInt();
 	    in.nextLine();
 	    if (ch <= playerMinions.size() && ch >= 1) {
 		Card caster = playerMinions.get(ch-1);
 		if (caster.time <= 0) {
-		    System.out.println("Attack card at which position? (0-7: Entering 0 attacks the enemy hero)");
+		    System.out.println("Attack minion at which position? (0-7: Entering 0 attacks the enemy hero)");
 		    ch = in.nextInt();
 		    if (ch <= opponentMinions.size() && ch >= 0) {
 			if (ch == 0) {
@@ -123,7 +123,7 @@ public class Engine {
 	    }
 	}
 	else if(input.toUpperCase().equals("INFO")) {
-	    System.out.println("Choose where to select a card from. (Hand, Minions, Opponent Minions)");
+	    System.out.println("Choose where to select a card from. (Hand, Minions, Opponent)");
 	    choice = in.nextLine();
 	    int ch;
 	    if (choice.toUpperCase().equals("HAND")) {
@@ -158,7 +158,7 @@ public class Engine {
 		    System.out.println();
 		}
 	    }
-	    else if (choice.toUpperCase().equals("OPPONENT MINIONS")) {
+	    else if (choice.toUpperCase().equals("OPPONENT")) {
 		System.out.println("Get the information of a card at which position? (1-7)");
 		ch = in.nextInt();
 		in.nextLine();
@@ -189,8 +189,8 @@ public class Engine {
 	    if (pTurnMana < 2) { 
 		System.out.println("You don't have enough mana!"); 
 	    }
-	    Hero.power(playerHero);
-
+	    else
+		playerHero.power();
 	}
 	else if (input.toUpperCase().equals("CONCEDE")) {
 	    playerHero.health = 0;
@@ -285,9 +285,9 @@ public class Engine {
 		choice = 7;
 	    else if (heroChoice.toUpperCase().equals("WARRIOR"))
 		choice = 8;
-		else if (heroChoice.toUpperCase().equals("HELP") || heroChoice.equals("?")) {
-			helpD();
-		}
+	    else if (heroChoice.toUpperCase().equals("HELP") || heroChoice.equals("?")) {
+		helpD();
+	    }
 	    else {
 		clearConsole();
 		System.out.println("Invalid choice! Confused? Enter 'help' for help.");
