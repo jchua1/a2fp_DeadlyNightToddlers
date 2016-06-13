@@ -1,6 +1,4 @@
-import java.util.Scanner;
-import java.util.Stack;
-import java.util.ArrayList;
+import java.util.*;
 import java.io.*;
 
 public class Engine {
@@ -318,12 +316,16 @@ public class Engine {
 	return null;
     }
 
-    public void shuffle(Stack<Card> deck) {
-     
+    public static void shuffle(Stack<Card> deck) {
+	ArrayList<Card> temp = new ArrayList<Card>();
+	while (!deck.empty())
+	    temp.add(deck.pop());
+	Collections.shuffle(temp);
+	for (int i = 0; i < temp.size(); i++)
+	    deck.push(temp.get(i));
     }
 
     public static void draw(ArrayList<Card> hand, Stack<Card> deck, int x) {
-	System.out.println(deck.empty());
 	for (int i = 0; i < x; i++)
 	    hand.add(deck.pop());
     }
