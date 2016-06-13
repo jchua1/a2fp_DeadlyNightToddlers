@@ -60,7 +60,7 @@ public class Engine {
 	    choice = in.nextLine();
 	    if (check(playerHand,choice)) {
 		Card c = getCardC(choice,playerHand);
-		if (c.manaCost <= pTurnMana) {
+		if ((c.manaCost <= pTurnMana) && (c != null)) {
 		    pTurnMana -= c.manaCost;
 		    Engine.clearConsole();
 		    System.out.println("You played " + c + "!");
@@ -403,7 +403,6 @@ public class Engine {
 	    }
 
 	    if( playerMinions.size() == 0 ) {
-	    	dmg = calcTotalDmg( opponentMinions ) + opponentHero.attack;
 	    	playerHero.lowerHealth( dmg );
 	    	System.out.println( opponentHero.name + " attacked " + playerHero.name + " with " + dmg + "!" );
 	    }
