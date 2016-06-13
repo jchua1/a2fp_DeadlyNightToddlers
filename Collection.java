@@ -231,8 +231,14 @@ public class Collection {
 
     public Card getCard(int p, String choice) {
 	for (int i = p*6; i < display.size() && i < p*6+6; i++) {
-	    if (display.get(i).name.toUpperCase().equals(choice.toUpperCase()))
-		return display.get(i);
+	    if (display.get(i).name.toUpperCase().equals(choice.toUpperCase())) {
+		if (display.get(i).type.equals("Minion"))
+		    return new Minion(display.get(i).name,display.get(i).manaCost,display.get(i).attack,display.get(i).health,display.get(i).clas,"Minion");
+		else if (display.get(i).type.equals("Spell"))
+		    return new Spell(display.get(i).name,display.get(i).manaCost,display.get(i).clas,"Spell");
+		else
+		    return new Weapon(display.get(i).name,display.get(i).manaCost,display.get(i).attack,display.get(i).health,display.get(i).clas,"Weapon");
+	    }
 	}
 	return null;
     }

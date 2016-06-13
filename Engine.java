@@ -59,13 +59,14 @@ public class Engine {
 	    System.out.println("What card will you use?");
 	    choice = in.nextLine();
 	    if (check(playerHand,choice)) {
-		Card c = getCard(choice,playerHand);
+		Card c = getCardC(choice,playerHand);
 		if (c.manaCost <= pTurnMana) {
 		    pTurnMana -= c.manaCost;
 		    Engine.clearConsole();
 		    System.out.println("You played " + c + "!");
+		    System.out.println(c.getStats());
 		    playerMinions.add(c);
-		    playerHand.remove(c);
+		    playerHand.remove(getCard(choice,playerHand));
 		    System.out.println();
 		}
 		else {
@@ -189,8 +190,9 @@ public class Engine {
 	    BufferedReader br = new BufferedReader(reader);
 	    String line;
 	    while ((line = br.readLine()) != null) {
+		Card c = getCardC(line,playerCollection.cards);
 		for (int i = 0; i < 2; i++)
-		    playerDeck.push(getCard(line,playerCollection.cards));
+		    playerDeck.push(c);
 	    }
 	    reader.close();
 	    playerHero = new Hero(2);
@@ -207,7 +209,7 @@ public class Engine {
 	    String line;
 	    while ((line = br.readLine()) != null) {
 		for (int i = 0; i < 2; i++)
-		    opponentDeck.push(getCard(line,playerCollection.cards));
+		    opponentDeck.push(getCardC(line,playerCollection.cards));
 	    }
 	    reader.close();
 	    opponentHero = new Hero(0);
@@ -256,11 +258,25 @@ public class Engine {
 	}
 	Engine.playerCollection.makeDeck(choice);
     }
-	
+
     public static Card getCard( String str, ArrayList<Card> a ) {
-	for( Card s : a ) {
-	    if( s.toString().toUpperCase().equals(str.toUpperCase()) ) 
+	for ( Card s : a ) {
+	    if ( s.toString().toUpperCase().equals(str.toUpperCase()) )
 		return s;
+	}
+	return null;
+    }
+	
+    public static Card getCardC( String str, ArrayList<Card> a ) {
+	for( Card s : a ) {
+	    if( s.toString().toUpperCase().equals(str.toUpperCase()) ) {
+		if (s.type.equals("Minion"))
+		    return new Minion(s.name,s.manaCost,s.attack,s.health,s.clas,"Minion");
+		else if (s.type.equals("Spell"))
+		    return new Spell(s.name,s.manaCost,s.clas,"Spell");
+		else
+		    return new Weapon(s.name,s.manaCost,s.attack,s.health,s.clas,"Weapon");
+	    }
 	}
 	return null;
     }
