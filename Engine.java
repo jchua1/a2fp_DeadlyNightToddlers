@@ -151,9 +151,9 @@ public class Engine {
 		    System.out.println("There is no minion at that position!");
 		    System.out.println();
 		}
-		} catch(Exception e) { clearConsole();
-		    System.out.println("There is no minion at that position!");
-		    System.out.println(); }
+	    } catch(Exception e) { clearConsole();
+		System.out.println("There is no minion at that position!");
+		System.out.println(); }
 	    }
 	    else if (choice.toUpperCase().equals("MINIONS")) {
 		System.out.println("Get the information of a card at which position? (1-7)");
@@ -191,7 +191,8 @@ public class Engine {
 		    System.out.println("There is no minion at that position!");
 		    System.out.println();
 		}
-		} catch(Exception e) { clearConsole();
+		} catch(Exception e) { 
+		    clearConsole();
 		    System.out.println("There is no minion at that position!");
 		    System.out.println(); }
 	    }
@@ -210,7 +211,9 @@ public class Engine {
 	}
 	else if (input.toUpperCase().equals("POWER")) {
 	    if (pTurnMana < 2) { 
+		clearConsole();
 		System.out.println("You don't have enough mana!"); 
+		System.out.println();
 	    }
 	    else {
 		playerHero.power();
@@ -220,7 +223,9 @@ public class Engine {
 	    playerHero.health = 0;
 	}
 	else if (input.toUpperCase().equals("HELP") || in.equals("?")) {
+	    clearConsole();
 	    helpG();
+	    System.out.println();
 	}
 	else {
 	    clearConsole();
