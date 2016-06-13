@@ -102,6 +102,7 @@ public class Engine {
 			    System.out.println("You attacked " + dest + " with " + caster + "!");
 			    System.out.println();
 			}
+			caster.time = 1;
 		    }
 		    else {
 			clearConsole();
@@ -383,7 +384,10 @@ public class Engine {
 	String s = ""; 
 	s += "USE: use a card (places it) \n"; 
 	s += "ATTACK: Type the name of card you want to use, and then the name of the card you wish to attack \n"; 
-	s += "INFO: show the stats and description of any card! \n"; 
+	s += "INFO: Options\n";
+	s += "-MINIONS: show the stats and description of any of your minions! \n";
+	s += "-OPPONENT MINIONS: show the stats and description of any of opponent's minions! \n";
+	s += "-HAND: Show stats of any card in your hand!";
 	s += "END: End your turn!\n"; 
 	s += "POWER: Use your hero power!\n"; 
 	s += "CONCEDE: Forfeit the match.\n";
@@ -447,6 +451,10 @@ public class Engine {
 		opponentHand.remove(c);
 		opponentMana-=c.manaCost;
 		System.out.println( opponentHero.name + " used " + c.name + " for " + c.manaCost + "." );
+	    }
+
+	    if( opponentMana >= 2 ) {
+	    	opponentHero.power();
 	    }
 
 	    if( playerMinions.size() == 0 ) {

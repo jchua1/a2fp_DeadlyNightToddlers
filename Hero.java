@@ -58,7 +58,7 @@ public class Hero extends Card {
 	    Scanner in = new Scanner( System.in );	
 	    int choice = in.nextInt();
 	    in.nextLine();
-	    if (choice == 8) { 
+	    if (choice == 0) { 
 		Engine.opponentHero.lowerHealth(1); 
 	    }
 	    else { 
@@ -72,7 +72,9 @@ public class Hero extends Card {
 	else if (name.equals("Warrior")) { 
 	    Engine.playerHero.armor += 2; 
 	}
+	Engine.clearConsole();
 	System.out.println ("Hero power has been used!"); 
+	System.out.println();
     }
 	    
     public String toString() {
