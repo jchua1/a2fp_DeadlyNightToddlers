@@ -7,7 +7,10 @@ public class Weapon extends Card {
 	health = hp;
 	clas = cl;
 	type = t;
-	description = "\nMana: " + manaCost + "\n"
+    }
+
+    public String getStats() {
+	return "\nMana: " + manaCost + "\n"
 	    + "Attack: " + attack + "\n"
 	    + "Health: " + health;
     }
