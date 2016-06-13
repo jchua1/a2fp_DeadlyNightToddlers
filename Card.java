@@ -21,4 +21,8 @@ public class Card {
 	target.lowerHealth(attack);
 	lowerHealth(target.attack);
     }
+
+    public String getStats() {
+	return "";
+    }
 }

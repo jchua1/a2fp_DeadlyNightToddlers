@@ -7,9 +7,12 @@ public class Minion extends Card {
 	health = hp;
 	clas = cl;
 	type = t;
-	description = "\nMana: " + manaCost + "\n"
+	time = 1;
+    }
+
+    public String getStats() {
+	return "\nMana: " + manaCost + "\n"
 	    + "Attack: " + attack + "\n"
 	    + "Health: " + health;
-	time = 1;
     }
 }

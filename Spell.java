@@ -8,5 +8,9 @@ public class Spell extends Card {
 	health = -1;
 	type = t;
     }
+
+    public String getStats() {
+	return "";
+    }
 }
 
