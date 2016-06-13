@@ -82,3 +82,7 @@ Jiawei Chen
 second default deck and methods to search txt files
 Yikai Wang
 AI with more conditionals and "Direct" command update
+
+06/12
+Yikai Wang
+aiMove() implemented. Help menu adjusted. Engine.reset() added for replayability.
