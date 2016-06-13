@@ -387,7 +387,7 @@ public class Engine {
 	s += "ATTACK: Type the name of card you want to use, and then the name of the card you wish to attack \n"; 
 	s += "INFO: Options\n";
 	s += "-MINIONS: show the stats and description of any of your minions! \n";
-	s += "-OPPONENT MINIONS: show the stats and description of any of opponent's minions! \n";
+	s += "-OPPONENT: show the stats and description of any of opponent's minions! \n";
 	s += "-HAND: Show stats of any card in your hand!";
 	s += "END: End your turn!\n"; 
 	s += "POWER: Use your hero power!\n"; 
@@ -433,18 +433,21 @@ public class Engine {
     	ArrayList<Card> minionNotused = copyArraylist( opponentMinions );
     	dmg = calcTotalDmg( minionNotused );
 
-	    while( playerMinions.size() > 0 && dmg >=  minionLeastHealth( playerMinions ).health ) {
+	    while( playerMinions.size() > 0 && dmg >=  minionLeastHealth( playerMinions ).health && dmg > 0 ) {
 		Card c = minionLeastHealth( playerMinions );
 
 		ArrayList<Card> usedMinions = optimalMinions( c.health, minionNotused );
 		dmg = calcTotalDmg( usedMinions );
-		minionNotused = deleteDups( usedMinions, minionNotused );
+		takeDmg( c.attack, usedMinions );
+		checkBoard();
+
+		minionNotused = notUsed();
 
 		c.lowerHealth(dmg);
-		playerMinions.remove(c);
 		System.out.println( opponentHero.name + "'s minions defeated " + c.name + " with " + dmg + "!" );
 	    }
 
+	    checkMinions( opponentMinions );
 
 	    if( (opponentMana > 2) || ((opponentMana <= 2) && (Math.random() < 0.5)) ) {
 		Card c = minionMana( opponentMana, opponentHand );
@@ -470,12 +473,38 @@ public class Engine {
     	}
     }
 
+    public static void takeDmg( int attack, ArrayList<Card> usedCards ) {
+    	for( int i = 0; i < opponentMinions.size(); i++ ) {
+    		int n = 0;
+    		while( n < usedCards.size() ) {
+    			if( usedCards.get(n).name.equals( opponentMinions.get(i) ) ) {
+    				opponentMinions.get(i).lowerHealth( attack );
+    				opponentMinions.get(i).time = 1;
+    				usedCards.remove(n);
+    			}
+    			else {
+    				n++;
+    			}
+    		}
+    	}
+    }
+
     public static ArrayList<Card> copyArraylist( ArrayList<Card> a ) {
     	ArrayList<Card> copy = new ArrayList<Card>();
     	for( Card c : a ) { copy.add(c); }
     	return copy;
     }
 
+    public static ArrayList<Card> notUsed() {
+    	ArrayList<Card> copy = new ArrayList<Card>();
+    	for( Card c : opponentMinions ) {
+    		if( c.time <= 0 ) {
+    			copy.add(c);
+    		}
+    	}
+    	return copy;
+    }
+/*
     public static ArrayList<Card> deleteDups( ArrayList<Card> orig, ArrayList<Card> dup ) {
     	for(int i = 0; i < orig.size(); i++) {
     		int n = 0;
@@ -491,7 +520,7 @@ public class Engine {
     	}
     	return dup;
     }
-
+*/
     public static ArrayList<Card> optimalMinions( int health, ArrayList<Card> a ) {
     	for( int i = 0; i < a.size(); i++ ) {
     		ArrayList<Card> copy = copyArraylist( a );
@@ -507,21 +536,6 @@ public class Engine {
     }
 
     public static void reset() {
-    	playerDeck = new Stack<Card>();
-    	opponentDeck = new Stack<Card>();
-
-    	playerHand = new ArrayList<Card>();
-    	opponentHand = new ArrayList<Card>();
-
-    	pTurnMana = 1;
-    	playerMana = 1;
-    	oTurnMana = 1;
-    	opponentMana = 1;
-
-    	playerWeapon = new Card();
-    	opponentWeapon = new Card();
-
-    	opponentMinions = new ArrayList<Card>();
-    	playerMinions = new ArrayList<Card>();
+    	System.exit(0);
     }
 }
