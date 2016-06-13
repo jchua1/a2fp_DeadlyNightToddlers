@@ -73,8 +73,7 @@ public class Hero extends Card {
 	    Engine.playerHero.armor += 2; 
 	}
 	Engine.clearConsole();
-	System.out.println ("Hero power has been used!"); 
-	System.out.println();
+	System.out.println ("Hero power has been used!");
     }
 	    
     public String toString() {
